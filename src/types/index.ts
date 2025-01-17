@@ -6,17 +6,15 @@ export interface StockEntry {
   id: string;
   date: string;
   time: string;
-  type: 'initial' | 'sale' | 'death';
+  type: 'initial' | 'addition' | 'death' | 'sale';
   quantity: number;
-  costs?: {
-    birds?: number;
-    medicine?: number;
-    feeds?: number;
-    additional?: number;
-  };
-  costPerUnit?: number;
-  totalCost?: number;
+  remainingStock: number;
   description?: string;
+  expenses?: Expense;
+  breed?: {
+    name: string;
+    id: string;
+  };
 }
 
 export interface Stock {

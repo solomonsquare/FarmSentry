@@ -26,6 +26,101 @@ export function Onboarding() {
     goals: []
   });
 
+  const handleSelect = (field: keyof OnboardingData, value: any) => {
+    setFormData(prev => ({ ...prev, [field]: value }));
+  };
+
+  const handleNext = async () => {
+    if (currentStep === steps.length - 1) {
+      if (!currentUser) {
+        console.error('No current user found');
+        return;
+      }
+      if (!formData.farmType) {
+        console.error('No farm type selected');
+        return;
+      }
+
+      console.log('Form data:', formData);
+
+      try {
+        console.log('Starting onboarding completion...');
+        await UserService.initializeUserAndFarm(currentUser.uid, {
+          farmType: formData.farmType,
+          farmSize: formData.farmSize || 0,
+          experience: formData.experience || 'beginner',
+          goals: formData.goals || []
+        });
+
+        console.log('Onboarding completed successfully');
+        
+        const redirectUrl = `/${formData.farmType}`;
+        console.log('Redirecting to:', redirectUrl);
+        window.location.replace(redirectUrl);
+      } catch (error: any) {
+        console.error('Error completing onboarding:', error);
+        alert(`Failed to complete onboarding: ${error.message}`);
+      }
+    } else {
+      if (!canProceed()) {
+        console.log('Cannot proceed - current step validation failed');
+        return;
+      }
+      console.log('Moving to next step:', currentStep + 1);
+      setCurrentStep(prev => prev + 1);
+    }
+  };
+
+  const handleBack = () => {
+    setCurrentStep(prev => prev - 1);
+  };
+
+  const canProceed = () => {
+    switch (currentStep) {
+      case 0:
+        return !!formData.farmType;
+      case 1:
+        return !!formData.farmSize;
+      case 2:
+        return formData.goals.length > 0;
+      default:
+        return true;
+    }
+  };
+
+  const FinalStep = () => (
+    <div className="text-center">
+      <h2 className="text-2xl font-bold mb-4">Ready to get started?</h2>
+      <p className="text-gray-600 mb-6">
+        You're all set to begin your farming journey with us.
+      </p>
+      <div className="bg-white p-6 rounded-lg shadow-md">
+        <h3 className="text-xl font-semibold mb-4">Your Plan Includes:</h3>
+        <ul className="space-y-2">
+          <li className="flex items-center text-gray-600">
+            <span className="text-green-500 mr-2">✓</span>
+            Optimized for {formData.experience} farmers
+          </li>
+          <li className="flex items-center text-gray-600">
+            <span className="text-green-500 mr-2">✓</span>
+            Includes all tracking and monitoring tools
+          </li>
+          <li className="flex items-center text-gray-600">
+            <span className="text-green-500 mr-2">✓</span>
+            14-day free trial included
+          </li>
+        </ul>
+      </div>
+      <button 
+        onClick={handleNext}
+        className="w-full mt-6 py-2 px-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
+        disabled={!canProceed()}
+      >
+        Start Free Trial
+      </button>
+    </div>
+  );
+
   const steps = [
     {
       id: 'Farm Type',
@@ -272,7 +367,11 @@ export function Onboarding() {
                     Email support
                   </li>
                 </ul>
-                <button className="w-full py-2 px-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                <button 
+                  onClick={handleNext}
+                  className="w-full mt-6 py-2 px-4 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 disabled:opacity-50"
+                  disabled={!canProceed()}
+                >
                   Start Free Trial
                 </button>
               </div>
@@ -360,61 +459,12 @@ export function Onboarding() {
           </div>
         </div>
       )
+    },
+    {
+      title: "Get Started",
+      component: <FinalStep />
     }
   ];
-
-  const handleSelect = (field: keyof OnboardingData, value: any) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
-  };
-
-  const handleNext = async () => {
-    if (currentStep === steps.length - 1) {
-      if (!currentUser || !formData.farmType) return;
-
-      try {
-        // Show loading state if you want
-        await UserService.initializeUserAndFarm(currentUser.uid, {
-          farmType: formData.farmType,
-          farmSize: formData.farmSize || 0,
-          experience: formData.experience || 'beginner',
-          goals: formData.goals
-        });
-
-        // Verify the update was successful before navigating
-        const userData = await UserService.getUserData(currentUser.uid);
-        
-        if (userData?.onboardingComplete) {
-          // Only navigate if onboarding is confirmed complete
-          window.location.href = `/${formData.farmType}`; // Force a full page reload
-        } else {
-          console.error('Onboarding status not updated');
-          // Show error to user
-        }
-      } catch (error) {
-        console.error('Error completing onboarding:', error);
-        // Show error message to user
-      }
-    } else {
-      setCurrentStep(prev => prev + 1);
-    }
-  };
-
-  const handleBack = () => {
-    setCurrentStep(prev => prev - 1);
-  };
-
-  const canProceed = () => {
-    switch (currentStep) {
-      case 0:
-        return !!formData.farmType;
-      case 1:
-        return !!formData.farmSize;
-      case 2:
-        return formData.goals.length > 0;
-      default:
-        return true;
-    }
-  };
 
   const currentStepData = steps[currentStep];
 

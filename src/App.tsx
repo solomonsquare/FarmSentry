@@ -13,7 +13,7 @@ import { FarmProvider } from './contexts/FarmContext';
 
 function App() {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-white dark:bg-gray-900">
       <Router>
         <AuthProvider>
           <ThemeProvider>

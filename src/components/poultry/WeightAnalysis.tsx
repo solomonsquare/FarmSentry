@@ -1,5 +1,5 @@
 import React from 'react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import { WeightRecord } from '../../types';
 import { Scale } from 'lucide-react';
 
@@ -49,21 +49,23 @@ export function WeightAnalysis({ weightRecords }: Props) {
         </div>
       </div>
 
-      <div className="h-80">
-        <ResponsiveContainer width="100%" height="100%">
-          <LineChart data={chartData}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="date" />
-            <YAxis yAxisId="weight" label={{ value: 'Weight (kg)', angle: -90, position: 'insideLeft' }} />
-            <YAxis yAxisId="percentage" orientation="right" label={{ value: 'Percentage', angle: 90, position: 'insideRight' }} />
-            <Tooltip />
-            <Line yAxisId="weight" type="monotone" dataKey="average" stroke="#3b82f6" name="Average Weight" />
-            <Line yAxisId="weight" type="monotone" dataKey="target" stroke="#10b981" name="Target Weight" />
-            <Line yAxisId="percentage" type="monotone" dataKey="belowTarget" stroke="#ef4444" name="Below Target %" />
-            <Line yAxisId="percentage" type="monotone" dataKey="aboveTarget" stroke="#f59e0b" name="Above Target %" />
-          </LineChart>
-        </ResponsiveContainer>
-      </div>
+      {chartData.length > 0 && (
+        <div className="h-64">
+          <ResponsiveContainer width="100%" height="100%">
+            <LineChart data={chartData}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="date" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Line type="monotone" dataKey="average" stroke="#3b82f6" name="Average Weight" />
+              <Line type="monotone" dataKey="target" stroke="#10b981" name="Target Weight" />
+              <Line type="monotone" dataKey="belowTarget" stroke="#ef4444" name="Below Target %" />
+              <Line type="monotone" dataKey="aboveTarget" stroke="#8b5cf6" name="Above Target %" />
+            </LineChart>
+          </ResponsiveContainer>
+        </div>
+      )}
     </div>
   );
 }

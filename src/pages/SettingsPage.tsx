@@ -1,28 +1,47 @@
 import React from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { Card } from '../components/common/Card';
-import { UserCircle } from 'lucide-react';
+import { useFarmType } from '../hooks/useFarmType';
+import { CurrentFarmSection } from '../components/settings/CurrentFarmSection';
+import { PlanSelector } from '../components/settings/PlanSelector';
+import { UserProfileSection } from '../components/settings/UserProfileSection';
+import { LoadingSpinner } from '../components/common/LoadingSpinner';
+import { useSubscription } from '../hooks/useSubscription';
 
 export function SettingsPage() {
   const { currentUser } = useAuth();
+  const { currentFarmType, loading: farmTypeLoading } = useFarmType();
+  const { currentPlan, loading: subscriptionLoading, updateSubscription } = useSubscription();
+
+  if (farmTypeLoading || subscriptionLoading) {
+    return <div className="flex justify-center items-center min-h-screen">
+      <LoadingSpinner />
+    </div>;
+  }
 
   return (
-    <div className="space-y-6">
-      <h1 className="text-3xl font-bold text-gray-900">Settings</h1>
+    <div className="space-y-6 max-w-4xl mx-auto py-6">
+      <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Settings</h1>
 
+      {/* User Profile Section */}
       <Card>
-        <div className="flex items-start gap-4">
-          <div className="p-2 bg-blue-50 rounded-lg">
-            <UserCircle className="w-6 h-6 text-blue-600" />
-          </div>
-          <div>
-            <h2 className="text-lg font-semibold text-gray-900">Account Information</h2>
-            <div className="mt-2">
-              <div className="text-sm text-gray-500">Email</div>
-              <div className="text-base text-gray-900">{currentUser?.email}</div>
-            </div>
-          </div>
-        </div>
+        <UserProfileSection />
+      </Card>
+
+      {/* Current Farm Section */}
+      <Card>
+        <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Current Farm</h2>
+        <CurrentFarmSection currentType={currentFarmType} />
+      </Card>
+
+      {/* Subscription Section */}
+      <Card>
+        <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Subscription</h2>
+        <PlanSelector 
+          currentPlan={currentPlan} 
+          farmType={currentFarmType || 'birds'} 
+          onSelect={updateSubscription} 
+        />
       </Card>
     </div>
   );

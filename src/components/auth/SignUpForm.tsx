@@ -56,21 +56,21 @@ export function SignUpForm() {
   };
 
   return (
-    <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-lg">
+    <div className="w-full max-w-md p-8 bg-white dark:bg-gray-800 rounded-lg shadow-lg">
       <div className="flex justify-center mb-8">
-        <UserPlus className="w-12 h-12 text-blue-600" />
+        <UserPlus className="w-12 h-12 text-blue-600 dark:text-blue-400" />
       </div>
-      <h2 className="text-3xl font-bold text-center mb-8">Create your account</h2>
+      <h2 className="text-3xl font-bold text-center mb-8 text-gray-900 dark:text-white">Create your account</h2>
       
       <form onSubmit={handleSubmit} className="space-y-6">
         {error && (
-          <div className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-md p-3">
+          <div className="text-sm text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900 border border-red-200 dark:border-red-800 rounded-md p-3">
             {error}
           </div>
         )}
 
         <div className="space-y-2">
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+          <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
             Email address
           </label>
           <input
@@ -79,12 +79,12 @@ export function SignUpForm() {
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+            className="appearance-none block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm placeholder-gray-400 dark:placeholder-gray-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-blue-500 focus:border-blue-500"
           />
         </div>
 
         <div className="space-y-2">
-          <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+          <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
             Password
           </label>
           <input
@@ -93,12 +93,12 @@ export function SignUpForm() {
             required
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+            className="appearance-none block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm placeholder-gray-400 dark:placeholder-gray-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-blue-500 focus:border-blue-500"
           />
         </div>
 
         <div className="space-y-2">
-          <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
+          <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
             Confirm Password
           </label>
           <input
@@ -107,7 +107,7 @@ export function SignUpForm() {
             required
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
-            className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+            className="appearance-none block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm placeholder-gray-400 dark:placeholder-gray-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-blue-500 focus:border-blue-500"
           />
         </div>
 
@@ -120,8 +120,8 @@ export function SignUpForm() {
         </button>
 
         <p className="text-center text-sm">
-          <span className="text-gray-600">Already have an account? </span>
-          <a href="/login" className="font-medium text-blue-600 hover:text-blue-500">
+          <span className="text-gray-600 dark:text-gray-400">Already have an account? </span>
+          <a href="/login" className="font-medium text-blue-600 dark:text-blue-400 hover:text-blue-500 dark:hover:text-blue-300">
             Sign in
           </a>
         </p>

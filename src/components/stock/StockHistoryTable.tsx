@@ -23,6 +23,9 @@ export function StockHistoryTable({ history, category }: Props) {
             <th className="px-4 py-2 text-left text-sm font-medium text-gray-500">Time</th>
             <th className="px-4 py-2 text-left text-sm font-medium text-gray-500">Type</th>
             <th className="px-4 py-2 text-right text-sm font-medium text-gray-500">Quantity</th>
+            {category === 'pigs' && (
+              <th className="px-4 py-2 text-left text-sm font-medium text-gray-500">Breed</th>
+            )}
             <th className="px-4 py-2 text-right text-sm font-medium text-gray-500">{animalType} Cost</th>
             <th className="px-4 py-2 text-right text-sm font-medium text-gray-500">Medicine</th>
             <th className="px-4 py-2 text-right text-sm font-medium text-gray-500">Feeds</th>
@@ -43,6 +46,9 @@ export function StockHistoryTable({ history, category }: Props) {
               <td className="px-4 py-2 text-sm text-right">
                 {entry.type === 'sale' || entry.type === 'death' ? `-${entry.quantity}` : entry.quantity}
               </td>
+              {category === 'pigs' && (
+                <td className="px-4 py-2 text-sm text-gray-900">{entry.breed?.name || '-'}</td>
+              )}
               <td className="px-4 py-2 text-sm text-right">
                 {entry.expenses?.birds ? formatNaira(entry.expenses.birds) : '-'}
               </td>

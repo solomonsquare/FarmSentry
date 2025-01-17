@@ -3,8 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { FirebaseError } from 'firebase/app';
 import { LogIn } from 'lucide-react';
-import { doc, getDoc } from 'firebase/firestore';
-import { db } from '../../config/firebase';
+import { UserService } from '../../services/userService';
 
 export function LoginForm() {
   const { signIn } = useAuth();
@@ -24,28 +23,31 @@ export function LoginForm() {
       const userCredential = await signIn(email, password);
       console.log('User signed in:', userCredential.user.uid);
 
-      // Check user's onboarding status
-      const userRef = doc(db, 'users', userCredential.user.uid);
-      const userDoc = await getDoc(userRef);
-      
-      if (userDoc.exists()) {
-        const userData = userDoc.data();
-        console.log('User data:', userData);
+      try {
+        // Try to get user data
+        const userData = await UserService.getUserData(userCredential.user.uid);
         
-        if (userData.onboardingComplete && userData.currentFarmType) {
+        if (userData && userData.onboardingComplete && userData.farmType) {
           // If onboarding is complete, navigate to farm dashboard
-          navigate(`/${userData.currentFarmType}`);
+          navigate(`/${userData.farmType}`);
         } else {
-          // If onboarding is not complete, navigate to onboarding
+          // If no user data or onboarding not complete, create initial document and navigate to onboarding
+          if (!userData) {
+            await UserService.createUserDocument(userCredential.user.uid);
+          }
           navigate('/onboarding');
         }
-      } else {
-        // If no user document exists, navigate to onboarding
+      } catch (firestoreErr) {
+        console.error('Firestore error:', firestoreErr);
+        // If there's a permission error, still navigate to onboarding
+        // The user document will be created during onboarding
         navigate('/onboarding');
       }
     } catch (err) {
       console.error('Login failed:', err);
       if (err instanceof FirebaseError) {
+        console.log('Firebase error code:', err.code);
+        console.log('Firebase error message:', err.message);
         switch (err.code) {
           case 'auth/user-not-found':
             setError('No account found with this email');
@@ -56,10 +58,17 @@ export function LoginForm() {
           case 'auth/invalid-email':
             setError('Invalid email address');
             break;
+          case 'auth/too-many-requests':
+            setError('Too many failed attempts. Please try again later.');
+            break;
+          case 'auth/network-request-failed':
+            setError('Network error. Please check your connection.');
+            break;
           default:
-            setError('Failed to sign in. Please try again.');
+            setError(`Failed to sign in: ${err.message}`);
         }
       } else {
+        console.log('Non-Firebase error:', err);
         setError('An unexpected error occurred');
       }
     } finally {
@@ -68,21 +77,21 @@ export function LoginForm() {
   };
 
   return (
-    <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-lg">
+    <div className="w-full max-w-md p-8 bg-white dark:bg-gray-800 rounded-lg shadow-lg">
       <div className="flex justify-center mb-8">
-        <LogIn className="w-12 h-12 text-blue-600" />
+        <LogIn className="w-12 h-12 text-blue-600 dark:text-blue-400" />
       </div>
-      <h2 className="text-3xl font-bold text-center mb-8">Sign in to your account</h2>
+      <h2 className="text-3xl font-bold text-center mb-8 text-gray-900 dark:text-white">Sign in to your account</h2>
       
       <form onSubmit={handleSubmit} className="space-y-6">
         {error && (
-          <div className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-md p-3">
+          <div className="text-sm text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900 border border-red-200 dark:border-red-800 rounded-md p-3">
             {error}
           </div>
         )}
 
         <div className="space-y-2">
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+          <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
             Email address
           </label>
           <input
@@ -91,12 +100,12 @@ export function LoginForm() {
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+            className="appearance-none block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm placeholder-gray-400 dark:placeholder-gray-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-blue-500 focus:border-blue-500"
           />
         </div>
 
         <div className="space-y-2">
-          <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+          <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
             Password
           </label>
           <input
@@ -105,7 +114,7 @@ export function LoginForm() {
             required
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+            className="appearance-none block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm placeholder-gray-400 dark:placeholder-gray-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-blue-500 focus:border-blue-500"
           />
         </div>
 
@@ -118,8 +127,8 @@ export function LoginForm() {
         </button>
 
         <p className="text-center text-sm">
-          <span className="text-gray-600">Don't have an account? </span>
-          <a href="/register" className="font-medium text-blue-600 hover:text-blue-500">
+          <span className="text-gray-600 dark:text-gray-400">Don't have an account? </span>
+          <a href="/register" className="font-medium text-blue-600 dark:text-blue-400 hover:text-blue-500 dark:hover:text-blue-300">
             Sign up
           </a>
         </p>

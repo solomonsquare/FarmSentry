@@ -57,7 +57,7 @@ export function SalesPage({ totalBirds, stock, category, onUpdateStock }: Props)
 
   return (
     <div className="space-y-6">
-      <h1 className="text-3xl font-bold text-gray-900">
+      <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
         {category === 'birds' ? 'Poultry' : 'Pig'} Sales Management
       </h1>
       

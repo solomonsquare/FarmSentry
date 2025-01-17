@@ -11,12 +11,8 @@ interface Props {
 }
 
 export function UnifiedPage({ stock, expenses, category, onUpdateStock, onUpdateExpenses }: Props) {
-  const animalType = category === 'birds' ? 'Poultry' : 'Pig';
-
   return (
     <div className="space-y-6">
-      <h1 className="text-3xl font-bold text-gray-900">{animalType} Stock Management</h1>
-      
       <StockSection 
         stock={stock} 
         category={category}

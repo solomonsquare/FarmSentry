@@ -43,13 +43,18 @@ export function FarmRoutes({ category }: Props) {
         <Route 
           path="/stock-expenses" 
           element={
-            <UnifiedPage 
-              stock={data.stock}
-              expenses={data.expenses}
-              category={category}
-              onUpdateStock={updateStock}
-              onUpdateExpenses={updateStock}
-            />
+            <div className="space-y-6">
+              <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+                {category === 'birds' ? 'Poultry' : 'Pig'} Stock Management
+              </h1>
+              <UnifiedPage 
+                stock={data.stock}
+                expenses={data.expenses}
+                category={category}
+                onUpdateStock={updateStock}
+                onUpdateExpenses={updateStock}
+              />
+            </div>
           } 
         />
         <Route 

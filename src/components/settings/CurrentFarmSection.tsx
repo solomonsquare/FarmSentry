@@ -6,7 +6,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { UserService } from '../../services/userService';
 
 interface Props {
-  currentType: FarmCategory;
+  currentType: FarmCategory | null;
 }
 
 export function CurrentFarmSection({ currentType }: Props) {
@@ -38,6 +38,20 @@ export function CurrentFarmSection({ currentType }: Props) {
     }
   };
 
+  if (!currentType) {
+    return (
+      <div className="text-center p-6">
+        <p className="text-gray-600 dark:text-gray-400">No farm type selected</p>
+        <button
+          onClick={() => navigate('/')}
+          className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+        >
+          Select Farm Type
+        </button>
+      </div>
+    );
+  }
+
   const currentFarm = farmInfo[currentType];
   const Icon = currentFarm.icon;
 
@@ -46,7 +60,7 @@ export function CurrentFarmSection({ currentType }: Props) {
 
     if (window.confirm('Changing farm type will take you to the farm selection page. Continue?')) {
       try {
-        await UserService.setOnboardingComplete(currentUser.uid, false);
+        await UserService.resetUserData(currentUser.uid);
         navigate('/');
       } catch (error) {
         console.error('Error resetting farm type:', error);

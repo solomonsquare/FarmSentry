@@ -34,15 +34,18 @@ export function StockPage({ category, stock, onUpdate }: Props) {
     fetchStockHistory();
   }, [currentUser, category]);
 
-  console.log('StockPage - Current stockHistory state:', stockHistory);
-
   if (loading) return <LoadingSpinner />;
   if (error) return <ErrorMessage message={error} />;
 
+  const farmTypeDisplay = {
+    birds: 'Poultry',
+    pigs: 'Pig'
+  };
+
   return (
-    <div className="space-y-6">
-      <h1 className="text-3xl font-bold text-gray-900">
-        {category === 'birds' ? 'Poultry' : 'Pig'} Stock Management
+    <div className="space-y-6 text-black dark:text-white">
+      <h1 className="text-[3.5rem] font-bold mb-8">
+        {farmTypeDisplay[category]} Stock Management
       </h1>
       <StockManager
         category={category}

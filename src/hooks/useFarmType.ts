@@ -16,8 +16,8 @@ export function useFarmType() {
       }
 
       try {
-        const farmType = await UserService.getCurrentFarmType(currentUser.uid);
-        setCurrentFarmType(farmType);
+        const farmType = await UserService.getFarmType(currentUser.uid);
+        setCurrentFarmType(farmType as FarmCategory);
       } catch (error) {
         console.error('Error loading farm type:', error);
       } finally {
@@ -32,7 +32,12 @@ export function useFarmType() {
     if (!currentUser) return;
 
     try {
-      await UserService.setCurrentFarmType(currentUser.uid, newType);
+      await UserService.initializeUserAndFarm(currentUser.uid, {
+        farmType: newType,
+        farmSize: 0,
+        experience: '',
+        goals: []
+      });
       setCurrentFarmType(newType);
     } catch (error) {
       console.error('Error updating farm type:', error);
