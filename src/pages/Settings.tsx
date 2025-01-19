@@ -8,6 +8,8 @@ import { useFarmType } from '../hooks/useFarmType';
 import { useTheme } from '../contexts/ThemeContext';
 import { ChangePasswordModal } from '../components/settings/ChangePasswordModal';
 import { PlanSelector } from '../components/settings/PlanSelector';
+import { ResetDataSection } from '../components/settings/ResetDataSection';
+import { SubscriptionPlan } from '../hooks/useSubscription';
 
 export function Settings() {
   const navigate = useNavigate();
@@ -21,7 +23,7 @@ export function Settings() {
   const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
   const [farmName, setFarmName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
-  const [currentPlan, setCurrentPlan] = useState('basic'); // Default to basic plan
+  const [currentPlan, setCurrentPlan] = useState<SubscriptionPlan>('basic'); // Default to basic plan
 
   const handleBack = () => {
     navigate(-1);
@@ -44,7 +46,7 @@ export function Settings() {
     }
   };
 
-  const handleSwitchPlan = async (planName: string) => {
+  const handleSwitchPlan = async (planName: SubscriptionPlan) => {
     if (!currentUser) return;
 
     try {
@@ -173,6 +175,16 @@ export function Settings() {
             >
               Change Password
             </button>
+          </div>
+        </div>
+
+        {/* Danger Zone */}
+        <div className="mt-8">
+          <h2 className="text-lg font-semibold text-red-600 dark:text-red-500 mb-4">Danger Zone</h2>
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border-2 border-red-200 dark:border-red-900">
+            <div className="p-6">
+              <ResetDataSection />
+            </div>
           </div>
         </div>
       </div>
