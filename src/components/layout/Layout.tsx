@@ -1,23 +1,20 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { NavLink, useNavigate, useLocation } from 'react-router-dom';
-import { Home, Users, BadgeDollarSign, RotateCcw, ArrowLeft, BarChart3, Settings, LogOut } from 'lucide-react';
+import { Home, Users, BadgeDollarSign, ArrowLeft, BarChart3, Settings, LogOut } from 'lucide-react';
 import { FarmCategory } from '../../types';
 import { useAuth } from '../../contexts/AuthContext';
 import { useTheme } from '../../contexts/ThemeContext';
-import { UserService } from '../../services/userService';
 
 interface Props {
   children: React.ReactNode;
   category: FarmCategory | 'settings';
-  onReset?: () => void;
 }
 
-export function Layout({ children, category, onReset }: Props) {
+export function Layout({ children, category }: Props) {
   const navigate = useNavigate();
   const location = useLocation();
-  const { logout, currentUser } = useAuth();
+  const { logout } = useAuth();
   const { isDarkMode } = useTheme();
-  const [isResetting, setIsResetting] = useState(false);
   
   const handleBack = () => {
     if (location.pathname === '/settings') {
@@ -33,37 +30,6 @@ export function Layout({ children, category, onReset }: Props) {
       navigate('/login');
     } catch (error) {
       console.error('Failed to log out:', error);
-    }
-  };
-
-  const handleReset = async () => {
-    if (!currentUser) {
-      console.log('No current user found');
-      return;
-    }
-    
-    const confirmed = window.confirm(
-      'Are you sure you want to reset all your farm data? This action cannot be undone.'
-    );
-
-    if (!confirmed) {
-      console.log('Reset cancelled by user');
-      return;
-    }
-
-    try {
-      setIsResetting(true);
-      console.log('Starting reset process...');
-      
-      await UserService.resetUserData(currentUser.uid);
-      console.log('Reset completed, redirecting...');
-      
-      window.location.href = '/onboarding';
-    } catch (error) {
-      console.error('Error during reset:', error);
-      alert('Failed to reset data. Please try again.');
-    } finally {
-      setIsResetting(false);
     }
   };
 
@@ -138,20 +104,6 @@ export function Layout({ children, category, onReset }: Props) {
                 <Settings className="w-4 h-4" />
                 <span className="hidden md:inline">Settings</span>
               </button>
-              {category !== 'settings' && (
-                <button
-                  onClick={handleReset}
-                  disabled={isResetting}
-                  className={`flex items-center gap-2 px-3 py-2 text-gray-600 dark:text-gray-300 hover:text-red-600 ${
-                    isResetting ? 'opacity-50 cursor-not-allowed' : ''
-                  }`}
-                >
-                  <RotateCcw className={`w-4 h-4 ${isResetting ? 'animate-spin' : ''}`} />
-                  <span className="hidden md:inline">
-                    {isResetting ? 'Resetting...' : 'Reset'}
-                  </span>
-                </button>
-              )}
               <button
                 onClick={handleLogout}
                 className="flex items-center gap-2 px-3 py-2 text-gray-600 dark:text-gray-300 hover:text-red-600"

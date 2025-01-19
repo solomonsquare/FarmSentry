@@ -7,6 +7,7 @@ import { PlanSelector } from '../components/settings/PlanSelector';
 import { UserProfileSection } from '../components/settings/UserProfileSection';
 import { LoadingSpinner } from '../components/common/LoadingSpinner';
 import { useSubscription } from '../hooks/useSubscription';
+import { ResetDataSection } from '../components/settings/ResetDataSection';
 
 export function SettingsPage() {
   const { currentUser } = useAuth();
@@ -42,6 +43,11 @@ export function SettingsPage() {
           farmType={currentFarmType || 'birds'} 
           onSelect={updateSubscription} 
         />
+      </Card>
+
+      {/* Reset Data Section */}
+      <Card>
+        <ResetDataSection />
       </Card>
     </div>
   );
