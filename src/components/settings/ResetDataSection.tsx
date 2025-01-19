@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { RotateCcw } from 'lucide-react';
+import { RotateCcw, AlertTriangle } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import { UserService } from '../../services/userService';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
@@ -46,28 +46,38 @@ export function ResetDataSection() {
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-6">
-        <div>
-          <h2 className="text-xl font-bold text-gray-900 dark:text-white">Reset Data</h2>
-          <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-            Reset all your farm data and start fresh
-          </p>
+      <div className="flex justify-between items-start">
+        <div className="flex items-start gap-3">
+          <div className="mt-1">
+            <AlertTriangle className="w-5 h-5 text-red-500" />
+          </div>
+          <div>
+            <h2 className="text-xl font-bold text-gray-900 dark:text-white">Reset Farm Data</h2>
+            <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+              This will permanently delete all your farm data including stock records, sales history, and analytics.
+              This action cannot be undone.
+            </p>
+          </div>
         </div>
         <button
           onClick={() => setIsModalOpen(true)}
-          className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors flex items-center gap-2"
+          className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors flex items-center gap-2 whitespace-nowrap"
         >
           <RotateCcw className="w-4 h-4" />
-          Reset Data
+          Reset All Data
         </button>
       </div>
 
       {isModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
           <div className="bg-white dark:bg-gray-800 rounded-lg p-6 max-w-md w-full">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-              Confirm Data Reset
-            </h3>
+            <div className="flex items-center gap-3 mb-4">
+              <AlertTriangle className="w-6 h-6 text-red-500" />
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                Confirm Data Reset
+              </h3>
+            </div>
+            
             <p className="text-gray-600 dark:text-gray-300 mb-4">
               Please enter your password to confirm that you want to reset all your farm data.
               This action cannot be undone.
@@ -119,7 +129,7 @@ export function ResetDataSection() {
                   ) : (
                     <>
                       <RotateCcw className="w-4 h-4" />
-                      Reset Data
+                      Reset All Data
                     </>
                   )}
                 </button>

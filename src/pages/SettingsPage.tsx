@@ -45,10 +45,13 @@ export function SettingsPage() {
         />
       </Card>
 
-      {/* Reset Data Section */}
-      <Card>
-        <ResetDataSection />
-      </Card>
+      {/* Danger Zone */}
+      <div className="mt-8">
+        <h2 className="text-lg font-semibold text-red-600 dark:text-red-500 mb-4">Danger Zone</h2>
+        <Card className="border-2 border-red-200 dark:border-red-900">
+          <ResetDataSection />
+        </Card>
+      </div>
     </div>
   );
 } 
