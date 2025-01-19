@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { Download } from 'lucide-react';
 import { FarmCategory, StockEntry } from '../../types';
 import { StockHistoryTable } from './StockHistoryTable';
 import { PaginationContainer } from '../common/PaginationContainer';
+import { useStockData } from '../../hooks/useStockData';
 
 interface Props {
   history: StockEntry[];
@@ -12,6 +14,7 @@ export function PaginatedStockHistory({ history, category }: Props) {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState('');
   const recordsPerPage = 5;
+  const { handleExport } = useStockData(category);
 
   // Reset page when history changes
   useEffect(() => {
@@ -20,7 +23,6 @@ export function PaginatedStockHistory({ history, category }: Props) {
 
   // Filter history based on search term
   const filteredHistory = history.filter(entry =>
-    entry.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
     entry.type.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
@@ -44,16 +46,27 @@ export function PaginatedStockHistory({ history, category }: Props) {
         <h2 className="text-xl font-semibold">
           {category === 'birds' ? 'Poultry' : 'Pig'} Stock History
         </h2>
-        <input
-          type="text"
-          placeholder="Search history..."
-          value={searchTerm}
-          onChange={(e) => {
-            setSearchTerm(e.target.value);
-            setCurrentPage(1);
-          }}
-          className="px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500"
-        />
+        <div className="flex gap-4">
+          <input
+            type="text"
+            placeholder="Search by type..."
+            value={searchTerm}
+            onChange={(e) => {
+              setSearchTerm(e.target.value);
+              setCurrentPage(1);
+            }}
+            className="px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500"
+          />
+          {history.length > 0 && (
+            <button
+              onClick={handleExport}
+              className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+            >
+              <Download className="w-4 h-4" />
+              Export CSV
+            </button>
+          )}
+        </div>
       </div>
 
       <div className="bg-white rounded-lg">
