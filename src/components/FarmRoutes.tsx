@@ -34,7 +34,7 @@ export function FarmRoutes({ category }: Props) {
               <Analytics category={category} />
             ) : (
               <div className="space-y-6">
-                <h1 className="text-3xl font-bold text-gray-900">Pig Farm Analytics</h1>
+                <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Pig Farm Analytics</h1>
                 <PigAnalytics />
               </div>
             )
