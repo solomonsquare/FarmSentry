@@ -1,0 +1,60 @@
+{
+  "settings": {
+    "title": "Ètò",
+    "profile": {
+      "title": "Profaili",
+      "edit": "Ṣàtúnṣe",
+      "save": "Fipamọ́",
+      "farmName": "Orúkọ Oko",
+      "email": "Àdírẹ́ẹ̀sì Ímeèlì",
+      "emailHint": "Kò le yí ímeèlì padà",
+      "phone": "Nọ́mbà Fóònù"
+    },
+    "currentFarm": {
+      "title": "Oko Lọ́wọ́lọ́wọ́",
+      "poultryFarm": "Oko Ẹran Ẹyẹ",
+      "pigFarm": "Oko Ẹlẹ́dẹ̀"
+    },
+    "subscription": {
+      "title": "Ètò Ìforúkọsílẹ̀"
+    },
+    "language": {
+      "title": "Èdè",
+      "description": "Yan èdè tí o fẹ́"
+    },
+    "appearance": {
+      "title": "Ìrísí",
+      "lightMode": "Ìmọ́lẹ̀",
+      "darkMode": "Òkùnkùn"
+    },
+    "password": {
+      "title": "Ọ̀rọ̀ Aṣínà",
+      "change": "Yí Ọ̀rọ̀ Aṣínà Padà",
+      "current": "Ọ̀rọ̀ Aṣínà Lọ́wọ́lọ́wọ́",
+      "new": "Ọ̀rọ̀ Aṣínà Tuntun",
+      "confirm": "Ìmúdájú Ọ̀rọ̀ Aṣínà"
+    },
+    "dangerZone": {
+      "title": "Àgbègbè Ewu",
+      "reset": {
+        "title": "Tún Dátà Oko Ṣe",
+        "description": "Èyí yóò pa gbogbo dátà oko rẹ rẹ́, pẹ̀lú àkọsílẹ̀ ọjà, ìtàn títà àti àtúpalẹ̀. A kò le dá èyí padà.",
+        "button": "Tún Gbogbo Dátà Ṣe",
+        "confirm": "Ìmúdájú Àtúnṣe Dátà",
+        "enterPassword": "Jọ̀wọ́ tẹ ọ̀rọ̀ aṣínà rẹ láti ṣèmúdájú pé o fẹ́ tún gbogbo dátà oko rẹ ṣe. A kò le dá èyí padà.",
+        "resetting": "Ń ṣàtúnṣe...",
+        "cancel": "Parẹ́"
+      }
+    }
+  },
+  "common": {
+    "back": "Padà",
+    "loading": "Ń gbé wọlé...",
+    "error": "Àṣìṣe kan ṣẹlẹ̀",
+    "save": "Fipamọ́",
+    "cancel": "Parẹ́",
+    "confirm": "Ìmúdájú",
+    "delete": "Parẹ́",
+    "edit": "Ṣàtúnṣe"
+  }
+} 

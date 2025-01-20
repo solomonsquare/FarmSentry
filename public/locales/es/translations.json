@@ -1,0 +1,60 @@
+{
+  "settings": {
+    "title": "Configuración",
+    "profile": {
+      "title": "Perfil",
+      "edit": "Editar",
+      "save": "Guardar",
+      "farmName": "Nombre de la Granja",
+      "email": "Correo Electrónico",
+      "emailHint": "El correo electrónico no se puede cambiar",
+      "phone": "Número de Teléfono"
+    },
+    "currentFarm": {
+      "title": "Granja Actual",
+      "poultryFarm": "Granja Avícola",
+      "pigFarm": "Granja Porcina"
+    },
+    "subscription": {
+      "title": "Plan de Suscripción"
+    },
+    "language": {
+      "title": "Idioma",
+      "description": "Selecciona tu idioma preferido"
+    },
+    "appearance": {
+      "title": "Apariencia",
+      "lightMode": "Modo Claro",
+      "darkMode": "Modo Oscuro"
+    },
+    "password": {
+      "title": "Contraseña",
+      "change": "Cambiar Contraseña",
+      "current": "Contraseña Actual",
+      "new": "Nueva Contraseña",
+      "confirm": "Confirmar Contraseña"
+    },
+    "dangerZone": {
+      "title": "Zona de Peligro",
+      "reset": {
+        "title": "Restablecer Datos de la Granja",
+        "description": "Esto eliminará permanentemente todos los datos de tu granja, incluyendo registros de stock, historial de ventas y análisis. Esta acción no se puede deshacer.",
+        "button": "Restablecer Todos los Datos",
+        "confirm": "Confirmar Restablecimiento de Datos",
+        "enterPassword": "Por favor, ingresa tu contraseña para confirmar que deseas restablecer todos los datos de tu granja. Esta acción no se puede deshacer.",
+        "resetting": "Restableciendo...",
+        "cancel": "Cancelar"
+      }
+    }
+  },
+  "common": {
+    "back": "Atrás",
+    "loading": "Cargando...",
+    "error": "Ocurrió un error",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "confirm": "Confirmar",
+    "delete": "Eliminar",
+    "edit": "Editar"
+  }
+} 

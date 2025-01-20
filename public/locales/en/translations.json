@@ -1,0 +1,60 @@
+{
+  "settings": {
+    "title": "Settings",
+    "profile": {
+      "title": "Profile",
+      "edit": "Edit",
+      "save": "Save",
+      "farmName": "Farm Name",
+      "email": "Email Address",
+      "emailHint": "Email cannot be changed",
+      "phone": "Phone Number"
+    },
+    "currentFarm": {
+      "title": "Current Farm",
+      "poultryFarm": "Poultry Farm",
+      "pigFarm": "Pig Farm"
+    },
+    "subscription": {
+      "title": "Subscription Plan"
+    },
+    "language": {
+      "title": "Language",
+      "description": "Select your preferred language"
+    },
+    "appearance": {
+      "title": "Appearance",
+      "lightMode": "Light Mode",
+      "darkMode": "Dark Mode"
+    },
+    "password": {
+      "title": "Password",
+      "change": "Change Password",
+      "current": "Current Password",
+      "new": "New Password",
+      "confirm": "Confirm Password"
+    },
+    "dangerZone": {
+      "title": "Danger Zone",
+      "reset": {
+        "title": "Reset Farm Data",
+        "description": "This will permanently delete all your farm data including stock records, sales history, and analytics. This action cannot be undone.",
+        "button": "Reset All Data",
+        "confirm": "Confirm Data Reset",
+        "enterPassword": "Please enter your password to confirm that you want to reset all your farm data. This action cannot be undone.",
+        "resetting": "Resetting...",
+        "cancel": "Cancel"
+      }
+    }
+  },
+  "common": {
+    "back": "Back",
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "save": "Save",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "delete": "Delete",
+    "edit": "Edit"
+  }
+} 

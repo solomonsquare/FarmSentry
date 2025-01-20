@@ -1,0 +1,60 @@
+{
+  "settings": {
+    "title": "Saituna",
+    "profile": {
+      "title": "Bayani",
+      "edit": "Gyara",
+      "save": "Ajiye",
+      "farmName": "Sunan Gona",
+      "email": "Adireshin Imel",
+      "emailHint": "Ba za a iya canza imel ba",
+      "phone": "Lambar Waya"
+    },
+    "currentFarm": {
+      "title": "Gonar Yanzu",
+      "poultryFarm": "Gonar Kaji",
+      "pigFarm": "Gonar Alade"
+    },
+    "subscription": {
+      "title": "Tsarin Biyan Kuɗi"
+    },
+    "language": {
+      "title": "Harshe",
+      "description": "Zaɓi harshen da kake so"
+    },
+    "appearance": {
+      "title": "Kama",
+      "lightMode": "Yanayin Haske",
+      "darkMode": "Yanayin Duhu"
+    },
+    "password": {
+      "title": "Kalmar Sirri",
+      "change": "Canza Kalmar Sirri",
+      "current": "Kalmar Sirri ta Yanzu",
+      "new": "Sabuwar Kalmar Sirri",
+      "confirm": "Tabbatar da Kalmar Sirri"
+    },
+    "dangerZone": {
+      "title": "Yankin Hatsari",
+      "reset": {
+        "title": "Sake Saita Bayanin Gona",
+        "description": "Wannan zai share duk bayanin gonarku har abada, haɗa da tarihin ajiya, tarihin siyayya da nazari. Ba za a iya juyar da wannan aiki ba.",
+        "button": "Sake Saita Duk Bayani",
+        "confirm": "Tabbatar da Sake Saita Bayani",
+        "enterPassword": "Don Allah shigar da kalmar sirri don tabbatar da kuna son sake saita duk bayanin gonarku. Ba za a iya juyar da wannai aiki ba.",
+        "resetting": "Ana sake saita...",
+        "cancel": "Soke"
+      }
+    }
+  },
+  "common": {
+    "back": "Koma",
+    "loading": "Ana loda...",
+    "error": "Akwai kuskure",
+    "save": "Ajiye",
+    "cancel": "Soke",
+    "confirm": "Tabbatar",
+    "delete": "Share",
+    "edit": "Gyara"
+  }
+} 

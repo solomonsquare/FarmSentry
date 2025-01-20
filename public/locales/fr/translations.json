@@ -1,0 +1,60 @@
+{
+  "settings": {
+    "title": "Paramètres",
+    "profile": {
+      "title": "Profil",
+      "edit": "Modifier",
+      "save": "Enregistrer",
+      "farmName": "Nom de la Ferme",
+      "email": "Adresse Email",
+      "emailHint": "L'email ne peut pas être modifié",
+      "phone": "Numéro de Téléphone"
+    },
+    "currentFarm": {
+      "title": "Ferme Actuelle",
+      "poultryFarm": "Ferme Avicole",
+      "pigFarm": "Ferme Porcine"
+    },
+    "subscription": {
+      "title": "Plan d'Abonnement"
+    },
+    "language": {
+      "title": "Langue",
+      "description": "Sélectionnez votre langue préférée"
+    },
+    "appearance": {
+      "title": "Apparence",
+      "lightMode": "Mode Clair",
+      "darkMode": "Mode Sombre"
+    },
+    "password": {
+      "title": "Mot de Passe",
+      "change": "Changer le Mot de Passe",
+      "current": "Mot de Passe Actuel",
+      "new": "Nouveau Mot de Passe",
+      "confirm": "Confirmer le Mot de Passe"
+    },
+    "dangerZone": {
+      "title": "Zone Dangereuse",
+      "reset": {
+        "title": "Réinitialiser les Données de la Ferme",
+        "description": "Cela supprimera définitivement toutes les données de votre ferme, y compris les registres de stock, l'historique des ventes et les analyses. Cette action ne peut pas être annulée.",
+        "button": "Réinitialiser Toutes les Données",
+        "confirm": "Confirmer la Réinitialisation des Données",
+        "enterPassword": "Veuillez entrer votre mot de passe pour confirmer que vous souhaitez réinitialiser toutes les données de votre ferme. Cette action ne peut pas être annulée.",
+        "resetting": "Réinitialisation...",
+        "cancel": "Annuler"
+      }
+    }
+  },
+  "common": {
+    "back": "Retour",
+    "loading": "Chargement...",
+    "error": "Une erreur est survenue",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "confirm": "Confirmer",
+    "delete": "Supprimer",
+    "edit": "Modifier"
+  }
+} 

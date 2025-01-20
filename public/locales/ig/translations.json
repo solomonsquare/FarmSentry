@@ -1,0 +1,60 @@
+{
+  "settings": {
+    "title": "Ntọala",
+    "profile": {
+      "title": "Profaịlụ",
+      "edit": "Dezie",
+      "save": "Chekwa",
+      "farmName": "Aha Ubi",
+      "email": "Adreesị Email",
+      "emailHint": "Agaghị agbanwe email",
+      "phone": "Nọmba Ekwentị"
+    },
+    "currentFarm": {
+      "title": "Ubi Ugbu a",
+      "poultryFarm": "Ubi Ọkụkọ",
+      "pigFarm": "Ubi Ezi"
+    },
+    "subscription": {
+      "title": "Atụmatụ Ndenye Aha"
+    },
+    "language": {
+      "title": "Asụsụ",
+      "description": "Họrọ asụsụ ị na-ahọrọ"
+    },
+    "appearance": {
+      "title": "Ọdịdị",
+      "lightMode": "Ọhụrụ Ìhè",
+      "darkMode": "Ọhụrụ Ọchịchịrị"
+    },
+    "password": {
+      "title": "Okwuntughe",
+      "change": "Gbanwee Okwuntughe",
+      "current": "Okwuntughe Ugbu a",
+      "new": "Okwuntughe Ọhụrụ",
+      "confirm": "Kwenye Okwuntughe"
+    },
+    "dangerZone": {
+      "title": "Mpaghara Ihe Egwu",
+      "reset": {
+        "title": "Tọgharia Data Ubi",
+        "description": "Nke a ga-ehichapụ data ubi gị niile ruo mgbe ebighị ebi, gụnyere ndekọ ihe niile, akụkọ ire ere na nyocha. Enweghị ike ịlaghachi azụ.",
+        "button": "Tọgharia Data Niile",
+        "confirm": "Kwenye Ntọgharia Data",
+        "enterPassword": "Biko tinye okwuntughe gị iji kwenye na ị chọrọ ịtọgharia data ubi gị niile. Enweghị ike ịlaghachi azụ.",
+        "resetting": "Na-etọgharia...",
+        "cancel": "Kwụsị"
+      }
+    }
+  },
+  "common": {
+    "back": "Azụ",
+    "loading": "Na-ebubata...",
+    "error": "Nsogbu dapụtara",
+    "save": "Chekwa",
+    "cancel": "Kwụsị",
+    "confirm": "Kwenye",
+    "delete": "Hichapụ",
+    "edit": "Dezie"
+  }
+} 
