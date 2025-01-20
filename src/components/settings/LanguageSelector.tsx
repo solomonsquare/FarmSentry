@@ -1,15 +1,17 @@
 import React from 'react';
 import { Globe2 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { useLanguage, Language, languageNames } from '../../contexts/LanguageContext';
 
 export function LanguageSelector() {
+  const { t, i18n } = useTranslation();
   const { currentLanguage, setLanguage, loading, error } = useLanguage();
 
   const handleLanguageChange = async (lang: Language) => {
     try {
       await setLanguage(lang);
+      await i18n.changeLanguage(lang);
     } catch (err) {
-      // Error is handled by the context
       console.error('Failed to change language:', err);
     }
   };
@@ -21,9 +23,9 @@ export function LanguageSelector() {
           <Globe2 className="w-5 h-5 text-gray-500" />
         </div>
         <div>
-          <h2 className="text-xl font-bold text-gray-900 dark:text-white">Language</h2>
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white">{t('settings.language.title')}</h2>
           <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-            Select your preferred language
+            {t('settings.language.description')}
           </p>
         </div>
       </div>

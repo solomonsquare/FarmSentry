@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { db } from '../config/firebase';
 import { useAuth } from './AuthContext';
+import i18n from '../i18n';
 
 export type Language = 'en' | 'es' | 'fr' | 'ig' | 'yo' | 'ha';
 
@@ -37,6 +38,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  // Load language preference from Firestore
   useEffect(() => {
     async function loadLanguagePreference() {
       if (!currentUser) {
@@ -50,7 +52,9 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
         
         if (userDoc.exists()) {
           const data = userDoc.data();
-          setCurrentLanguage((data.language || 'en') as Language);
+          const savedLanguage = (data.language || 'en') as Language;
+          setCurrentLanguage(savedLanguage);
+          await i18n.changeLanguage(savedLanguage);
         }
       } catch (error) {
         console.error('Error loading language preference:', error);
@@ -62,6 +66,14 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
 
     loadLanguagePreference();
   }, [currentUser]);
+
+  // Initialize i18next with the current language
+  useEffect(() => {
+    if (!loading) {
+      i18n.changeLanguage(currentLanguage);
+      document.documentElement.lang = currentLanguage;
+    }
+  }, [currentLanguage, loading]);
 
   const setLanguage = async (lang: Language) => {
     if (!currentUser) return;
@@ -75,7 +87,6 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
       }, { merge: true });
       
       setCurrentLanguage(lang);
-      // Update HTML lang attribute
       document.documentElement.lang = lang;
     } catch (error) {
       console.error('Error updating language:', error);
