@@ -9,6 +9,7 @@ import { useTheme } from '../contexts/ThemeContext';
 import { ChangePasswordModal } from '../components/settings/ChangePasswordModal';
 import { PlanSelector } from '../components/settings/PlanSelector';
 import { ResetDataSection } from '../components/settings/ResetDataSection';
+import { LanguageSelector } from '../components/settings/LanguageSelector';
 import { SubscriptionPlan } from '../hooks/useSubscription';
 
 export function Settings() {
@@ -148,6 +149,13 @@ export function Settings() {
                 onSelect={handleSwitchPlan}
               />
             )}
+          </div>
+        </div>
+
+        {/* Language Section */}
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
+          <div className="p-6">
+            <LanguageSelector />
           </div>
         </div>
 
