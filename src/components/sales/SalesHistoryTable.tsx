@@ -39,12 +39,12 @@ export function SalesHistoryTable({ sales, category }: Props) {
         <table className="min-w-full divide-y divide-gray-200">
           <thead>
             <tr>
-              <th className="px-4 py-2 text-left text-sm font-medium text-gray-400">DATE</th>
-              <th className="px-4 py-2 text-left text-sm font-medium text-gray-400">TIME</th>
-              <th className="px-4 py-2 text-right text-sm font-medium text-gray-400">QUANTITY</th>
-              <th className="px-4 py-2 text-right text-sm font-medium text-gray-400">PRICE/{animalType}</th>
-              <th className="px-4 py-2 text-right text-sm font-medium text-gray-400">TOTAL REVENUE</th>
-              <th className="px-4 py-2 text-right text-sm font-medium text-gray-400">TOTAL PROFIT</th>
+              <th className="px-4 py-2 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Date</th>
+              <th className="px-4 py-2 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Time</th>
+              <th className="px-4 py-2 text-right text-sm font-medium text-gray-500 dark:text-gray-400">Quantity</th>
+              <th className="px-4 py-2 text-right text-sm font-medium text-gray-500 dark:text-gray-400">Price/{animalType}</th>
+              <th className="px-4 py-2 text-right text-sm font-medium text-gray-500 dark:text-gray-400">Total Revenue</th>
+              <th className="px-4 py-2 text-right text-sm font-medium text-gray-500 dark:text-gray-400">Total Profit</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200">

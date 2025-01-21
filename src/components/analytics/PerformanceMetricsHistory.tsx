@@ -35,21 +35,21 @@ export function PerformanceMetricsHistory({ metrics, category }: Props) {
               <table className="min-w-full divide-y divide-gray-200">
                 <thead>
                   <tr>
-                    <th className="px-4 py-2 text-left text-xs font-medium text-gray-500">Date</th>
-                    <th className="px-4 py-2 text-right text-xs font-medium text-gray-500">FCR</th>
-                    <th className="px-4 py-2 text-right text-xs font-medium text-gray-500">Daily Gain</th>
-                    <th className="px-4 py-2 text-right text-xs font-medium text-gray-500">Mortality</th>
-                    <th className="px-4 py-2 text-right text-xs font-medium text-gray-500">Feed Cost/kg</th>
+                    <th className="px-4 py-2 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Date</th>
+                    <th className="px-4 py-2 text-right text-sm font-medium text-gray-500 dark:text-gray-400">FCR</th>
+                    <th className="px-4 py-2 text-right text-sm font-medium text-gray-500 dark:text-gray-400">Daily Gain</th>
+                    <th className="px-4 py-2 text-right text-sm font-medium text-gray-500 dark:text-gray-400">Mortality</th>
+                    <th className="px-4 py-2 text-right text-sm font-medium text-gray-500 dark:text-gray-400">Feed Cost/kg</th>
                     {category === 'birds' && (
                       <>
-                        <th className="px-4 py-2 text-right text-xs font-medium text-gray-500">Egg Prod.</th>
-                        <th className="px-4 py-2 text-right text-xs font-medium text-gray-500">Laying Rate</th>
+                        <th className="px-4 py-2 text-right text-sm font-medium text-gray-500 dark:text-gray-400">Egg Prod.</th>
+                        <th className="px-4 py-2 text-right text-sm font-medium text-gray-500 dark:text-gray-400">Laying Rate</th>
                       </>
                     )}
                     {category === 'pigs' && (
                       <>
-                        <th className="px-4 py-2 text-right text-xs font-medium text-gray-500">Litter Size</th>
-                        <th className="px-4 py-2 text-right text-xs font-medium text-gray-500">Weaning Rate</th>
+                        <th className="px-4 py-2 text-right text-sm font-medium text-gray-500 dark:text-gray-400">Litter Size</th>
+                        <th className="px-4 py-2 text-right text-sm font-medium text-gray-500 dark:text-gray-400">Weaning Rate</th>
                       </>
                     )}
                   </tr>

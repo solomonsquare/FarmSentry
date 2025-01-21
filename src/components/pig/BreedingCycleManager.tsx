@@ -74,10 +74,10 @@ export function BreedingCycleManager({ breedingCycles, onUpdate }: Props) {
             <table className="min-w-full divide-y divide-gray-200">
               <thead>
                 <tr>
-                  <th className="px-4 py-2 text-left text-sm font-medium text-gray-500">Sow ID</th>
-                  <th className="px-4 py-2 text-left text-sm font-medium text-gray-500">Start Date</th>
-                  <th className="px-4 py-2 text-left text-sm font-medium text-gray-500">Expected Due Date</th>
-                  <th className="px-4 py-2 text-left text-sm font-medium text-gray-500">Status</th>
+                  <th className="px-4 py-2 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Sow ID</th>
+                  <th className="px-4 py-2 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Start Date</th>
+                  <th className="px-4 py-2 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Expected Due Date</th>
+                  <th className="px-4 py-2 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Status</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">

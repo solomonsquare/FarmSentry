@@ -1,0 +1,168 @@
+{
+  "sales": {
+    "history": "Akụkọ Ahịa {{animal}}",
+    "noSalesRecorded": "Enweghị ahịa edepụtara ugbu a.",
+    "pricePerAnimal": "Ọnụahịa/{{animal}}",
+    "profitPerAnimal": "Uru/{{animal}}",
+    "totalAmount": "Mkpokọta Ego",
+    "totalProfit": "Mkpokọta Uru",
+    "confirmClearHistory": "Ị na-achọ ihichapụ akụkọ ahịa niile? Agaghị emenwu ihe a ọzọ.",
+    "clearHistoryError": "Ọ dara mbido ihichapụ akụkọ ahịa. Biko nwaa ọzọ.",
+    "clearHistory": "Hichapụ Akụkọ",
+    "exportCSV": "Zipụ CSV",
+    "searchPlaceholder": "Chọọ ahịa...",
+    "sortByDate": "Hazie site na Ụbọchị",
+    "sortByAmount": "Hazie site na Ego",
+    "newestFirst": "Nke Ọhụrụ Mbụ",
+    "oldestFirst": "Nke Ochie Mbụ",
+    "new": "Ahịa Ọhụrụ",
+    "numberOfAnimals": "Ọnụ Ọgụgụ {{animal}} ịre ere",
+    "pricePerAnimalCurrency": "Ọnụ ahịa {{animal}} (₦)",
+    "costPerAnimal": "Ọnụ ahịa {{animal}}",
+    "subtotal": "Mkpokọta Nta",
+    "completeSale": "Mechie Ahịa"
+  },
+  "common": {
+    "date": "Ụbọchị",
+    "time": "Oge",
+    "quantity": "Ọnụọgụ",
+    "totals": "Mkpokọta",
+    "never": "Ọ dịbeghị",
+    "unknown": "Amaghị",
+    "days": "ụbọchị",
+    "back": "Azụ",
+    "pagination": "Mpempe Akwụkwọ",
+    "previous": "Nke Gara Aga",
+    "next": "Nke Na-esote"
+  },
+  "farm": {
+    "poultry": "Ụlọ Ọkụkọ",
+    "pig": "Ụlọ Ezi",
+    "bird": "Nnụnụ",
+    "birds": "Nnụnụ",
+    "pigs": "Ezi"
+  },
+  "analytics": {
+    "overviewStats": {
+      "totalAnimals": "Mkpokọta {{animal}}",
+      "mortalityRate": "Ọnụ Ọgụgụ Ọnwụ",
+      "avgDailyGain": "Mmelite Kwa Ụbọchị",
+      "feedConversion": "Ntụgharị Nri",
+      "totalPigs": "Mkpokọta Ezi",
+      "feedConversionRatio": "Ọnụọgụ Ntụgharị Nri"
+    },
+    "feedConversionTitle": "Ntụgharị Nri",
+    "breedingManagementTitle": "Njikwa Ọmụmụ",
+    "geneticPerformanceTitle": "Arụmọrụ Agbụrụ",
+    "environmentalImpactTitle": "Mmetụta Gburugburu",
+    "growthPerformanceTitle": "Arụmọrụ Ọganihu Site na Oge",
+    "currentStock": "Ngwaahịa Ugbu a",
+    "totalDeaths": "Mkpokọta Ọnwụ",
+    "eggProduction": "Mmepụta Akwa",
+    "averageFCR": "FCR Nkịtị",
+    "weightTracking": {
+      "title": "Nchịkọta Arọ",
+      "sampleSize": "Ọnụ Ọgụgụ Ọmụmaatụ ({{animal}}) - Kachasị: {{max}}",
+      "totalWeight": "Mkpokọta Arọ nke Ọmụmaatụ (kg)",
+      "targetWeight": "Arọ Ebumnuche maka {{animal}} (kg)",
+      "belowTarget": "{{animal}} dị n'okpuru Arọ Ebumnuche",
+      "aboveTarget": "{{animal}} karịrị Arọ Ebumnuche"
+    },
+    "feedData": {
+      "title": "Data Nri",
+      "dailyConsumption": "Mkpokọta Nri a na-eri kwa Ụbọchị (kg)",
+      "consumptionNote": "Mkpokọta nri {{count}} {{animal}} na-eri kwa ụbọchị. Maka {{animal}}: {{amount}} kg",
+      "daysUntilMarket": "Ụbọchị Ole Tupu Arọ Ahịa",
+      "marketWeightNote": "Dabere na ọganihu ugbu a na arọ ahịa ebumnuche",
+      "dailyCost": "Ọnụ Ahịa Nri Kwa Ụbọchị (₦)"
+    },
+    "currentAge": "Afọ Ugbu a",
+    "currentWeight": "Arọ Ugbu a",
+    "currentStage": "Ọkwa Ugbu a",
+    "avgDailyGain": "Mmelite Kwa Ụbọchị",
+    "avgFCR": "FCR Nkịtị",
+    "feedConsumed": "Nri e Riri",
+    "daysInPhase": "Ụbọchị na Ọkwa",
+    "growthPhases": {
+      "nursery": "Ọkwa Ọmụmụ",
+      "grower": "Ọkwa Ọganihu",
+      "finisher": "Ọkwa Mmechi"
+    },
+    "stages": {
+      "nursery": "Ọmụmụ",
+      "grower": "Ọganihu",
+      "finisher": "Mmechi",
+      "breeding": "Ọmụmụ"
+    },
+    "weightStatus": {
+      "normal": "Na-aga nke ọma",
+      "below": "Na-adịghị eto",
+      "above": "Etogo karịa",
+      "unknown": "Amaghị Ọnọdụ"
+    }
+  },
+  "stock": {
+    "overview": "Nlele Ngwaahịa",
+    "currentStock": "{{animal}} dị ugbu a na Ngwaahịa",
+    "lastUpdated": "Mmelite Ikpeazụ",
+    "addNew": "Tinye Ngwaahịa Ọhụrụ",
+    "enterQuantity": "Tinye ọnụọgụ",
+    "birthDate": "Ụbọchị Ọmụmụ",
+    "currentWeight": "Arọ Ugbu a",
+    "enterWeight": "Tinye arọ ugbu a",
+    "purpose": "Ebumnuche",
+    "purposes": {
+      "meat": "Mmepe Anụ",
+      "breeding": "Ọmụmụ",
+      "both": "Abụọ"
+    },
+    "expenses": "Ego Ngwaahịa",
+    "pigsCost": "Ọnụahịa Ezi",
+    "enterPigsCost": "Tinye ọnụahịa ezi",
+    "medicineCost": "Ọnụahịa Ọgwụ",
+    "enterMedicineCost": "Tinye ọnụahịa ọgwụ",
+    "feedsCost": "Ọnụahịa Nri",
+    "enterFeedsCost": "Tinye ọnụahịa nri",
+    "additionalCosts": "Ọnụahịa Ndị Ọzọ",
+    "enterAdditionalCosts": "Tinye ọnụahịa ndị ọzọ",
+    "addToStock": "Tinye {{animal}} na Ngwaahịa",
+    "addedPigs": "Etinyere {{count}} ezi {{breed}}",
+    "recordDeaths": "Dee Ọnwụ",
+    "record": "Dee",
+    "table": {
+      "date": "Ụbọchị",
+      "time": "Oge",
+      "type": "Ụdị",
+      "quantity": "Ọnụọgụ",
+      "breed": "Agbụrụ",
+      "costs": "Ọnụahịa",
+      "medicine": "Ọgwụ",
+      "feed": "Nri",
+      "additional": "Ndị ọzọ",
+      "total": "Mkpokọta"
+    }
+  },
+  "auth": {
+    "signIn": {
+      "title": "Banye na akaụntụ gị",
+      "button": "Banye",
+      "noAccount": "I nweghị akaụntụ? Debanye aha"
+    },
+    "fields": {
+      "email": "Adreesị email",
+      "password": "Okwuntughe"
+    },
+    "errors": {
+      "signInFailed": "Ọ dara mbido ịbanye"
+    },
+    "welcome": "Nnọọ, {{email}}"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "stockManagement": "Njikwa Ngwaahịa",
+    "sales": "Ahịa",
+    "analytics": "Nyocha Data",
+    "settings": "Ntọala",
+    "logout": "Pụọ"
+  }
+} 

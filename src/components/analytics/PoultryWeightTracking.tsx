@@ -383,11 +383,11 @@ export function PoultryWeightTracking({
             <table className="min-w-full divide-y divide-gray-200">
               <thead>
                 <tr>
-                  <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Sample</th>
-                  <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Avg (kg)</th>
-                  <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Target (kg)</th>
-                  <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Below (%)</th>
-                  <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Above (%)</th>
+                  <th className="px-4 py-2 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Sample</th>
+                  <th className="px-4 py-2 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Avg (kg)</th>
+                  <th className="px-4 py-2 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Target (kg)</th>
+                  <th className="px-4 py-2 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Below (%)</th>
+                  <th className="px-4 py-2 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Above (%)</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">

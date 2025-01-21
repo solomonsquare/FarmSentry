@@ -89,10 +89,10 @@ export function WeightTracker({ weightRecords, onUpdate }: Props) {
             <table className="min-w-full divide-y divide-gray-200">
               <thead>
                 <tr>
-                  <th className="px-4 py-2 text-left text-sm font-medium text-gray-500">Date</th>
-                  <th className="px-4 py-2 text-left text-sm font-medium text-gray-500">Pig ID</th>
-                  <th className="px-4 py-2 text-right text-sm font-medium text-gray-500">Weight (kg)</th>
-                  <th className="px-4 py-2 text-left text-sm font-medium text-gray-500">Notes</th>
+                  <th className="px-4 py-2 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Date</th>
+                  <th className="px-4 py-2 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Pig ID</th>
+                  <th className="px-4 py-2 text-right text-sm font-medium text-gray-500 dark:text-gray-400">Weight (kg)</th>
+                  <th className="px-4 py-2 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Notes</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">

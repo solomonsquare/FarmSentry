@@ -25,9 +25,9 @@ export function ExpenseHistory({ expenses, totalBirds }: Props) {
           <table className="min-w-full divide-y divide-gray-200">
             <thead>
               <tr>
-                <th className="px-4 py-2 text-left text-sm font-medium text-gray-500">Category</th>
-                <th className="px-4 py-2 text-right text-sm font-medium text-gray-500">Amount</th>
-                <th className="px-4 py-2 text-right text-sm font-medium text-gray-500">Cost/Bird</th>
+                <th className="px-4 py-2 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Category</th>
+                <th className="px-4 py-2 text-right text-sm font-medium text-gray-500 dark:text-gray-400">Amount</th>
+                <th className="px-4 py-2 text-right text-sm font-medium text-gray-500 dark:text-gray-400">Cost/Bird</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">

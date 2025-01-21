@@ -25,14 +25,14 @@ export function PoultryWeightRecordsList({ records }: Props) {
         <table className="min-w-full divide-y divide-gray-200">
           <thead>
             <tr>
-              <th className="px-4 py-2 text-left text-sm font-medium text-gray-500">Date</th>
-              <th className="px-4 py-2 text-left text-sm font-medium text-gray-500">Time</th>
-              <th className="px-4 py-2 text-right text-sm font-medium text-gray-500">Sample Size</th>
-              <th className="px-4 py-2 text-right text-sm font-medium text-gray-500">Average Weight</th>
-              <th className="px-4 py-2 text-right text-sm font-medium text-gray-500">Target Weight</th>
-              <th className="px-4 py-2 text-right text-sm font-medium text-gray-500">Below Target</th>
-              <th className="px-4 py-2 text-right text-sm font-medium text-gray-500">Above Target</th>
-              <th className="px-4 py-2 text-left text-sm font-medium text-gray-500">Notes</th>
+              <th className="px-4 py-2 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Date</th>
+              <th className="px-4 py-2 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Time</th>
+              <th className="px-4 py-2 text-right text-sm font-medium text-gray-500 dark:text-gray-400">Sample Size</th>
+              <th className="px-4 py-2 text-right text-sm font-medium text-gray-500 dark:text-gray-400">Average Weight</th>
+              <th className="px-4 py-2 text-right text-sm font-medium text-gray-500 dark:text-gray-400">Target Weight</th>
+              <th className="px-4 py-2 text-right text-sm font-medium text-gray-500 dark:text-gray-400">Below Target</th>
+              <th className="px-4 py-2 text-right text-sm font-medium text-gray-500 dark:text-gray-400">Above Target</th>
+              <th className="px-4 py-2 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Notes</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200">

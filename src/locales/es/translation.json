@@ -1,0 +1,166 @@
+{
+  "sales": {
+    "history": "Historial de Ventas de {{animal}}",
+    "noSalesRecorded": "No hay ventas registradas todavía.",
+    "pricePerAnimal": "Precio/{{animal}}",
+    "profitPerAnimal": "Ganancia/{{animal}}",
+    "totalAmount": "Ingresos Totales",
+    "totalProfit": "Ganancia Total",
+    "confirmClearHistory": "¿Está seguro de que desea borrar todo el historial de ventas? Esta acción no se puede deshacer.",
+    "clearHistoryError": "Error al borrar el historial de ventas. Por favor, inténtelo de nuevo.",
+    "clearHistory": "Borrar Historial",
+    "exportCSV": "Exportar CSV",
+    "searchPlaceholder": "Buscar ventas...",
+    "sortByDate": "Ordenar por Fecha",
+    "sortByAmount": "Ordenar por Monto",
+    "newestFirst": "Más Reciente Primero",
+    "oldestFirst": "Más Antiguo Primero",
+    "new": "Nueva Venta",
+    "numberOfAnimals": "Número de {{animal}} para Vender",
+    "pricePerAnimalCurrency": "Precio por {{animal}} (₦)",
+    "costPerAnimal": "Costo por {{animal}}",
+    "subtotal": "Subtotal",
+    "completeSale": "Completar Venta"
+  },
+  "common": {
+    "date": "Fecha",
+    "time": "Hora",
+    "quantity": "Cantidad",
+    "totals": "Totales",
+    "never": "Nunca",
+    "unknown": "Desconocido",
+    "days": "días",
+    "back": "Atrás",
+    "pagination": "Paginación",
+    "previous": "Anterior",
+    "next": "Siguiente"
+  },
+  "farm": {
+    "poultry": "Granja Avícola",
+    "pig": "Granja Porcina",
+    "bird": "Ave",
+    "birds": "Aves",
+    "pigs": "Cerdos"
+  },
+  "analytics": {
+    "overviewStats": {
+      "totalAnimals": "Total de {{animal}}",
+      "mortalityRate": "Tasa de Mortalidad",
+      "avgDailyGain": "Ganancia Diaria Promedio",
+      "feedConversion": "Conversión Alimenticia",
+      "totalPigs": "Total de Cerdos",
+      "feedConversionRatio": "Índice de Conversión Alimenticia"
+    },
+    "feedConversionTitle": "Conversión Alimenticia",
+    "breedingManagementTitle": "Gestión de Reproducción",
+    "geneticPerformanceTitle": "Rendimiento Genético",
+    "environmentalImpactTitle": "Impacto Ambiental",
+    "growthPerformanceTitle": "Rendimiento de Crecimiento por Fase",
+    "currentStock": "Stock Actual",
+    "totalDeaths": "Total de Muertes",
+    "eggProduction": "Producción de Huevos",
+    "averageFCR": "FCR Promedio",
+    "weightTracking": {
+      "title": "Seguimiento de Peso",
+      "sampleSize": "Tamaño de Muestra ({{animal}}) - Máx: {{max}}",
+      "totalWeight": "Peso Total de la Muestra (kg)",
+      "targetWeight": "Peso Objetivo por {{animal}} (kg)",
+      "belowTarget": "{{animal}} Debajo del Peso Objetivo",
+      "aboveTarget": "{{animal}} Encima del Peso Objetivo"
+    },
+    "feedData": {
+      "title": "Datos de Alimentación",
+      "dailyConsumption": "Consumo Diario Total de Alimento (kg)",
+      "consumptionNote": "Alimento total consumido por {{count}} {{animal}} por día. Por {{animal}}: {{amount}} kg",
+      "daysUntilMarket": "Días Estimados hasta Peso de Mercado",
+      "marketWeightNote": "Basado en la tasa de crecimiento actual y el peso objetivo de mercado",
+      "dailyCost": "Costo Diario de Alimentación (₦)"
+    },
+    "currentAge": "Edad Actual",
+    "currentWeight": "Peso Actual",
+    "currentStage": "Etapa Actual",
+    "avgDailyGain": "Ganancia Diaria Promedio",
+    "avgFCR": "FCR Promedio",
+    "feedConsumed": "Alimento Consumido",
+    "daysInPhase": "Días en Fase",
+    "growthPhases": {
+      "nursery": "Fase de Destete",
+      "grower": "Fase de Crecimiento",
+      "finisher": "Fase de Finalización"
+    },
+    "stages": {
+      "nursery": "Destete",
+      "grower": "Crecimiento",
+      "finisher": "Finalización",
+      "breeding": "Reproducción"
+    },
+    "weightStatus": {
+      "normal": "En Objetivo",
+      "below": "Bajo Objetivo",
+      "above": "Sobre Objetivo",
+      "unknown": "Estado Desconocido"
+    }
+  },
+  "stock": {
+    "overview": "Resumen de Inventario",
+    "currentStock": "{{animal}} Actuales en Inventario",
+    "lastUpdated": "Última Actualización",
+    "addNew": "Agregar Nuevo Stock",
+    "enterQuantity": "Ingrese cantidad",
+    "birthDate": "Fecha de Nacimiento",
+    "currentWeight": "Peso Actual",
+    "enterWeight": "Ingrese peso actual",
+    "purpose": "Propósito",
+    "purposes": {
+      "meat": "Producción de Carne",
+      "breeding": "Reproducción",
+      "both": "Ambos"
+    },
+    "expenses": "Gastos de Stock",
+    "pigsCost": "Costo de Cerdos",
+    "enterPigsCost": "Ingrese costo de cerdos",
+    "medicineCost": "Costo de Medicinas",
+    "enterMedicineCost": "Ingrese costo de medicinas",
+    "feedsCost": "Costo de Alimentos",
+    "enterFeedsCost": "Ingrese costo de alimentos",
+    "additionalCosts": "Costos Adicionales",
+    "enterAdditionalCosts": "Ingrese costos adicionales",
+    "addToStock": "Agregar {{animal}} al Stock",
+    "addedPigs": "Se agregaron {{count}} cerdos {{breed}}",
+    "table": {
+      "date": "Fecha",
+      "time": "Hora",
+      "type": "Tipo",
+      "quantity": "Cantidad",
+      "breed": "Raza",
+      "costs": "Costos",
+      "medicine": "Medicamentos",
+      "feed": "Alimento",
+      "additional": "Adicional",
+      "total": "Total"
+    }
+  },
+  "auth": {
+    "signIn": {
+      "title": "Iniciar sesión en su cuenta",
+      "button": "Iniciar sesión",
+      "noAccount": "¿No tiene una cuenta? Regístrese"
+    },
+    "fields": {
+      "email": "Correo electrónico",
+      "password": "Contraseña"
+    },
+    "errors": {
+      "signInFailed": "Error al iniciar sesión"
+    },
+    "welcome": "Bienvenido de nuevo, {{email}}"
+  },
+  "nav": {
+    "dashboard": "Panel de Control",
+    "stockManagement": "Gestión de Inventario",
+    "sales": "Ventas",
+    "analytics": "Análisis",
+    "settings": "Configuración",
+    "logout": "Cerrar Sesión"
+  }
+} 

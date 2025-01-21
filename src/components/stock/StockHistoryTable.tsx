@@ -19,18 +19,18 @@ export function StockHistoryTable({ history, category }: Props) {
       <table className="min-w-full divide-y divide-gray-200">
         <thead>
           <tr>
-            <th className="px-4 py-2 text-left text-sm font-medium text-gray-500">Date</th>
-            <th className="px-4 py-2 text-left text-sm font-medium text-gray-500">Time</th>
-            <th className="px-4 py-2 text-left text-sm font-medium text-gray-500">Type</th>
-            <th className="px-4 py-2 text-right text-sm font-medium text-gray-500">Quantity</th>
+            <th className="px-4 py-2 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Date</th>
+            <th className="px-4 py-2 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Time</th>
+            <th className="px-4 py-2 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Type</th>
+            <th className="px-4 py-2 text-right text-sm font-medium text-gray-500 dark:text-gray-400">Quantity</th>
             {category === 'pigs' && (
-              <th className="px-4 py-2 text-left text-sm font-medium text-gray-500">Breed</th>
+              <th className="px-4 py-2 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Breed</th>
             )}
-            <th className="px-4 py-2 text-right text-sm font-medium text-gray-500">{animalType} Cost</th>
-            <th className="px-4 py-2 text-right text-sm font-medium text-gray-500">Medicine</th>
-            <th className="px-4 py-2 text-right text-sm font-medium text-gray-500">Feeds</th>
-            <th className="px-4 py-2 text-right text-sm font-medium text-gray-500">Additional</th>
-            <th className="px-4 py-2 text-right text-sm font-medium text-gray-500">Total Cost</th>
+            <th className="px-4 py-2 text-right text-sm font-medium text-gray-500 dark:text-gray-400">{animalType} Cost</th>
+            <th className="px-4 py-2 text-right text-sm font-medium text-gray-500 dark:text-gray-400">Medicine</th>
+            <th className="px-4 py-2 text-right text-sm font-medium text-gray-500 dark:text-gray-400">Feeds</th>
+            <th className="px-4 py-2 text-right text-sm font-medium text-gray-500 dark:text-gray-400">Additional</th>
+            <th className="px-4 py-2 text-right text-sm font-medium text-gray-500 dark:text-gray-400">Total Cost</th>
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-200">
