@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Skull } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { Stock, StockEntry } from '../../../types';
 import { formatDateTime } from '../../../utils/date';
 
@@ -9,6 +10,7 @@ interface Props {
 }
 
 export function RecordPigDeaths({ stock, onUpdate }: Props) {
+  const { t } = useTranslation();
   const [deathCount, setDeathCount] = useState<number>(0);
 
   const handleRecordDeaths = () => {
@@ -46,7 +48,7 @@ export function RecordPigDeaths({ stock, onUpdate }: Props) {
   return (
     <div className="pt-4 border-t">
       <label className="block text-sm font-medium text-gray-700">
-        Record Deaths
+        {t('pig.stockManagement.form.recordDeaths')}
       </label>
       <div className="mt-1 flex gap-2">
         <input
@@ -63,7 +65,7 @@ export function RecordPigDeaths({ stock, onUpdate }: Props) {
           disabled={deathCount <= 0 || deathCount > stock.currentBirds}
           className="flex items-center gap-1 px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          <Skull className="w-4 h-4" /> Record
+          <Skull className="w-4 h-4" /> {t('pig.stockManagement.form.record')}
         </button>
       </div>
     </div>

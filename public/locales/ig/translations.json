@@ -92,7 +92,8 @@
     "notAvailable": "Adịghị",
     "update": "Melite",
     "updating": "Na-emelite...",
-    "close": "Mechie"
+    "close": "Mechie",
+    "never": "Ọ dịbeghị"
   },
   "navigation": {
     "dashboard": "Ogwe Njikwa",
@@ -377,6 +378,56 @@
       "avgFCR": "FCR Nke Ọma",
       "feedConsumed": "Nri E Riri",
       "daysInPhase": "Ụbọchị n'Oge"
+    }
+  },
+  "pig": {
+    "stockManagement": {
+      "title": "Njikwa Ọnụ Ọgụgụ Ezi",
+      "currentStock": "Ọnụ Ọgụgụ Ezi Ugbu a",
+      "lastUpdated": "Mmelite ikpeazụ",
+      "addNewStock": "Tinye Ọnụ Ọgụgụ Ọhụrụ",
+      "selectBreed": "Họrọ Agbụrụ",
+      "breeds": {
+        "largeWhite": {
+          "name": "Large White",
+          "growthRate": "Ọsọ Uto: 0.85 kg/ụbọchị",
+          "purpose": "Ebumnuche: Abụọ",
+          "lifespan": "Ndụ Etiti: Ọnwa 60",
+          "litterSize": "Ọnụ Ọgụgụ Ụmụ: Ụmụ ezi 12",
+          "description": "Ọsọ uto na ọdị mma anụ dị oke mma"
+        },
+        "duroc": {
+          "name": "Duroc",
+          "growthRate": "Ọsọ Uto: 0.9 kg/ụbọchị",
+          "purpose": "Ebumnuche: Anụ",
+          "lifespan": "Ndụ Etiti: Ọnwa 48",
+          "litterSize": "Ọnụ Ọgụgụ Ụmụ: Ụmụ ezi 10",
+          "description": "Mara maka ọdị mma anụ"
+        },
+        "landrace": {
+          "name": "Landrace",
+          "growthRate": "Ọsọ Uto: 0.8 kg/ụbọchị",
+          "purpose": "Ebumnuche: Abụọ",
+          "lifespan": "Ndụ Etiti: Ọnwa 54",
+          "litterSize": "Ọnụ Ọgụgụ Ụmụ: Ụmụ ezi 14",
+          "description": "Nwere ọdị mma nne dị mma"
+        }
+      },
+      "form": {
+        "birthDate": "Ụbọchị Ọmụmụ",
+        "birthDatePlaceholder": "ụbọchị/ọnwa/afọ",
+        "currentWeight": "Arọ Ugbu a (kg)",
+        "currentWeightPlaceholder": "Tinye arọ ugbu a",
+        "purpose": "Ebumnuche",
+        "purposes": {
+          "meat": "Mmepụta Anụ",
+          "breeding": "Ọmụmụ",
+          "both": "Abụọ"
+        },
+        "addToStock": "Tinye Ezi na Ọnụ Ọgụgụ",
+        "recordDeaths": "Dee Ọnwụ",
+        "record": "Dee"
+      }
     }
   }
 } 

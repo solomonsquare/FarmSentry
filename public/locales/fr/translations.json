@@ -92,7 +92,8 @@
     "notAvailable": "N/D",
     "update": "Mettre à jour",
     "updating": "Mise à jour...",
-    "close": "Fermer"
+    "close": "Fermer",
+    "never": "Jamais"
   },
   "navigation": {
     "dashboard": "Tableau de Bord",
@@ -379,6 +380,56 @@
       "avgFCR": "FCR Moyen",
       "feedConsumed": "Aliment Consommé",
       "daysInPhase": "Jours dans la Phase"
+    }
+  },
+  "pig": {
+    "stockManagement": {
+      "title": "Gestion du Stock Porcin",
+      "currentStock": "Porcs Actuels en Stock",
+      "lastUpdated": "Dernière mise à jour",
+      "addNewStock": "Ajouter Nouveau Stock",
+      "selectBreed": "Sélectionner Race",
+      "breeds": {
+        "largeWhite": {
+          "name": "Large White",
+          "growthRate": "Taux de Croissance: 0.85 kg/jour",
+          "purpose": "Objectif: Les deux",
+          "lifespan": "Durée de Vie Moyenne: 60 mois",
+          "litterSize": "Taille Typique de Portée: 12 porcelets",
+          "description": "Excellent taux de croissance et qualité de viande"
+        },
+        "duroc": {
+          "name": "Duroc",
+          "growthRate": "Taux de Croissance: 0.9 kg/jour",
+          "purpose": "Objectif: Viande",
+          "lifespan": "Durée de Vie Moyenne: 48 mois",
+          "litterSize": "Taille Typique de Portée: 10 porcelets",
+          "description": "Connu pour le persillage et la qualité de la viande"
+        },
+        "landrace": {
+          "name": "Landrace",
+          "growthRate": "Taux de Croissance: 0.8 kg/jour",
+          "purpose": "Objectif: Les deux",
+          "lifespan": "Durée de Vie Moyenne: 54 mois",
+          "litterSize": "Taille Typique de Portée: 14 porcelets",
+          "description": "Bonnes caractéristiques maternelles"
+        }
+      },
+      "form": {
+        "birthDate": "Date de Naissance",
+        "birthDatePlaceholder": "jj/mm/aaaa",
+        "currentWeight": "Poids Actuel (kg)",
+        "currentWeightPlaceholder": "Entrer le poids actuel",
+        "purpose": "Objectif",
+        "purposes": {
+          "meat": "Production de Viande",
+          "breeding": "Reproduction",
+          "both": "Les deux"
+        },
+        "addToStock": "Ajouter des Porcs au Stock",
+        "recordDeaths": "Enregistrer les Décès",
+        "record": "Enregistrer"
+      }
     }
   }
 } 

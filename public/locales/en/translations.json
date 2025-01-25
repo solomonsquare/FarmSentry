@@ -92,7 +92,8 @@
     "notAvailable": "N/A",
     "update": "Update",
     "updating": "Updating...",
-    "close": "Close"
+    "close": "Close",
+    "never": "Never"
   },
   "navigation": {
     "dashboard": "Dashboard",
@@ -374,6 +375,56 @@
       "avgFCR": "Avg. FCR",
       "feedConsumed": "Feed Consumed",
       "daysInPhase": "Days in Phase"
+    }
+  },
+  "pig": {
+    "stockManagement": {
+      "title": "Pig Stock Management",
+      "currentStock": "Current Pigs in Stock",
+      "lastUpdated": "Last updated",
+      "addNewStock": "Add New Stock",
+      "selectBreed": "Select Breed",
+      "breeds": {
+        "largeWhite": {
+          "name": "Large White",
+          "growthRate": "Growth Rate: 0.85 kg/day",
+          "purpose": "Purpose: Both",
+          "lifespan": "Average Lifespan: 60 months",
+          "litterSize": "Typical Litter Size: 12 piglets",
+          "description": "Excellent growth rate and meat quality"
+        },
+        "duroc": {
+          "name": "Duroc",
+          "growthRate": "Growth Rate: 0.9 kg/day",
+          "purpose": "Purpose: Meat",
+          "lifespan": "Average Lifespan: 48 months",
+          "litterSize": "Typical Litter Size: 10 piglets",
+          "description": "Known for marbling and meat quality"
+        },
+        "landrace": {
+          "name": "Landrace",
+          "growthRate": "Growth Rate: 0.8 kg/day",
+          "purpose": "Purpose: Both",
+          "lifespan": "Average Lifespan: 54 months",
+          "litterSize": "Typical Litter Size: 14 piglets",
+          "description": "Good maternal characteristics"
+        }
+      },
+      "form": {
+        "birthDate": "Birth Date",
+        "birthDatePlaceholder": "dd/mm/yyyy",
+        "currentWeight": "Current Weight (kg)",
+        "currentWeightPlaceholder": "Enter current weight",
+        "purpose": "Purpose",
+        "purposes": {
+          "meat": "Meat Production",
+          "breeding": "Breeding",
+          "both": "Both"
+        },
+        "addToStock": "Add Pigs to Stock",
+        "recordDeaths": "Record Deaths",
+        "record": "Record"
+      }
     }
   }
 } 

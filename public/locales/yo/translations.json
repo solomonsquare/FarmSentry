@@ -92,7 +92,8 @@
     "notAvailable": "Kò sí",
     "update": "Ṣe Àtúnṣe",
     "updating": "Ń ṣe àtúnṣe...",
-    "close": "Tì"
+    "close": "Tì",
+    "never": "Ko si ri"
   },
   "farm": {
     "birds": "Ẹyẹ",
@@ -351,6 +352,56 @@
       "avgFCR": "Àgbàwọ́n FCR",
       "feedConsumed": "Oúnjẹ tí a Lò",
       "daysInPhase": "Ọjọ́ ní Ipele"
+    }
+  },
+  "pig": {
+    "stockManagement": {
+      "title": "Iṣakoso Ẹlẹdẹ",
+      "currentStock": "Iye Ẹlẹdẹ Lọwọlọwọ",
+      "lastUpdated": "Igba ti a ṣe imudojuiwọn",
+      "addNewStock": "Fi Ẹlẹdẹ Tuntun Kun",
+      "selectBreed": "Yan Ẹya",
+      "breeds": {
+        "largeWhite": {
+          "name": "Large White",
+          "growthRate": "Iwọn Idagbasoke: 0.85 kg/ọjọ",
+          "purpose": "Idi: Mejeeji",
+          "lifespan": "Iye Ọdun: Oṣu 60",
+          "litterSize": "Iye Ọmọ: Ọmọ ẹlẹdẹ 12",
+          "description": "O dara pupọ fun idagbasoke ati didun ẹran"
+        },
+        "duroc": {
+          "name": "Duroc",
+          "growthRate": "Iwọn Idagbasoke: 0.9 kg/ọjọ",
+          "purpose": "Idi: Ẹran",
+          "lifespan": "Iye Ọdun: Oṣu 48",
+          "litterSize": "Iye Ọmọ: Ọmọ ẹlẹdẹ 10",
+          "description": "O dara fun ẹran didun"
+        },
+        "landrace": {
+          "name": "Landrace",
+          "growthRate": "Iwọn Idagbasoke: 0.8 kg/ọjọ",
+          "purpose": "Idi: Mejeeji",
+          "lifespan": "Iye Ọdun: Oṣu 54",
+          "litterSize": "Iye Ọmọ: Ọmọ ẹlẹdẹ 14",
+          "description": "O dara fun ibimọ"
+        }
+      },
+      "form": {
+        "birthDate": "Ọjọ Ibi",
+        "birthDatePlaceholder": "ọj/oṣ/ọd",
+        "currentWeight": "Iwọn Lọwọlọwọ (kg)",
+        "currentWeightPlaceholder": "Tẹ iwọn lọwọlọwọ",
+        "purpose": "Idi",
+        "purposes": {
+          "meat": "Fun Ẹran",
+          "breeding": "Fun Ibimọ",
+          "both": "Mejeeji"
+        },
+        "addToStock": "Fi Ẹlẹdẹ Kun",
+        "recordDeaths": "Forukọ Iku Silẹ",
+        "record": "Forukọ Silẹ"
+      }
     }
   }
 } 

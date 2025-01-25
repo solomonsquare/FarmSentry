@@ -92,7 +92,8 @@
     "notAvailable": "Babu",
     "update": "Sabunta",
     "updating": "Ana sabuntawa...",
-    "close": "Rufe"
+    "close": "Rufe",
+    "never": "Ba a taɓa ba"
   },
   "navigation": {
     "dashboard": "Dashbodi",
@@ -368,6 +369,56 @@
       "avgFCR": "Matsakaicin FCR",
       "feedConsumed": "Abincin da aka Ci",
       "daysInPhase": "Kwanaki a Mataki"
+    }
+  },
+  "pig": {
+    "stockManagement": {
+      "title": "Gudanar da Aladan Gursuna",
+      "currentStock": "Yawan Gursuna a Yanzu",
+      "lastUpdated": "Lokacin da aka sabunta",
+      "addNewStock": "Ƙara Sabon Ajiya",
+      "selectBreed": "Zaɓi Iri",
+      "breeds": {
+        "largeWhite": {
+          "name": "Large White",
+          "growthRate": "Yawan Girma: 0.85 kg/rana",
+          "purpose": "Manufa: Duka",
+          "lifespan": "Tsawon Rayuwa: Wata 60",
+          "litterSize": "Yawan 'Ya'ya: 'Ya'ya 12",
+          "description": "Yana da kyakkyawan girma da ingancin nama"
+        },
+        "duroc": {
+          "name": "Duroc",
+          "growthRate": "Yawan Girma: 0.9 kg/rana",
+          "purpose": "Manufa: Nama",
+          "lifespan": "Tsawon Rayuwa: Wata 48",
+          "litterSize": "Yawan 'Ya'ya: 'Ya'ya 10",
+          "description": "Sananne ne don ingancin nama"
+        },
+        "landrace": {
+          "name": "Landrace",
+          "growthRate": "Yawan Girma: 0.8 kg/rana",
+          "purpose": "Manufa: Duka",
+          "lifespan": "Tsawon Rayuwa: Wata 54",
+          "litterSize": "Yawan 'Ya'ya: 'Ya'ya 14",
+          "description": "Yana da kyakkyawan halayen uwa"
+        }
+      },
+      "form": {
+        "birthDate": "Ranar Haihuwa",
+        "birthDatePlaceholder": "rn/wt/sh",
+        "currentWeight": "Nauyi a Yanzu (kg)",
+        "currentWeightPlaceholder": "Shigar da nauyi na yanzu",
+        "purpose": "Manufa",
+        "purposes": {
+          "meat": "Don Nama",
+          "breeding": "Don Haihuwa",
+          "both": "Duka"
+        },
+        "addToStock": "Ƙara Gursuna",
+        "recordDeaths": "Rubuta Mutuwa",
+        "record": "Rubuta"
+      }
     }
   }
 } 

@@ -92,7 +92,8 @@
     "notAvailable": "N/D",
     "update": "Actualizar",
     "updating": "Actualizando...",
-    "close": "Cerrar"
+    "close": "Cerrar",
+    "never": "Nunca"
   },
   "navigation": {
     "dashboard": "Panel de Control",
@@ -361,5 +362,55 @@
       "daysInPhase": "Días en Fase"
     },
     "growthPerformanceTitle": "Rendimiento de Crecimiento"
+  },
+  "pig": {
+    "stockManagement": {
+      "title": "Gestión de Stock Porcino",
+      "currentStock": "Cerdos Actuales en Stock",
+      "lastUpdated": "Última actualización",
+      "addNewStock": "Agregar Nuevo Stock",
+      "selectBreed": "Seleccionar Raza",
+      "breeds": {
+        "largeWhite": {
+          "name": "Large White",
+          "growthRate": "Tasa de Crecimiento: 0.85 kg/día",
+          "purpose": "Propósito: Ambos",
+          "lifespan": "Vida Promedio: 60 meses",
+          "litterSize": "Tamaño Típico de Camada: 12 lechones",
+          "description": "Excelente tasa de crecimiento y calidad de carne"
+        },
+        "duroc": {
+          "name": "Duroc",
+          "growthRate": "Tasa de Crecimiento: 0.9 kg/día",
+          "purpose": "Propósito: Carne",
+          "lifespan": "Vida Promedio: 48 meses",
+          "litterSize": "Tamaño Típico de Camada: 10 lechones",
+          "description": "Conocido por el marmoleado y calidad de carne"
+        },
+        "landrace": {
+          "name": "Landrace",
+          "growthRate": "Tasa de Crecimiento: 0.8 kg/día",
+          "purpose": "Propósito: Ambos",
+          "lifespan": "Vida Promedio: 54 meses",
+          "litterSize": "Tamaño Típico de Camada: 14 lechones",
+          "description": "Buenas características maternales"
+        }
+      },
+      "form": {
+        "birthDate": "Fecha de Nacimiento",
+        "birthDatePlaceholder": "dd/mm/aaaa",
+        "currentWeight": "Peso Actual (kg)",
+        "currentWeightPlaceholder": "Ingrese peso actual",
+        "purpose": "Propósito",
+        "purposes": {
+          "meat": "Producción de Carne",
+          "breeding": "Reproducción",
+          "both": "Ambos"
+        },
+        "addToStock": "Agregar Cerdos al Stock",
+        "recordDeaths": "Registrar Muertes",
+        "record": "Registrar"
+      }
+    }
   }
 } 

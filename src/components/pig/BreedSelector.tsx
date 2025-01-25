@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { PigBreed } from '../../types/pig';
 
 interface Props {
@@ -8,10 +9,24 @@ interface Props {
 }
 
 export function BreedSelector({ breeds, selectedBreed, onSelect }: Props) {
+  const { t } = useTranslation();
+
+  const getBreedTranslation = (breed: PigBreed, key: string) => {
+    const breedKey = breed.name
+      .split(' ')
+      .map((word, index) => 
+        index === 0 
+          ? word.toLowerCase() 
+          : word.charAt(0).toUpperCase() + word.slice(1)
+      )
+      .join('');
+    return t(`pig.stockManagement.breeds.${breedKey}.${key}`);
+  };
+
   return (
     <div className="space-y-2">
       <label className="block text-sm font-medium text-gray-700">
-        Select Breed
+        {t('pig.stockManagement.selectBreed')}
       </label>
       <div className="grid grid-cols-1 gap-4">
         {breeds.map((breed) => (
@@ -26,11 +41,11 @@ export function BreedSelector({ breeds, selectedBreed, onSelect }: Props) {
           >
             <h3 className="font-medium text-gray-900">{breed.name}</h3>
             <div className="mt-1 text-sm text-gray-500 space-y-1">
-              <p>Growth Rate: {breed.growthRate} kg/day</p>
-              <p>Purpose: {breed.purpose.charAt(0).toUpperCase() + breed.purpose.slice(1)}</p>
-              <p>Average Lifespan: {breed.averageLifespan} months</p>
-              <p>Typical Litter Size: {breed.typicalLitterSize} piglets</p>
-              {breed.description && <p>{breed.description}</p>}
+              <p>{getBreedTranslation(breed, 'growthRate')}</p>
+              <p>{getBreedTranslation(breed, 'purpose')}</p>
+              <p>{getBreedTranslation(breed, 'lifespan')}</p>
+              <p>{getBreedTranslation(breed, 'litterSize')}</p>
+              {breed.description && <p>{getBreedTranslation(breed, 'description')}</p>}
             </div>
           </button>
         ))}

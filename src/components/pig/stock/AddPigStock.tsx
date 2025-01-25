@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Plus } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { Stock, Expense, StockEntry } from '../../../types';
 import { PigBreed, DEFAULT_PIG_BREEDS, DEFAULT_GROWTH_STAGES } from '../../../types/pig';
 import { BreedSelector } from '../BreedSelector';
@@ -12,6 +13,7 @@ interface Props {
 }
 
 export function AddPigStock({ stock, onUpdate }: Props) {
+  const { t } = useTranslation();
   const [addQuantity, setAddQuantity] = useState<number>(0);
   const [selectedBreed, setSelectedBreed] = useState<PigBreed>(DEFAULT_PIG_BREEDS[0]);
   const [birthDate, setBirthDate] = useState<string>('');
@@ -76,7 +78,7 @@ export function AddPigStock({ stock, onUpdate }: Props) {
     <div className="space-y-4">
       <div>
         <label className="block text-sm font-medium text-gray-700">
-          Add New Stock
+          {t('pig.stockManagement.addNewStock')}
         </label>
         <input
           type="number"
@@ -96,7 +98,7 @@ export function AddPigStock({ stock, onUpdate }: Props) {
 
       <div>
         <label className="block text-sm font-medium text-gray-700">
-          Birth Date
+          {t('pig.stockManagement.form.birthDate')}
         </label>
         <input
           type="date"
@@ -104,12 +106,13 @@ export function AddPigStock({ stock, onUpdate }: Props) {
           onChange={(e) => setBirthDate(e.target.value)}
           className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
           max={new Date().toISOString().split('T')[0]}
+          placeholder={t('pig.stockManagement.form.birthDatePlaceholder')}
         />
       </div>
 
       <div>
         <label className="block text-sm font-medium text-gray-700">
-          Current Weight (kg)
+          {t('pig.stockManagement.form.currentWeight')}
         </label>
         <input
           type="number"
@@ -118,22 +121,22 @@ export function AddPigStock({ stock, onUpdate }: Props) {
           className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
           min="0"
           step="0.1"
-          placeholder="Enter current weight"
+          placeholder={t('pig.stockManagement.form.currentWeightPlaceholder')}
         />
       </div>
 
       <div>
         <label className="block text-sm font-medium text-gray-700">
-          Purpose
+          {t('pig.stockManagement.form.purpose')}
         </label>
         <select
           value={purpose}
           onChange={(e) => setPurpose(e.target.value as 'breeding' | 'meat' | 'both')}
           className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
         >
-          <option value="meat">Meat Production</option>
-          <option value="breeding">Breeding</option>
-          <option value="both">Both</option>
+          <option value="meat">{t('pig.stockManagement.form.purposes.meat')}</option>
+          <option value="breeding">{t('pig.stockManagement.form.purposes.breeding')}</option>
+          <option value="both">{t('pig.stockManagement.form.purposes.both')}</option>
         </select>
       </div>
 
@@ -212,7 +215,7 @@ export function AddPigStock({ stock, onUpdate }: Props) {
         disabled={addQuantity <= 0}
         className="w-full flex items-center justify-center gap-1 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        <Plus className="w-4 h-4" /> Add Pigs to Stock
+        <Plus className="w-4 h-4" /> {t('pig.stockManagement.form.addToStock')}
       </button>
     </div>
   );
