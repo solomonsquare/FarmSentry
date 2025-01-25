@@ -150,9 +150,11 @@ export function AddPigStock({ stock, onUpdate }: Props) {
 
       {addQuantity > 0 && (
         <div className="space-y-4">
-          <h3 className="font-medium text-gray-700">Stock Expenses</h3>
+          <h3 className="font-medium text-gray-700">{t('pig.stockManagement.expenses.title')}</h3>
           <div>
-            <label className="block text-sm font-medium text-gray-700">Pigs Cost</label>
+            <label className="block text-sm font-medium text-gray-700">
+              {t('pig.stockManagement.expenses.pigsCost')}
+            </label>
             <input
               type="number"
               value={expenses.birds || ''}
@@ -162,11 +164,13 @@ export function AddPigStock({ stock, onUpdate }: Props) {
               }))}
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
               min="0"
-              placeholder="Enter pigs cost"
+              placeholder={t('pig.stockManagement.expenses.pigsCostPlaceholder')}
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">Medicine Cost</label>
+            <label className="block text-sm font-medium text-gray-700">
+              {t('pig.stockManagement.expenses.medicineCost')}
+            </label>
             <input
               type="number"
               value={expenses.medicine || ''}
@@ -176,11 +180,13 @@ export function AddPigStock({ stock, onUpdate }: Props) {
               }))}
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
               min="0"
-              placeholder="Enter medicine cost"
+              placeholder={t('pig.stockManagement.expenses.medicineCostPlaceholder')}
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">Feeds Cost</label>
+            <label className="block text-sm font-medium text-gray-700">
+              {t('pig.stockManagement.expenses.feedsCost')}
+            </label>
             <input
               type="number"
               value={expenses.feeds || ''}
@@ -190,11 +196,13 @@ export function AddPigStock({ stock, onUpdate }: Props) {
               }))}
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
               min="0"
-              placeholder="Enter feeds cost"
+              placeholder={t('pig.stockManagement.expenses.feedsCostPlaceholder')}
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">Additional Costs</label>
+            <label className="block text-sm font-medium text-gray-700">
+              {t('pig.stockManagement.expenses.additionalCosts')}
+            </label>
             <input
               type="number"
               value={expenses.additionals || ''}
@@ -204,7 +212,7 @@ export function AddPigStock({ stock, onUpdate }: Props) {
               }))}
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
               min="0"
-              placeholder="Enter additional costs"
+              placeholder={t('pig.stockManagement.expenses.additionalCostsPlaceholder')}
             />
           </div>
         </div>

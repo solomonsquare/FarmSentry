@@ -418,6 +418,37 @@
         "addToStock": "Ƙara Gursuna",
         "recordDeaths": "Rubuta Mutuwa",
         "record": "Rubuta"
+      },
+      "growthStage": {
+        "currentAge": "Shekaru a Yanzu",
+        "currentWeight": "Nauyi a Yanzu",
+        "currentStage": "Mataki a Yanzu",
+        "days": "kwanaki",
+        "kg": "kg",
+        "unknown": "Ba a sani ba",
+        "stages": {
+          "piglet": "Ɗan Gursuna",
+          "weaner": "Yaro",
+          "grower": "Mai Girma",
+          "finisher": "Mai Kammala",
+          "breeding": "Shekarun Haihuwa"
+        },
+        "status": {
+          "onTrack": "Yana kan Hanya",
+          "belowTarget": "Kasa da Burin",
+          "aboveTarget": "Sama da Burin"
+        }
+      },
+      "expenses": {
+        "title": "Kuɗin Ajiya",
+        "pigsCost": "Kuɗin Gursuna",
+        "pigsCostPlaceholder": "Shigar da kuɗin gursuna",
+        "medicineCost": "Kuɗin Magani",
+        "medicineCostPlaceholder": "Shigar da kuɗin magani",
+        "feedsCost": "Kuɗin Abinci",
+        "feedsCostPlaceholder": "Shigar da kuɗin abinci",
+        "additionalCosts": "Ƙarin Kuɗi",
+        "additionalCostsPlaceholder": "Shigar da ƙarin kuɗi"
       }
     }
   }

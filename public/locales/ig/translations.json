@@ -427,6 +427,37 @@
         "addToStock": "Tinye Ezi na Ọnụ Ọgụgụ",
         "recordDeaths": "Dee Ọnwụ",
         "record": "Dee"
+      },
+      "growthStage": {
+        "currentAge": "Afọ Ugbu a",
+        "currentWeight": "Arọ Ugbu a",
+        "currentStage": "Ọnọdụ Ugbu a",
+        "days": "ụbọchị",
+        "kg": "kg",
+        "unknown": "Amaghị",
+        "stages": {
+          "piglet": "Nwa Ezi",
+          "weaner": "Ọmụmụ",
+          "grower": "Uto",
+          "finisher": "Mmechi",
+          "breeding": "Afọ Ọmụmụ"
+        },
+        "status": {
+          "onTrack": "Na-aga nke ọma",
+          "belowTarget": "Na-adịghị eto",
+          "aboveTarget": "Na-eto karịa"
+        }
+      },
+      "expenses": {
+        "title": "Ego Ọnụ Ọgụgụ",
+        "pigsCost": "Ọnụ ahịa Ezi",
+        "pigsCostPlaceholder": "Tinye ọnụ ahịa ezi",
+        "medicineCost": "Ọnụ ahịa Ọgwụ",
+        "medicineCostPlaceholder": "Tinye ọnụ ahịa ọgwụ",
+        "feedsCost": "Ọnụ ahịa Nri",
+        "feedsCostPlaceholder": "Tinye ọnụ ahịa nri",
+        "additionalCosts": "Ọnụ ahịa Ndị Ọzọ",
+        "additionalCostsPlaceholder": "Tinye ọnụ ahịa ndị ọzọ"
       }
     }
   }

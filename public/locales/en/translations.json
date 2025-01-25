@@ -424,6 +424,37 @@
         "addToStock": "Add Pigs to Stock",
         "recordDeaths": "Record Deaths",
         "record": "Record"
+      },
+      "growthStage": {
+        "currentAge": "Current Age",
+        "currentWeight": "Current Weight",
+        "currentStage": "Current Stage",
+        "days": "days",
+        "kg": "kg",
+        "unknown": "Unknown",
+        "stages": {
+          "piglet": "Piglet",
+          "weaner": "Weaner",
+          "grower": "Grower",
+          "finisher": "Finisher",
+          "breeding": "Breeding Age"
+        },
+        "status": {
+          "onTrack": "On Track",
+          "belowTarget": "Below Target",
+          "aboveTarget": "Above Target"
+        }
+      },
+      "expenses": {
+        "title": "Stock Expenses",
+        "pigsCost": "Pigs Cost",
+        "pigsCostPlaceholder": "Enter pigs cost",
+        "medicineCost": "Medicine Cost",
+        "medicineCostPlaceholder": "Enter medicine cost",
+        "feedsCost": "Feeds Cost",
+        "feedsCostPlaceholder": "Enter feeds cost",
+        "additionalCosts": "Additional Costs",
+        "additionalCostsPlaceholder": "Enter additional costs"
       }
     }
   }

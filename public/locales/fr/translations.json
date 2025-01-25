@@ -429,6 +429,37 @@
         "addToStock": "Ajouter des Porcs au Stock",
         "recordDeaths": "Enregistrer les Décès",
         "record": "Enregistrer"
+      },
+      "growthStage": {
+        "currentAge": "Âge Actuel",
+        "currentWeight": "Poids Actuel",
+        "currentStage": "Stade Actuel",
+        "days": "jours",
+        "kg": "kg",
+        "unknown": "Inconnu",
+        "stages": {
+          "piglet": "Porcelet",
+          "weaner": "Sevrage",
+          "grower": "Croissance",
+          "finisher": "Finition",
+          "breeding": "Âge de Reproduction"
+        },
+        "status": {
+          "onTrack": "En Bonne Voie",
+          "belowTarget": "En Dessous de l'Objectif",
+          "aboveTarget": "Au-dessus de l'Objectif"
+        }
+      },
+      "expenses": {
+        "title": "Dépenses de Stock",
+        "pigsCost": "Coût des Porcs",
+        "pigsCostPlaceholder": "Entrer le coût des porcs",
+        "medicineCost": "Coût des Médicaments",
+        "medicineCostPlaceholder": "Entrer le coût des médicaments",
+        "feedsCost": "Coût des Aliments",
+        "feedsCostPlaceholder": "Entrer le coût des aliments",
+        "additionalCosts": "Coûts Additionnels",
+        "additionalCostsPlaceholder": "Entrer les coûts additionnels"
       }
     }
   }

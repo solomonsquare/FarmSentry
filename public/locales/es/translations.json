@@ -410,6 +410,37 @@
         "addToStock": "Agregar Cerdos al Stock",
         "recordDeaths": "Registrar Muertes",
         "record": "Registrar"
+      },
+      "growthStage": {
+        "currentAge": "Edad Actual",
+        "currentWeight": "Peso Actual",
+        "currentStage": "Etapa Actual",
+        "days": "días",
+        "kg": "kg",
+        "unknown": "Desconocido",
+        "stages": {
+          "piglet": "Lechón",
+          "weaner": "Destete",
+          "grower": "Crecimiento",
+          "finisher": "Finalización",
+          "breeding": "Edad de Reproducción"
+        },
+        "status": {
+          "onTrack": "En Buen Camino",
+          "belowTarget": "Por Debajo del Objetivo",
+          "aboveTarget": "Por Encima del Objetivo"
+        }
+      },
+      "expenses": {
+        "title": "Gastos de Stock",
+        "pigsCost": "Costo de Cerdos",
+        "pigsCostPlaceholder": "Ingrese costo de cerdos",
+        "medicineCost": "Costo de Medicinas",
+        "medicineCostPlaceholder": "Ingrese costo de medicinas",
+        "feedsCost": "Costo de Alimentos",
+        "feedsCostPlaceholder": "Ingrese costo de alimentos",
+        "additionalCosts": "Costos Adicionales",
+        "additionalCostsPlaceholder": "Ingrese costos adicionales"
       }
     }
   }

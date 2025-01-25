@@ -401,6 +401,37 @@
         "addToStock": "Fi Ẹlẹdẹ Kun",
         "recordDeaths": "Forukọ Iku Silẹ",
         "record": "Forukọ Silẹ"
+      },
+      "growthStage": {
+        "currentAge": "Ọjọ Ori Lọwọlọwọ",
+        "currentWeight": "Iwọn Lọwọlọwọ",
+        "currentStage": "Ipele Lọwọlọwọ",
+        "days": "ọjọ",
+        "kg": "kg",
+        "unknown": "Ko mọ",
+        "stages": {
+          "piglet": "Ọmọ Ẹlẹdẹ",
+          "weaner": "Fifẹ́nu",
+          "grower": "Idagbasoke",
+          "finisher": "Ipari",
+          "breeding": "Ọjọ Ori Ibisi"
+        },
+        "status": {
+          "onTrack": "Ó ń lọ Dáadáa",
+          "belowTarget": "Kò tó Ipele tí a fẹ́",
+          "aboveTarget": "Ó kọjá Ipele tí a fẹ́"
+        }
+      },
+      "expenses": {
+        "title": "Iye Owó tí a Náà",
+        "pigsCost": "Owó Ẹlẹdẹ",
+        "pigsCostPlaceholder": "Tẹ owó ẹlẹdẹ sí i",
+        "medicineCost": "Owó Òògùn",
+        "medicineCostPlaceholder": "Tẹ owó òògùn sí i",
+        "feedsCost": "Owó Oúnjẹ",
+        "feedsCostPlaceholder": "Tẹ owó oúnjẹ sí i",
+        "additionalCosts": "Àwọn Owó Mìíràn",
+        "additionalCostsPlaceholder": "Tẹ àwọn owó mìíràn sí i"
       }
     }
   }
