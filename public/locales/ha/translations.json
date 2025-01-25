@@ -13,10 +13,38 @@
     "currentFarm": {
       "title": "Gonar Yanzu",
       "poultryFarm": "Gonar Kaji",
-      "pigFarm": "Gonar Alade"
+      "pigFarm": "Gonar Alade",
+      "noFarmSelected": "Ba a zaɓi irin gona ba",
+      "selectFarmType": "Zaɓi Irin Gona",
+      "changeFarmType": "Canza Irin Gona",
+      "changeFarmConfirm": "Canza irin gona zai kai ku zuwa shafin zaɓin gona. Ci gaba?"
     },
     "subscription": {
-      "title": "Tsarin Biyan Kuɗi"
+      "title": "Tsarin Biyan Kuɗi",
+      "plans": {
+        "basic": "Na Farko",
+        "professional": "Na Ƙwarewa",
+        "enterprise": "Na Kamfani"
+      },
+      "features": {
+        "upTo5000": "Har zuwa tsuntsaye 5,000",
+        "upTo20000": "Har zuwa tsuntsaye 20,000",
+        "unlimited": "Tsuntsaye ba iyaka",
+        "upTo50Pigs": "Har zuwa alade 50",
+        "upTo200Pigs": "Har zuwa alade 200",
+        "unlimitedPigs": "Alade ba iyaka",
+        "basicTracking": "Abubuwan lura na farko",
+        "advancedAnalytics": "Nazarin ci gaba",
+        "multiFarm": "Gudanar da gonaki da yawa",
+        "emailSupport": "Tallafi ta imel",
+        "prioritySupport": "Tallafi na musamman",
+        "dedicatedSupport": "Tallafi na keɓaɓɓe",
+        "customReports": "Rahoto na musamman",
+        "customIntegrations": "Haɗin kai na musamman"
+      },
+      "currentPlan": "Tsarin Yanzu",
+      "switchPlan": "Canza Tsari",
+      "custom": "Na Musamman"
     },
     "language": {
       "title": "Harshe",
@@ -48,13 +76,298 @@
     }
   },
   "common": {
-    "back": "Koma",
-    "loading": "Ana loda...",
-    "error": "Akwai kuskure",
+    "back": "Koma Baya",
+    "loading": "Ana lodi...",
+    "error": "Kuskure ya faru",
     "save": "Ajiye",
     "cancel": "Soke",
     "confirm": "Tabbatar",
     "delete": "Share",
-    "edit": "Gyara"
+    "edit": "Gyara",
+    "date": "Kwanan Wata",
+    "time": "Lokaci",
+    "quantity": "Yawa",
+    "kgPerDay": "kg/rana",
+    "percentageSymbol": "%",
+    "notAvailable": "Babu",
+    "update": "Sabunta",
+    "updating": "Ana sabuntawa...",
+    "close": "Rufe"
+  },
+  "navigation": {
+    "dashboard": "Dashbodi",
+    "stockManagement": "Gudanar da Ajiya",
+    "sales": "Sayarwa",
+    "analytics": "Nazari",
+    "settings": "Saituna",
+    "logout": "Fita"
+  },
+  "farm": {
+    "birds": "Tsuntsaye",
+    "pigs": "Alade",
+    "poultryDescription": "Gudanar da kaji na nama da masu sa kwai",
+    "pigDescription": "Gudanar da haihuwar alade da girma",
+    "features": {
+      "flockTracking": "Lura da garken tsuntsaye",
+      "feedMonitoring": "Lura da cin abinci",
+      "weightTracking": "Lura da nauyi",
+      "mortalityTracking": "Lura da mutuwa",
+      "breedingTracking": "Lura da haihuwa",
+      "growthMonitoring": "Lura da girma",
+      "feedConversion": "Nazarin canjin abinci"
+    }
+  },
+  "stock": {
+    "title": "Gudanar da Ajiyar {{farmType}}",
+    "poultryTitle": "Gudanar da Ajiyar Gidan Kaji",
+    "pigTitle": "Gudanar da Ajiyar Gidan Alade",
+    "table": {
+      "type": "Nau'i",
+      "breed": "Iri",
+      "costs": "Kuɗi",
+      "medicine": "Magani",
+      "feed": "Abinci",
+      "additional": "Ƙarin",
+      "total": "Jimla"
+    },
+    "entryTypes": {
+      "initial": "Farko",
+      "addition": "Ƙari",
+      "death": "Mutuwa",
+      "sale": "Sayarwa"
+    },
+    "actions": {
+      "addNewStock": "Ƙara Sabon Ajiya",
+      "enterQuantity": "Shigar da yawa",
+      "stockExpenses": "Kuɗin Ajiya",
+      "enterCost": "Shigar da kuɗi",
+      "enterMedicineCost": "Shigar da kuɗin magani",
+      "enterFeedCost": "Shigar da kuɗin abinci",
+      "enterAdditionalCosts": "Shigar da ƙarin kuɗi",
+      "addStockWithExpenses": "Ƙara Ajiya da Kuɗi",
+      "recordDeaths": "Rubuta Mutuwa",
+      "enterDeathCount": "Shigar da yawan mutuwa",
+      "record": "Rubuta",
+      "addedDescription": "An ƙara {{quantity}} tsuntsaye a cikin ajiya",
+      "deathDescription": "An rubuta mutuwar {{quantity}} tsuntsaye"
+    },
+    "poultryHistory": "Tarihin Ajiyar Kaji",
+    "pigHistory": "Tarihin Ajiyar Alade",
+    "searchByType": "Bincika ta nau'i...",
+    "exportCSV": "Fitar da CSV",
+    "overview": "Taƙaitaccen Bayani na Ajiya",
+    "noHistoryRecorded": "Ba a rubuta wani tarihin ajiya ba",
+    "errors": {
+      "fetchHistoryFailed": "An kasa samun tarihin ajiya"
+    },
+    "currentStock": "{{animal}} da ke Ajiya Yanzu",
+    "lastUpdated": "An Sabunta a Karshe"
+  },
+  "dashboard": {
+    "title": "Dashbodi",
+    "welcome": "Barka da dawo, {{email}}",
+    "stats": {
+      "currentStock": "Ajiyar Yanzu",
+      "totalSales": "Jimlar Sayarwa",
+      "revenue": "Kudin Shiga",
+      "expenses": "Kudin Fita",
+      "deaths": "Jimlar Mutuwa",
+      "sold": "{{animal}} da aka Sayar",
+      "profit": "Riba",
+      "expenseBreakdown": "Rarrabe Kudin Fita"
+    }
+  },
+  "sales": {
+    "title": "Gudanar da Sayar da {{farmType}}",
+    "poultryTitle": "Gudanar da Sayar da Gidan Kaji",
+    "pigTitle": "Gudanar da Sayar da Gidan Alade",
+    "newSale": {
+      "title": "Sabon Sayarwa",
+      "quantity": "Yawan {{animal}} don Sayarwa",
+      "pricePerUnit": "Farashi na kowane {{unit}} (₦)",
+      "costPerUnit": "Kudin kowane {{unit}}",
+      "subtotal": "Jimlar Kuɗi",
+      "profitPerUnit": "Riba na kowane {{unit}}",
+      "totalProfit": "Jimlar Riba",
+      "complete": "Kammala Sayarwa"
+    },
+    "history": {
+      "title": "Tarihin Sayarwa",
+      "noRecords": "Babu tarihin sayarwa da aka rubuta.",
+      "export": "Fitar da CSV",
+      "clear": "Share Tarihi",
+      "clearConfirm": "Kuna tabbatar kuna son share tarihin sayarwa? Ba za a iya juyawa ba.",
+      "table": {
+        "date": "Kwanan Wata",
+        "time": "Lokaci",
+        "quantity": "Yawa",
+        "pricePerUnit": "Farashi/{{unit}}",
+        "totalRevenue": "Jimlar Kuɗi",
+        "totalProfit": "Jimlar Riba",
+        "totals": "Jimla"
+      },
+      "search": "Bincika sayarwa...",
+      "sort": {
+        "byDate": "Tsara ta Kwanan Wata",
+        "byAmount": "Tsara ta Kuɗi",
+        "newest": "Sababbi Na Farko",
+        "oldest": "Tsofaffi Na Farko"
+      }
+    },
+    "summary": {
+      "revenue": "Jimlar Kuɗi",
+      "profit": "Jimlar Riba"
+    }
+  },
+  "analytics": {
+    "title": "Nazarin {{farmType}}",
+    "poultryTitle": "Nazarin Gidan Kaji",
+    "pigTitle": "Nazarin Gidan Alade",
+    "pigFarmAnalytics": "Nazarin Gidan Alade",
+    "poultryFarmAnalytics": "Nazarin Gidan Kaji",
+    "stats": {
+      "totalPigs": "Jimlar Alade",
+      "mortalityRate": "Yawan Mutuwa",
+      "avgDailyGain": "Matsakaicin Karin Yau da Kullum",
+      "avgFCR": "Matsakaicin FCR (Kwana 30)"
+    },
+    "weightTracking": {
+      "title": "Bibiyar Nauyi",
+      "sampleSize": "Yawan {{animal}} don Gwaji (Mafi: {{max}})",
+      "totalWeight": "Jimlar Nauyin Gwaji (kg)",
+      "targetWeight": "Nauyin da ake Bukata na kowane {{animal}} (kg)",
+      "belowTarget": "{{animal}} da ke Kasa da Nauyin da ake Bukata",
+      "aboveTarget": "{{animal}} da ke Sama da Nauyin da ake Bukata",
+      "addRecord": "Ƙara Nauyin Gwaji",
+      "weightRecords": "Tarihin Nauyi",
+      "records": "Tarihin Nauyi",
+      "totalExceedError": "Jimlar tsuntsaye da ke sama da kasa da nauyin da ake bukata ba zai wuce yawan gwaji ba",
+      "noRecords": "Babu tarihin nauyi da aka rubuta"
+    },
+    "feedData": {
+      "title": "Bayanin Abinci",
+      "totalConsumption": "Jimlar Abincin Rana (kg)",
+      "consumptionSummary": "Jimlar abinci da {{total}} {{animal}} suka ci a rana. Kowane {{animal}}: {{amount}} kg",
+      "estimatedDays": "Kwanaki zuwa Kasuwa",
+      "estimatedDaysNote": "An lissafa ne daga yanayin girma na yanzu da nauyin da ake bukata a kasuwa",
+      "dailyCost": "Kudin Abinci na Rana (₦)",
+      "records": "Tarihin Abinci",
+      "type": "Nau'in Abinci",
+      "cost": "Kuɗi",
+      "notes": "Bayani",
+      "table": {
+        "date": "Kwanan Wata",
+        "feedType": "Nau'in Abinci",
+        "quantity": "Yawa",
+        "cost": "Kuɗi",
+        "notes": "Bayani"
+      },
+      "feedConversion": "Canjin Abinci",
+      "feedConversionRatio": "Ma'aunin Canjin Abinci",
+      "gainPerDay": "Karin Yau da Kullum",
+      "feedConsumption": "Cin Abinci"
+    },
+    "weightAnalysis": {
+      "title": "Nazarin Nauyi"
+    },
+    "feedConversion": {
+      "title": "Canjin Abinci",
+      "history": "Tarihin FCR",
+      "fcrHistory": "Tarihin FCR",
+      "table": {
+        "dateRange": "Lokaci",
+        "phase": "Mataki",
+        "initialWeight": "Nauyin Farko",
+        "finalWeight": "Nauyin Ƙarshe",
+        "feedConsumed": "Abincin da aka Ci",
+        "fcr": "FCR",
+        "actions": "Ayyuka"
+      },
+      "form": {
+        "startDate": "Ranar Farawa",
+        "endDate": "Ranar Ƙarewa",
+        "initialWeight": "Nauyin Farko (kg)",
+        "finalWeight": "Nauyin Ƙarshe (kg)",
+        "feedConsumed": "Abincin da aka Ci (kg)",
+        "addRecord": "Ƙara Bayani",
+        "growthPhase": "Mataki na Girma"
+      },
+      "phases": {
+        "nursery": "Yaro",
+        "grower": "Mai Girma",
+        "finisher": "Mai Ƙarewa"
+      },
+      "feedCostPerKg": "Kudin Abinci/kg",
+      "profitMargin": "Riba"
+    },
+    "breedingManagementTitle": "Gudanar da Haihuwa",
+    "breeding": {
+      "cycles": "Lokutan Haihuwa",
+      "addCycle": "Ƙara Lokaci",
+      "selectedCycleDetails": "Cikakken Bayani",
+      "viewDetails": "Duba Cikakken Bayani",
+      "table": {
+        "sowId": "ID na Uwargida",
+        "startDate": "Ranar Farawa",
+        "expectedDueDate": "Ranar da ake Tsammani",
+        "status": "Matsayi",
+        "actions": "Ayyuka"
+      },
+      "status": {
+        "pending": "Yana Jira",
+        "active": "Yana Aiki",
+        "completed": "An Gama"
+      }
+    },
+    "geneticPerformanceTitle": "Ayyukan Zuriya",
+    "geneticPerformance": {
+      "title": "Ayyukan Zuriya",
+      "addRecord": "Ƙara Bayani",
+      "breedingLine": "Layin Haihuwa",
+      "selectBreed": "Zaɓi irin dabba",
+      "type": "Nau'i",
+      "changes": {
+        "improved_growth_rate": "Ingantaccen girma",
+        "better_feed_efficiency": "Ingantaccen amfani da abinci",
+        "increased_litter_size": "Ƙarin yawan 'ya'ya",
+        "better_disease_resistance": "Ingantaccen kariya daga cuta",
+        "improved_meat_quality": "Ingantaccen ingancin nama",
+        "higher_survival_rate": "Ƙarin yawan rayuwa",
+        "better_mothering_ability": "Ingantaccen ƙwarewa ta uwa",
+        "decreased_growth_rate": "Raguwar girma",
+        "bad_feed_efficiency": "Rashin amfani da abinci",
+        "decreased_litter_size": "Raguwar yawan 'ya'ya",
+        "poor_disease_resistance": "Rashin kariya daga cuta",
+        "poor_meat_quality": "Rashin ingancin nama",
+        "lower_survival_rate": "Raguwar yawan rayuwa",
+        "poor_mothering_ability": "Rashin ƙwarewa ta uwa"
+      },
+      "improvements": "Ingantawa",
+      "deteriorations": "Lalacewa",
+      "noRecords": "Babu bayanan tsarin haihuwa. Ƙara ɗaya don farawa."
+    },
+    "environmentalImpactTitle": "Tasirin Muhalli",
+    "environmentalImpact": {
+      "title": "Tasirin Muhalli",
+      "addMetric": "Ƙara Awo",
+      "resourceType": "Nau'in Kayan Amfani",
+      "Water": "Ruwa",
+      "Electricity": "Wutar Lantarki",
+      "Waste": "Shara",
+      "Emissions": "Hayaki",
+      "usageTrends": "Yanayin Amfani (Bayanan 10 na Ƙarshe)",
+      "usage": "amfani",
+      "noMetrics": "Babu awon muhalli. Ƙara ɗaya don farawa."
+    },
+    "growthPerformanceTitle": "Ayyukan Girma",
+    "growthPerformance": {
+      "nurseryPhase": "Matakin Yara",
+      "growerPhase": "Matakin Girma",
+      "finisherPhase": "Matakin Ƙarshe",
+      "avgDailyGain": "Matsakaicin Ƙarin Yau da Kullum",
+      "avgFCR": "Matsakaicin FCR",
+      "feedConsumed": "Abincin da aka Ci",
+      "daysInPhase": "Kwanaki a Mataki"
+    }
   }
 } 

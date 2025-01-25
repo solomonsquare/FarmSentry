@@ -14,6 +14,8 @@ export interface StockEntry {
   time: string;
   remainingStock: number;
   expenses?: Expense;
+  description: string;
+  breed?: { name: string };
 }
 
 export interface Sale {

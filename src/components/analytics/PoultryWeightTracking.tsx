@@ -11,6 +11,7 @@ import {
 import { WeightRecord } from '../../types/poultry';
 import { LineChart } from './LineChart';
 import { PaginationContainer } from '../common/PaginationContainer';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   currentFlockSize: number;
@@ -117,6 +118,9 @@ export function PoultryWeightTracking({
   // Add state to manage feed and performance records locally
   const [localFeedRecords, setLocalFeedRecords] = useState(feedRecords);
   const [localPerformanceMetrics, setLocalPerformanceMetrics] = useState(performanceMetrics);
+
+  const { t } = useTranslation();
+  const animalType = t('farm.birds');
 
   const getFeedTypeColor = (feedType: 'starter' | 'grower' | 'finisher') => {
     switch (feedType) {
@@ -273,14 +277,14 @@ export function PoultryWeightTracking({
       <div className="bg-white rounded-lg shadow-sm p-6">
         <div className="flex items-center gap-2 mb-6">
           <Scale className="w-5 h-5 text-indigo-600" />
-          <h2 className="text-xl font-semibold">Weight Tracking</h2>
+          <h2 className="text-xl font-semibold">{t('analytics.weightTracking.title')}</h2>
         </div>
 
         <div className="space-y-4">
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Sample Size (birds) - Max: {currentFlockSize}
+                {t('analytics.weightTracking.sampleSize', { animal: animalType, max: currentFlockSize })}
               </label>
               <input
                 type="number"
@@ -292,7 +296,7 @@ export function PoultryWeightTracking({
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Total Weight of Sample (kg)
+                {t('analytics.weightTracking.totalWeight')}
               </label>
               <input
                 type="number"
@@ -306,7 +310,7 @@ export function PoultryWeightTracking({
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Target Weight per Bird (kg)
+              {t('analytics.weightTracking.targetWeight', { animal: animalType })}
             </label>
             <input
               type="number"
@@ -320,7 +324,7 @@ export function PoultryWeightTracking({
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Birds Below Target Weight
+                {t('analytics.weightTracking.belowTarget', { animal: animalType })}
               </label>
               <input
                 type="number"
@@ -331,13 +335,13 @@ export function PoultryWeightTracking({
               />
               {Number(belowTarget) + Number(aboveTarget) > Number(sampleSize) && (
                 <p className="text-xs text-red-500 mt-1">
-                  Total of below and above target cannot exceed sample size
+                  {t('analytics.weightTracking.totalExceedError')}
                 </p>
               )}
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Birds Above Target Weight
+                {t('analytics.weightTracking.aboveTarget', { animal: animalType })}
               </label>
               <input
                 type="number"
@@ -351,7 +355,7 @@ export function PoultryWeightTracking({
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Notes
+              {t('analytics.weightTracking.notes')}
             </label>
             <textarea
               value={notes}
@@ -369,25 +373,37 @@ export function PoultryWeightTracking({
             {isSubmitting ? (
               <>
                 <LoadingSpinner size="sm" />
-                Saving...
+                {t('analytics.weightTracking.saving')}
               </>
             ) : (
-              '+ Add Weight Record'
+              t('analytics.weightTracking.addRecord')
             )}
           </button>
         </div>
 
         <div className="mt-6">
-          <h3 className="font-medium text-gray-900 mb-4">Weight Records</h3>
+          <h2 className="text-xl font-semibold mb-4">{t('analytics.weightTracking.weightRecords')}</h2>
+          
+          {/* Weight Records Table */}
           <div className="overflow-x-auto">
             <table className="min-w-full divide-y divide-gray-200">
               <thead>
                 <tr>
-                  <th className="px-4 py-2 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Sample</th>
-                  <th className="px-4 py-2 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Avg (kg)</th>
-                  <th className="px-4 py-2 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Target (kg)</th>
-                  <th className="px-4 py-2 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Below (%)</th>
-                  <th className="px-4 py-2 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Above (%)</th>
+                  <th className="px-4 py-2 text-left text-sm font-medium text-gray-500">
+                    {t('analytics.weightTracking.sampleSize', { animal: animalType, max: currentFlockSize })}
+                  </th>
+                  <th className="px-4 py-2 text-left text-sm font-medium text-gray-500">
+                    {t('analytics.weightTracking.averageWeight')}
+                  </th>
+                  <th className="px-4 py-2 text-left text-sm font-medium text-gray-500">
+                    {t('analytics.weightTracking.targetWeight', { animal: animalType })}
+                  </th>
+                  <th className="px-4 py-2 text-left text-sm font-medium text-gray-500">
+                    {t('analytics.weightTracking.belowTarget', { animal: animalType })}
+                  </th>
+                  <th className="px-4 py-2 text-left text-sm font-medium text-gray-500">
+                    {t('analytics.weightTracking.aboveTarget', { animal: animalType })}
+                  </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
@@ -427,13 +443,13 @@ export function PoultryWeightTracking({
       <div className="bg-white rounded-lg shadow-sm p-6">
         <div className="flex items-center gap-2 mb-6">
           <TrendingUp className="w-5 h-5 text-indigo-600" />
-          <h2 className="text-xl font-semibold">Feed Data</h2>
+          <h2 className="text-xl font-semibold">{t('analytics.feedData.title')}</h2>
         </div>
 
         <div className="space-y-4 mb-6">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Total Daily Feed Consumption (kg)
+              {t('analytics.feedData.totalConsumption')}
             </label>
             <input
               type="number"
@@ -444,15 +460,18 @@ export function PoultryWeightTracking({
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-indigo-500"
             />
             <p className="text-sm text-gray-500 mt-1">
-              Total feed consumed by all {currentFlockSize} birds per day. 
-              Per bird: {currentFlockSize > 0 && dailyConsumption ? 
-                (Number(dailyConsumption) / currentFlockSize).toFixed(3) : '0'} kg
+              {t('analytics.feedData.consumptionSummary', { 
+                total: currentFlockSize,
+                animal: animalType,
+                amount: currentFlockSize > 0 && dailyConsumption ? 
+                  (Number(dailyConsumption) / currentFlockSize).toFixed(3) : '0'
+              })}
             </p>
           </div>
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Estimated Days Until Market Weight
+              {t('analytics.feedData.estimatedDays')}
             </label>
             <input
               type="number"
@@ -462,13 +481,13 @@ export function PoultryWeightTracking({
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-indigo-500"
             />
             <p className="text-sm text-gray-500 mt-1">
-              Based on current growth rate and target market weight
+              {t('analytics.feedData.estimatedDaysNote')}
             </p>
           </div>
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Daily Feed Cost (₦)
+              {t('analytics.feedData.dailyCost')}
             </label>
             <input
               type="number"
@@ -477,9 +496,6 @@ export function PoultryWeightTracking({
               min="0"
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-indigo-500"
             />
-            <p className="text-sm text-gray-500 mt-1">
-              Cost per bird per day: {currentFlockSize > 0 ? formatNaira(Number(feedCost) / currentFlockSize) : '₦0.00'}
-            </p>
           </div>
 
           <button
@@ -490,26 +506,36 @@ export function PoultryWeightTracking({
             {isUpdatingFeed ? (
               <>
                 <LoadingSpinner size="sm" />
-                Updating...
+                {t('common.updating')}
               </>
             ) : (
-              'Update Feed Data'
+              t('common.update')
             )}
           </button>
         </div>
 
-        {/* Add Feed Records List */}
+        {/* Feed Records Section */}
         <div className="mt-8">
-          <h3 className="font-medium text-gray-900 mb-4">Feed Records</h3>
+          <h2 className="text-xl font-semibold mb-4">{t('analytics.feedData.records')}</h2>
           <div className="overflow-x-auto">
             <table className="min-w-full divide-y divide-gray-200">
               <thead>
                 <tr>
-                  <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
-                  <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
-                  <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Quantity (kg)</th>
-                  <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Cost (₦)</th>
-                  <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Notes</th>
+                  <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    {t('common.date')}
+                  </th>
+                  <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    {t('analytics.feedData.type')}
+                  </th>
+                  <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    {t('common.quantity')}
+                  </th>
+                  <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    {t('analytics.feedData.cost')}
+                  </th>
+                  <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    {t('analytics.feedData.notes')}
+                  </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
@@ -556,38 +582,38 @@ export function PoultryWeightTracking({
       <div className="bg-white rounded-lg shadow-sm p-6">
         <div className="flex items-center gap-2 mb-6">
           <Scale className="w-5 h-5 text-indigo-600" />
-          <h2 className="text-xl font-semibold">Weight Analysis</h2>
+          <h2 className="text-xl font-semibold">{t('analytics.weightAnalysis.title')}</h2>
         </div>
 
         <div className="grid grid-cols-2 gap-4">
           {weightRecords.length > 0 && (
             <>
               <div className="bg-red-50 p-4 rounded-lg">
-                <h3 className="text-red-600 font-medium mb-2">Below Target Weight</h3>
+                <h3 className="text-red-600 font-medium mb-2">
+                  {t('analytics.weightTracking.belowTarget', { animal: animalType })}
+                </h3>
                 {(() => {
                   const totals = calculateTotals();
                   const percentage = ((totals.below / totals.total) * 100).toFixed(1);
                   return (
                     <p className="text-3xl font-bold text-red-700">
-                      {totals.below} birds
-                      <span className="text-lg ml-2">
-                        ({percentage}%)
-                      </span>
+                      {totals.below}
+                      <span className="text-lg ml-2">({percentage}{t('common.percentageSymbol')})</span>
                     </p>
                   );
                 })()}
               </div>
               <div className="bg-green-50 p-4 rounded-lg">
-                <h3 className="text-green-600 font-medium mb-2">Above Target Weight</h3>
+                <h3 className="text-green-600 font-medium mb-2">
+                  {t('analytics.weightTracking.aboveTarget', { animal: animalType })}
+                </h3>
                 {(() => {
                   const totals = calculateTotals();
                   const percentage = ((totals.above / totals.total) * 100).toFixed(1);
                   return (
                     <p className="text-3xl font-bold text-green-700">
-                      {totals.above} birds
-                      <span className="text-lg ml-2">
-                        ({percentage}%)
-                      </span>
+                      {totals.above}
+                      <span className="text-lg ml-2">({percentage}{t('common.percentageSymbol')})</span>
                     </p>
                   );
                 })()}
@@ -612,7 +638,7 @@ export function PoultryWeightTracking({
             </div>
           ) : (
             <div className="border-2 border-dashed border-gray-200 rounded-lg h-64 flex items-center justify-center">
-              <p className="text-gray-400">Add weight records to see the distribution chart</p>
+              <p className="text-gray-400">{t('analytics.weightTracking.noWeightRecords')}</p>
             </div>
           )}
         </div>
@@ -622,37 +648,37 @@ export function PoultryWeightTracking({
       <div className="bg-white rounded-lg shadow-sm p-6">
         <div className="flex items-center gap-2 mb-6">
           <TrendingUp className="w-5 h-5 text-indigo-600" />
-          <h2 className="text-xl font-semibold">Performance Metrics</h2>
+          <h2 className="text-xl font-semibold">{t('analytics.feedConversion.history')}</h2>
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <div className="p-4 bg-blue-50 rounded-lg overflow-hidden">
-            <h3 className="text-sm font-medium text-gray-600 mb-2">Daily Weight Gain</h3>
+            <h3 className="text-sm font-medium text-gray-600 mb-2">{t('analytics.stats.avgDailyGain')}</h3>
             <p className="text-xl font-bold text-blue-700 truncate">
-              {calculateADG(weightRecords).toFixed(4)} kg/day
+              {calculateADG(weightRecords).toFixed(4)} {t('common.kgPerDay')}
             </p>
           </div>
           
           <div className="p-4 bg-green-50 rounded-lg overflow-hidden">
-            <h3 className="text-sm font-medium text-gray-600 mb-2">Feed Cost/kg Gain</h3>
+            <h3 className="text-sm font-medium text-gray-600 mb-2">{t('analytics.feedConversion.feedCostPerKg')}</h3>
             <p className="text-xl font-bold text-green-700 truncate">
               {formatNaira(calculateFeedCostPerKg(savedFeedData))}
             </p>
           </div>
 
           <div className="p-4 bg-purple-50 rounded-lg overflow-hidden">
-            <h3 className="text-sm font-medium text-gray-600 mb-2">Profit Margin/Bird</h3>
+            <h3 className="text-sm font-medium text-gray-600 mb-2">{t('analytics.feedConversion.profitMargin')}</h3>
             <p className="text-xl font-bold text-purple-700 truncate">
               {formatNaira(calculateProfitMargin(economicData, savedFeedData))}
             </p>
           </div>
 
           <div className="p-4 bg-yellow-50 rounded-lg overflow-hidden">
-            <h3 className="text-sm font-medium text-gray-600 mb-2">Feed Conversion Ratio (FCR)</h3>
+            <h3 className="text-sm font-medium text-gray-600 mb-2">{t('analytics.stats.avgFCR')}</h3>
             <p className="text-xl font-bold text-yellow-700 truncate">
               {localPerformanceMetrics.length > 0 ? 
                 localPerformanceMetrics[localPerformanceMetrics.length - 1].fcr.toFixed(2) 
-                : 'N/A'
+                : t('common.notAvailable')
               }
             </p>
           </div>
@@ -660,17 +686,17 @@ export function PoultryWeightTracking({
 
         {/* Add Performance Metrics Records */}
         <div className="mt-8">
-          <h3 className="font-medium text-gray-900 mb-4">Performance History</h3>
+          <h3 className="font-medium text-gray-900 mb-4">{t('analytics.feedConversion.history')}</h3>
           <div className="overflow-x-auto">
             <table className="min-w-full divide-y divide-gray-200">
               <thead>
                 <tr>
-                  <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
-                  <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ADG (kg/day)</th>
-                  <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">FCR</th>
-                  <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Mortality (%)</th>
-                  <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Feed Cost/kg</th>
-                  <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Profit Margin</th>
+                  <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t('common.date')}</th>
+                  <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t('analytics.stats.avgDailyGain')}</th>
+                  <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t('analytics.stats.avgFCR')}</th>
+                  <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t('analytics.stats.mortalityRate')}</th>
+                  <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t('analytics.feedConversion.feedCostPerKg')}</th>
+                  <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t('analytics.feedConversion.profitMargin')}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
@@ -685,13 +711,13 @@ export function PoultryWeightTracking({
                         {new Date(metric.date).toLocaleDateString()}
                       </td>
                       <td className="px-4 py-2 text-sm text-gray-900">
-                        {metric.adg.toFixed(3)}
+                        {metric.adg.toFixed(3)} {t('common.kgPerDay')}
                       </td>
                       <td className="px-4 py-2 text-sm text-gray-900">
                         {metric.fcr.toFixed(2)}
                       </td>
                       <td className="px-4 py-2 text-sm text-gray-900">
-                        {metric.mortality.toFixed(1)}%
+                        {metric.mortality.toFixed(1)}{t('common.percentageSymbol')}
                       </td>
                       <td className="px-4 py-2 text-sm text-gray-900">
                         {formatNaira(metric.feedCostPerKg)}

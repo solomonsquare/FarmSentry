@@ -4,6 +4,7 @@ import { PaginationContainer } from '../../common/PaginationContainer';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { Dialog, Transition } from '@headlessui/react';
 import { Dna } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   geneticRecords: GeneticRecord[];
@@ -12,19 +13,41 @@ interface Props {
 
 interface GeneticRecordForm {
   breedingLine: string;
-  improvements: string;
+  improvements: string[];
   date: string;
   type: 'improvement' | 'deterioration';
 }
 
+// Predefined changes keys
+const IMPROVEMENT_CHANGES = [
+  'improved_growth_rate',
+  'better_feed_efficiency',
+  'increased_litter_size',
+  'better_disease_resistance',
+  'improved_meat_quality',
+  'higher_survival_rate',
+  'better_mothering_ability'
+];
+
+const DETERIORATION_CHANGES = [
+  'decreased_growth_rate',
+  'bad_feed_efficiency',
+  'decreased_litter_size',
+  'poor_disease_resistance',
+  'poor_meat_quality',
+  'lower_survival_rate',
+  'poor_mothering_ability'
+];
+
 export function GeneticPerformance({ geneticRecords = [], onUpdate }: Props) {
+  const { t, i18n } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const recordsPerPage = 5;
   const [localRecords, setLocalRecords] = useState<GeneticRecord[]>(geneticRecords);
   const [formData, setFormData] = useState<GeneticRecordForm>({
     breedingLine: '',
-    improvements: '',
+    improvements: [],
     date: new Date().toISOString().split('T')[0],
     type: 'improvement'
   });
@@ -34,12 +57,22 @@ export function GeneticPerformance({ geneticRecords = [], onUpdate }: Props) {
     setLocalRecords(geneticRecords);
   }, [geneticRecords]);
 
+  // Helper function to translate changes based on current language
+  const translateChanges = (changes: string[]): string[] => {
+    return changes.map(change => {
+      return t(`analytics.geneticPerformance.changes.${change}`);
+    });
+  };
+
   const addGeneticRecord = async (e: React.FormEvent) => {
     e.preventDefault();
+    const availableChanges = formData.type === 'improvement' ? IMPROVEMENT_CHANGES : DETERIORATION_CHANGES;
+    
+    // Use the selected changes directly since they are already in the correct format
     const newRecord: GeneticRecord = {
       id: Date.now().toString(),
       breedingLine: formData.breedingLine,
-      improvements: formData.improvements.split(',').map(i => i.trim()),
+      improvements: formData.improvements,
       date: new Date(formData.date).toISOString(),
       type: formData.type
     };
@@ -54,10 +87,15 @@ export function GeneticPerformance({ geneticRecords = [], onUpdate }: Props) {
     setIsOpen(false);
     setFormData({
       breedingLine: '',
-      improvements: '',
+      improvements: [],
       date: new Date().toISOString().split('T')[0],
       type: 'improvement'
     });
+  };
+
+  // Get available changes based on type
+  const getAvailableChanges = () => {
+    return formData.type === 'improvement' ? IMPROVEMENT_CHANGES : DETERIORATION_CHANGES;
   };
 
   // Calculate pagination
@@ -92,17 +130,15 @@ export function GeneticPerformance({ geneticRecords = [], onUpdate }: Props) {
   }));
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <div className="flex items-center gap-2">
-          <Dna className="w-5 h-5 text-indigo-600" />
-          <h2 className="text-xl font-semibold">Genetic Performance</h2>
-        </div>
+        <h2 className="text-xl font-semibold">{t('analytics.geneticPerformance.title')}</h2>
         <button
           onClick={() => setIsOpen(true)}
-          className="px-4 py-2 text-sm font-medium text-white bg-purple-600 rounded-md hover:bg-purple-700"
+          className="flex items-center px-4 py-2 text-sm font-medium text-white bg-purple-600 rounded-md hover:bg-purple-700"
         >
-          Add Record
+          <Dna className="w-4 h-4 mr-2" />
+          {t('analytics.geneticPerformance.addRecord')}
         </button>
       </div>
 
@@ -116,35 +152,33 @@ export function GeneticPerformance({ geneticRecords = [], onUpdate }: Props) {
               <YAxis />
               <Tooltip />
               <Legend />
-              <Line type="monotone" dataKey="improvements" stroke="#10b981" name="Improvements" />
-              <Line type="monotone" dataKey="deteriorations" stroke="#ef4444" name="Deteriorations" />
+              <Line type="monotone" dataKey="improvements" stroke="#10b981" name={t('analytics.geneticPerformance.improvements')} />
+              <Line type="monotone" dataKey="deteriorations" stroke="#ef4444" name={t('analytics.geneticPerformance.deteriorations')} />
             </LineChart>
           </ResponsiveContainer>
         </div>
       )}
 
       {/* Records Table */}
-      <div className="bg-white rounded-lg shadow overflow-hidden">
-        {displayedRecords.length === 0 ? (
-          <div className="text-center text-gray-500 py-4">
-            No genetic records available. Add one to get started.
-          </div>
+      <div className="bg-white shadow rounded-lg overflow-hidden">
+        {localRecords.length === 0 ? (
+          <p className="p-4 text-gray-500">{t('analytics.geneticPerformance.noRecords')}</p>
         ) : (
           <>
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">
                 <tr>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                    Date
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    {t('analytics.feedData.table.date')}
                   </th>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                    Breeding Line
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    {t('analytics.geneticPerformance.breedingLine')}
                   </th>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                    Type
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    {t('analytics.geneticPerformance.type')}
                   </th>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                    Changes
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    {t('analytics.geneticPerformance.improvements')}
                   </th>
                 </tr>
               </thead>
@@ -152,7 +186,7 @@ export function GeneticPerformance({ geneticRecords = [], onUpdate }: Props) {
                 {displayedRecords.map((record) => (
                   <tr key={record.id}>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                      {new Date(record.date).toLocaleDateString()}
+                      {new Date(record.date).toLocaleDateString(i18n.language)}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                       {record.breedingLine}
@@ -161,14 +195,25 @@ export function GeneticPerformance({ geneticRecords = [], onUpdate }: Props) {
                       <span className={`px-2 py-1 rounded-full text-xs font-medium ${
                         record.type === 'improvement' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
                       }`}>
-                        {record.type === 'improvement' ? 'Improvement' : 'Deterioration'}
+                        {record.type === 'improvement' 
+                          ? t('analytics.geneticPerformance.improvements')
+                          : t('analytics.geneticPerformance.deteriorations')}
                       </span>
                     </td>
                     <td className="px-6 py-4 text-sm text-gray-900">
                       <ul className="list-disc list-inside">
-                        {record.improvements.map((improvement, index) => (
-                          <li key={index}>{improvement}</li>
-                        ))}
+                        {record.improvements.map((change, index) => {
+                          // Handle both full translation keys and simple keys
+                          const key = change.includes('analytics.geneticPerformance.changes.') 
+                            ? change.split('analytics.geneticPerformance.changes.')[1]
+                            : change;
+                          
+                          return (
+                            <li key={index} className={`${record.type === 'improvement' ? 'text-green-700' : 'text-red-700'}`}>
+                              {t(`analytics.geneticPerformance.changes.${key}`)}
+                            </li>
+                          );
+                        })}
                       </ul>
                     </td>
                   </tr>
@@ -206,18 +251,22 @@ export function GeneticPerformance({ geneticRecords = [], onUpdate }: Props) {
             </Transition.Child>
 
             <div className="relative bg-white rounded-lg p-6 max-w-md w-full mx-4">
-              <Dialog.Title className="text-lg font-medium mb-4">Add Genetic Record</Dialog.Title>
+              <Dialog.Title className="text-lg font-medium mb-4">{t('analytics.geneticPerformance.addRecord')}</Dialog.Title>
               
+              {/* Form Fields */}
               <form onSubmit={addGeneticRecord} className="space-y-4">
+                {/* Breeding Line */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700">Breeding Line</label>
+                  <label className="block text-sm font-medium text-gray-700">
+                    {t('analytics.geneticPerformance.breedingLine')}
+                  </label>
                   <select
                     value={formData.breedingLine}
                     onChange={(e) => setFormData({ ...formData, breedingLine: e.target.value })}
                     className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500"
                     required
                   >
-                    <option value="">Select a breed</option>
+                    <option value="">{t('analytics.geneticPerformance.selectBreed')}</option>
                     {DEFAULT_PIG_BREEDS.map(breed => (
                       <option key={breed.id} value={breed.name}>
                         {breed.name}
@@ -226,33 +275,77 @@ export function GeneticPerformance({ geneticRecords = [], onUpdate }: Props) {
                   </select>
                 </div>
 
+                {/* Type Selection */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700">Type</label>
+                  <label className="block text-sm font-medium text-gray-700">
+                    {t('analytics.geneticPerformance.type')}
+                  </label>
                   <select
                     value={formData.type}
-                    onChange={(e) => setFormData({ ...formData, type: e.target.value as 'improvement' | 'deterioration' })}
+                    onChange={(e) => setFormData({ 
+                      ...formData, 
+                      type: e.target.value as 'improvement' | 'deterioration',
+                      improvements: [] // Reset improvements when type changes
+                    })}
                     className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500"
                     required
                   >
-                    <option value="improvement">Improvement</option>
-                    <option value="deterioration">Deterioration</option>
+                    <option value="improvement">{t('analytics.geneticPerformance.improvements')}</option>
+                    <option value="deterioration">{t('analytics.geneticPerformance.deteriorations')}</option>
                   </select>
                 </div>
 
+                {/* Changes Selection */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700">
-                    Changes (comma-separated)
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    {formData.type === 'improvement' 
+                      ? t('analytics.geneticPerformance.improvements')
+                      : t('analytics.geneticPerformance.deteriorations')}
                   </label>
-                  <textarea
-                    value={formData.improvements}
-                    onChange={(e) => setFormData({ ...formData, improvements: e.target.value })}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500"
-                    required
-                  />
+                  <div className="space-y-2">
+                    {(formData.type === 'improvement' ? [
+                      { key: 'improved_growth_rate', label: t('analytics.geneticPerformance.changes.improved_growth_rate') },
+                      { key: 'better_feed_efficiency', label: t('analytics.geneticPerformance.changes.better_feed_efficiency') },
+                      { key: 'increased_litter_size', label: t('analytics.geneticPerformance.changes.increased_litter_size') },
+                      { key: 'better_disease_resistance', label: t('analytics.geneticPerformance.changes.better_disease_resistance') },
+                      { key: 'improved_meat_quality', label: t('analytics.geneticPerformance.changes.improved_meat_quality') },
+                      { key: 'higher_survival_rate', label: t('analytics.geneticPerformance.changes.higher_survival_rate') },
+                      { key: 'better_mothering_ability', label: t('analytics.geneticPerformance.changes.better_mothering_ability') }
+                    ] : [
+                      { key: 'decreased_growth_rate', label: t('analytics.geneticPerformance.changes.decreased_growth_rate') },
+                      { key: 'bad_feed_efficiency', label: t('analytics.geneticPerformance.changes.bad_feed_efficiency') },
+                      { key: 'decreased_litter_size', label: t('analytics.geneticPerformance.changes.decreased_litter_size') },
+                      { key: 'poor_disease_resistance', label: t('analytics.geneticPerformance.changes.poor_disease_resistance') },
+                      { key: 'poor_meat_quality', label: t('analytics.geneticPerformance.changes.poor_meat_quality') },
+                      { key: 'lower_survival_rate', label: t('analytics.geneticPerformance.changes.lower_survival_rate') },
+                      { key: 'poor_mothering_ability', label: t('analytics.geneticPerformance.changes.poor_mothering_ability') }
+                    ]).map(({ key, label }) => (
+                      <label key={key} className="flex items-center">
+                        <input
+                          type="checkbox"
+                          checked={formData.improvements.includes(key)}
+                          onChange={(e) => {
+                            const updatedImprovements = e.target.checked
+                              ? [...formData.improvements, key]
+                              : formData.improvements.filter(i => i !== key);
+                            setFormData({
+                              ...formData,
+                              improvements: updatedImprovements
+                            });
+                          }}
+                          className="rounded border-gray-300 text-purple-600 focus:ring-purple-500"
+                        />
+                        <span className="ml-2 text-sm text-gray-700">{label}</span>
+                      </label>
+                    ))}
+                  </div>
                 </div>
 
+                {/* Date Selection */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700">Date</label>
+                  <label className="block text-sm font-medium text-gray-700">
+                    {t('common.date')}
+                  </label>
                   <input
                     type="date"
                     value={formData.date}
@@ -262,19 +355,20 @@ export function GeneticPerformance({ geneticRecords = [], onUpdate }: Props) {
                   />
                 </div>
 
+                {/* Form Buttons */}
                 <div className="flex justify-end space-x-3 mt-6">
                   <button
                     type="button"
                     onClick={() => setIsOpen(false)}
                     className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50"
                   >
-                    Cancel
+                    {t('common.cancel')}
                   </button>
                   <button
                     type="submit"
                     className="px-4 py-2 text-sm font-medium text-white bg-purple-600 rounded-md hover:bg-purple-700"
                   >
-                    Add Record
+                    {t('analytics.geneticPerformance.addRecord')}
                   </button>
                 </div>
               </form>

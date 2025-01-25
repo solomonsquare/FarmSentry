@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { WeightRecord } from '../../../types';
+import { WeightRecord } from '../../../types/poultry';
 import { RecordsPagination } from '../../common/RecordsPagination';
+import { useTranslation } from 'react-i18next';
 
 interface WeightRecordsListProps {
   records: WeightRecord[];
 }
 
 export function WeightRecordsList({ records }: WeightRecordsListProps) {
+  const { t } = useTranslation();
   const [currentPage, setCurrentPage] = useState(1);
   const [paginatedRecords, setPaginatedRecords] = useState<WeightRecord[]>([]);
   const recordsPerPage = 5;
@@ -29,13 +31,13 @@ export function WeightRecordsList({ records }: WeightRecordsListProps) {
         <table className="min-w-full divide-y divide-gray-200">
           <thead>
             <tr>
-              <th className="px-4 py-2 text-left text-sm font-medium text-gray-500">Date</th>
-              <th className="px-4 py-2 text-right text-sm font-medium text-gray-500">Sample Size</th>
-              <th className="px-4 py-2 text-right text-sm font-medium text-gray-500">Avg Weight (kg)</th>
-              <th className="px-4 py-2 text-right text-sm font-medium text-gray-500">Target (kg)</th>
-              <th className="px-4 py-2 text-right text-sm font-medium text-gray-500">Below Target</th>
-              <th className="px-4 py-2 text-right text-sm font-medium text-gray-500">Above Target</th>
-              <th className="px-4 py-2 text-left text-sm font-medium text-gray-500">Notes</th>
+              <th className="px-4 py-2 text-left text-sm font-medium text-gray-500">{t('common.date')}</th>
+              <th className="px-4 py-2 text-right text-sm font-medium text-gray-500">{t('analytics.weightTracking.sampleSize')}</th>
+              <th className="px-4 py-2 text-right text-sm font-medium text-gray-500">{t('analytics.weightTracking.averageWeight')}</th>
+              <th className="px-4 py-2 text-right text-sm font-medium text-gray-500">{t('analytics.weightTracking.targetWeight')}</th>
+              <th className="px-4 py-2 text-right text-sm font-medium text-gray-500">{t('analytics.weightTracking.belowTarget')}</th>
+              <th className="px-4 py-2 text-right text-sm font-medium text-gray-500">{t('analytics.weightTracking.aboveTarget')}</th>
+              <th className="px-4 py-2 text-left text-sm font-medium text-gray-500">{t('analytics.weightTracking.notes')}</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200">
@@ -43,13 +45,13 @@ export function WeightRecordsList({ records }: WeightRecordsListProps) {
               <tr key={record.id}>
                 <td className="px-4 py-2 text-sm text-gray-900">{record.date}</td>
                 <td className="px-4 py-2 text-sm text-right">{record.sampleSize}</td>
-                <td className="px-4 py-2 text-sm text-right">{record.averageWeight.toFixed(3)}</td>
-                <td className="px-4 py-2 text-sm text-right">{record.targetWeight.toFixed(3)}</td>
+                <td className="px-4 py-2 text-sm text-right">{record.weights.average.toFixed(3)}</td>
+                <td className="px-4 py-2 text-sm text-right">{record.weights.target.toFixed(3)}</td>
                 <td className="px-4 py-2 text-sm text-right">
-                  {record.belowTarget} ({((record.belowTarget / record.sampleSize) * 100).toFixed(1)}%)
+                  {record.weights.below} ({((record.weights.below / record.sampleSize) * 100).toFixed(1)}%)
                 </td>
                 <td className="px-4 py-2 text-sm text-right">
-                  {record.aboveTarget} ({((record.aboveTarget / record.sampleSize) * 100).toFixed(1)}%)
+                  {record.weights.above} ({((record.weights.above / record.sampleSize) * 100).toFixed(1)}%)
                 </td>
                 <td className="px-4 py-2 text-sm text-gray-500">{record.notes || '-'}</td>
               </tr>

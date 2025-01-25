@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Scale } from 'lucide-react';
 import { PigFarmFeatures } from '../../types/farm';
 import { formatDateTime } from '../../utils/date';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   weightRecords: PigFarmFeatures['weightRecords'];
@@ -9,6 +10,7 @@ interface Props {
 }
 
 export function WeightTracker({ weightRecords, onUpdate }: Props) {
+  const { t } = useTranslation();
   const [pigId, setPigId] = useState('');
   const [weight, setWeight] = useState<number>(0);
   const [notes, setNotes] = useState('');
@@ -36,7 +38,7 @@ export function WeightTracker({ weightRecords, onUpdate }: Props) {
     <div className="bg-white p-6 rounded-lg shadow-md">
       <div className="flex items-center gap-2 mb-4">
         <Scale className="w-5 h-5 text-indigo-600" />
-        <h2 className="text-xl font-semibold">Weight Tracking</h2>
+        <h2 className="text-xl font-semibold">{t('analytics.weightTracking.title')}</h2>
       </div>
 
       <div className="space-y-4">
@@ -80,11 +82,11 @@ export function WeightTracker({ weightRecords, onUpdate }: Props) {
           disabled={!pigId || weight <= 0}
           className="w-full px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          Add Weight Record
+          {t('analytics.weightTracking.addRecord')}
         </button>
 
         <div className="mt-6">
-          <h3 className="text-lg font-medium text-gray-900 mb-4">Recent Weight Records</h3>
+          <h3 className="text-lg font-medium text-gray-900 mb-4">{t('analytics.weightTracking.records')}</h3>
           <div className="overflow-x-auto">
             <table className="min-w-full divide-y divide-gray-200">
               <thead>

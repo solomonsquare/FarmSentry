@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Sale, Stock, FarmCategory } from '../types';
 import { RevenueManager } from '../components/RevenueManager';
 import { SalesHistorySection } from '../components/sales/SalesHistorySection';
@@ -17,6 +18,7 @@ interface Props {
 
 export function SalesPage({ totalBirds, stock, category, onUpdateStock }: Props) {
   const { currentUser } = useAuth();
+  const { t } = useTranslation();
   const { 
     sales, 
     loading, 
@@ -58,7 +60,7 @@ export function SalesPage({ totalBirds, stock, category, onUpdateStock }: Props)
   return (
     <div className="space-y-6">
       <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-        {category === 'birds' ? 'Poultry' : 'Pig'} Sales Management
+        {category === 'birds' ? t('sales.poultryTitle') : t('sales.pigTitle')}
       </h1>
       
       <RevenueManager

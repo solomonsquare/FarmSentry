@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { Suspense } from 'react';
+import { useTranslation } from 'react-i18next';
 import { FarmCategory, StockEntry, Stock, Expense } from '../../types';
 import { PaginatedStockHistory } from './PaginatedStockHistory';
 import { PoultryStockManager } from '../poultry/PoultryStockManager';
 import { PigStockManager } from '../pig/PigStockManager';
+import { LoadingSpinner } from '../common/LoadingSpinner';
 
 interface Props {
   category: FarmCategory;
@@ -12,21 +14,35 @@ interface Props {
 }
 
 export function StockManager({ category, stock, stockHistory, onUpdate }: Props) {
+  const { t } = useTranslation();
+
   return (
     <div className="space-y-6">
       {/* Stock Management Section */}
-      {category === 'birds' ? (
-        <PoultryStockManager stock={stock} onUpdate={onUpdate} />
-      ) : (
-        <PigStockManager stock={stock} onUpdate={onUpdate} />
-      )}
+      <Suspense fallback={<LoadingSpinner />}>
+        {category === 'birds' ? (
+          <PoultryStockManager 
+            stock={stock} 
+            category={category} 
+            onUpdate={onUpdate} 
+          />
+        ) : (
+          <PigStockManager 
+            stock={stock} 
+            category={category} 
+            onUpdate={onUpdate} 
+          />
+        )}
+      </Suspense>
 
       {/* Stock History Section */}
-      <div className="bg-white rounded-lg shadow-md p-6">
-        <PaginatedStockHistory 
-          history={stockHistory} 
-          category={category} 
-        />
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+        <Suspense fallback={<LoadingSpinner />}>
+          <PaginatedStockHistory 
+            history={stockHistory} 
+            category={category} 
+          />
+        </Suspense>
       </div>
     </div>
   );

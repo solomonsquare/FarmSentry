@@ -3,6 +3,7 @@ import { Baby, Users, Heart, Calendar as CalendarIcon } from 'lucide-react';
 import { GrowthPhase, DEFAULT_GROWTH_PHASES } from '../../types/pig';
 import { FeedConversion } from '../../types/farm';
 import { FeedConversionAnalytics } from '../pig/feed/FeedConversionAnalytics';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   breedingStats: {
@@ -39,6 +40,7 @@ const phaseColorMap: Record<string, string> = {
 export function PigBreedingAnalytics({ breedingStats }: Props) {
   const [fcrRecords, setFcrRecords] = useState<FeedConversion[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const { t } = useTranslation();
 
   const handleFcrUpdate = (records: FeedConversion[]) => {
     console.log('PigBreedingAnalytics updated feed conversion:', records);
@@ -89,7 +91,7 @@ export function PigBreedingAnalytics({ breedingStats }: Props) {
 
       {/* Growth Performance Section */}
       <div className="bg-white rounded-lg shadow-sm p-6">
-        <h2 className="text-lg font-semibold mb-4">Growth Performance by Phase</h2>
+        <h2 className="text-lg font-semibold mb-4">{t('analytics.growthPerformance.title')}</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {growthPhases.map((phase) => {
             const relevantRecords = fcrRecords.filter((rec) => rec.phase === phase.name);
@@ -104,11 +106,11 @@ export function PigBreedingAnalytics({ breedingStats }: Props) {
 
             return (
               <div key={phase.name} className={`p-4 rounded-lg ${colorClass}`}>
-                <h3 className="text-sm font-medium text-gray-600">{phase.name}</h3>
+                <h3 className="text-sm font-medium text-gray-600">{t(`analytics.growthPhases.${phase.name}`)}</h3>
                 <p className="text-2xl font-bold text-gray-900">
-                  {calculateADG(phase.data)} kg/day
+                  {calculateADG(phase.data)} {t('analytics.metrics.kgPerDay')}
                 </p>
-                <p className="text-sm text-gray-500">Average FCR: {avgFcr}</p>
+                <p className="text-sm text-gray-500">{t('analytics.metrics.averageFcr')}: {avgFcr}</p>
               </div>
             );
           })}

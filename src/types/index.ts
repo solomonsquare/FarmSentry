@@ -36,6 +36,7 @@ export interface Sale {
   time?: string;
   quantity: number;
   pricePerBird: number;
+  pricePerPig?: number;
   costPerBird?: number;
   totalAmount: number;
   profitPerBird: number;

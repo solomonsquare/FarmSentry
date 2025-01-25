@@ -13,10 +13,38 @@
     "currentFarm": {
       "title": "Current Farm",
       "poultryFarm": "Poultry Farm",
-      "pigFarm": "Pig Farm"
+      "pigFarm": "Pig Farm",
+      "noFarmSelected": "No farm type selected",
+      "selectFarmType": "Select Farm Type",
+      "changeFarmType": "Change Farm Type",
+      "changeFarmConfirm": "Changing farm type will take you to the farm selection page. Continue?"
     },
     "subscription": {
-      "title": "Subscription Plan"
+      "title": "Subscription Plan",
+      "plans": {
+        "basic": "Basic",
+        "professional": "Professional",
+        "enterprise": "Enterprise"
+      },
+      "features": {
+        "upTo5000": "Up to 5,000 birds",
+        "upTo20000": "Up to 20,000 birds",
+        "unlimited": "Unlimited birds",
+        "upTo50Pigs": "Up to 50 pigs",
+        "upTo200Pigs": "Up to 200 pigs",
+        "unlimitedPigs": "Unlimited pigs",
+        "basicTracking": "Basic tracking features",
+        "advancedAnalytics": "Advanced analytics",
+        "multiFarm": "Multi-farm management",
+        "emailSupport": "Email support",
+        "prioritySupport": "Priority support",
+        "dedicatedSupport": "Dedicated support",
+        "customReports": "Custom reports",
+        "customIntegrations": "Custom integrations"
+      },
+      "currentPlan": "Current Plan",
+      "switchPlan": "Switch Plan",
+      "custom": "Custom"
     },
     "language": {
       "title": "Language",
@@ -55,6 +83,297 @@
     "cancel": "Cancel",
     "confirm": "Confirm",
     "delete": "Delete",
-    "edit": "Edit"
+    "edit": "Edit",
+    "date": "Date",
+    "time": "Time",
+    "quantity": "Quantity",
+    "kgPerDay": "kg/day",
+    "percentageSymbol": "%",
+    "notAvailable": "N/A",
+    "update": "Update",
+    "updating": "Updating...",
+    "close": "Close"
+  },
+  "navigation": {
+    "dashboard": "Dashboard",
+    "stockManagement": "Stock Management",
+    "sales": "Sales",
+    "analytics": "Analytics",
+    "settings": "Settings",
+    "logout": "Logout"
+  },
+  "farm": {
+    "birds": "Birds",
+    "pigs": "Pigs",
+    "poultryFarm": "Poultry Farm",
+    "pigFarm": "Pig Farm",
+    "poultryDescription": "Manage broiler birds and layers",
+    "pigDescription": "Manage pig breeding and growth",
+    "features": {
+      "flockTracking": "Flock tracking",
+      "feedMonitoring": "Feed consumption monitoring",
+      "weightTracking": "Weight tracking",
+      "mortalityTracking": "Mortality tracking",
+      "breedingTracking": "Breeding cycle tracking",
+      "growthMonitoring": "Growth stage monitoring",
+      "feedConversion": "Feed conversion analysis"
+    }
+  },
+  "stock": {
+    "title": "{{farmType}} Stock Management",
+    "table": {
+      "type": "Type",
+      "breed": "Breed",
+      "costs": "Costs",
+      "medicine": "Medicine",
+      "feed": "Feed",
+      "additional": "Additional",
+      "total": "Total"
+    },
+    "entryTypes": {
+      "initial": "Initial",
+      "addition": "Addition",
+      "death": "Death",
+      "sale": "Sale"
+    },
+    "actions": {
+      "addNewStock": "Add New Stock",
+      "enterQuantity": "Enter quantity",
+      "stockExpenses": "Stock Expenses",
+      "enterCost": "Enter cost",
+      "enterMedicineCost": "Enter medicine cost",
+      "enterFeedCost": "Enter feed cost",
+      "enterAdditionalCosts": "Enter additional costs",
+      "addStockWithExpenses": "Add Stock with Expenses",
+      "recordDeaths": "Record Deaths",
+      "enterDeathCount": "Enter number of deaths",
+      "record": "Record",
+      "addedDescription": "Added {{quantity}} birds to stock",
+      "deathDescription": "Recorded {{quantity}} bird deaths"
+    },
+    "poultryHistory": "Poultry Stock History",
+    "pigHistory": "Pig Stock History",
+    "searchByType": "Search by type...",
+    "exportCSV": "Export CSV",
+    "overview": "Stock Overview",
+    "noHistoryRecorded": "No stock history recorded yet",
+    "errors": {
+      "fetchHistoryFailed": "Failed to fetch stock history"
+    },
+    "currentStock": "Current {{animal}} in Stock",
+    "lastUpdated": "Last Updated",
+    "poultryTitle": "Poultry Farm Stock Management",
+    "pigTitle": "Pig Farm Stock Management"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "welcome": "Welcome back, {{email}}",
+    "stats": {
+      "currentStock": "Current Stock",
+      "totalSales": "Total Sales",
+      "revenue": "Revenue",
+      "expenses": "Expenses",
+      "deaths": "Total Deaths",
+      "sold": "{{animal}} Sold",
+      "profit": "Net Profit",
+      "expenseBreakdown": "Expense Breakdown"
+    }
+  },
+  "sales": {
+    "title": "{{farmType}} Sales Management",
+    "poultryTitle": "Poultry Farm Sales Management",
+    "pigTitle": "Pig Farm Sales Management",
+    "newSale": {
+      "title": "New Sale",
+      "quantity": "Number of {{animal}} to Sell",
+      "pricePerUnit": "Price per {{unit}} (₦)",
+      "costPerUnit": "Cost per {{unit}}",
+      "subtotal": "Subtotal",
+      "profitPerUnit": "Profit per {{unit}}",
+      "totalProfit": "Total Profit",
+      "complete": "Complete Sale"
+    },
+    "history": {
+      "title": "Sales History",
+      "noRecords": "No sales recorded yet.",
+      "export": "Export CSV",
+      "clear": "Clear History",
+      "clearConfirm": "Are you sure you want to clear the sales history? This action cannot be undone.",
+      "table": {
+        "date": "Date",
+        "time": "Time",
+        "quantity": "Quantity",
+        "pricePerUnit": "Price/{{unit}}",
+        "totalRevenue": "Total Revenue",
+        "totalProfit": "Total Profit",
+        "totals": "Totals"
+      },
+      "search": "Search sales...",
+      "sort": {
+        "byDate": "Sort by Date",
+        "byAmount": "Sort by Amount",
+        "newest": "Newest First",
+        "oldest": "Oldest First"
+      }
+    },
+    "summary": {
+      "revenue": "Total Revenue",
+      "profit": "Total Profit"
+    }
+  },
+  "analytics": {
+    "title": "{{farmType}} Analytics",
+    "poultryTitle": "Poultry Farm Analytics",
+    "pigTitle": "Pig Farm Analytics",
+    "pigFarmAnalytics": "Pig Farm Analytics",
+    "poultryFarmAnalytics": "Poultry Farm Analytics",
+    "stats": {
+      "totalPigs": "Total Pigs",
+      "mortalityRate": "Mortality Rate",
+      "avgDailyGain": "Avg. Daily Gain",
+      "avgFCR": "Avg. FCR (30d)"
+    },
+    "weightTracking": {
+      "title": "Weight Tracking",
+      "sampleSize": "Sample Size ({{animal}}) - Max: {{max}}",
+      "totalWeight": "Total Weight of Sample (kg)",
+      "targetWeight": "Target Weight per {{animal}} (kg)",
+      "belowTarget": "{{animal}} Below Target Weight",
+      "aboveTarget": "{{animal}} Above Target Weight",
+      "notes": "Notes",
+      "saving": "Saving...",
+      "addRecord": "Add Weight Record",
+      "weightRecords": "Weight Records",
+      "records": "Weight Records",
+      "recordsTitle": "Weight Records",
+      "averageWeight": "Average Weight",
+      "noWeightRecords": "No weight records available",
+      "totalExceedError": "Total of below and above target cannot exceed sample size"
+    },
+    "weightAnalysis": {
+      "title": "Weight Analysis"
+    },
+    "feedData": {
+      "title": "Feed Data",
+      "totalConsumption": "Total Daily Feed Consumption (kg)",
+      "consumptionSummary": "Total feed consumed by all {{total}} {{animal}} per day. Per {{animal}}: {{amount}} kg",
+      "estimatedDays": "Estimated Days Until Market Weight",
+      "estimatedDaysNote": "Based on current growth rate and target market weight",
+      "dailyCost": "Daily Feed Cost (₦)",
+      "records": "Feed Records",
+      "type": "Feed Type",
+      "cost": "Cost",
+      "notes": "Notes",
+      "table": {
+        "date": "Date",
+        "feedType": "Feed Type",
+        "quantity": "Quantity",
+        "cost": "Cost",
+        "notes": "Notes"
+      },
+      "feedConversion": "Feed Conversion",
+      "feedConversionRatio": "Feed Conversion Ratio",
+      "gainPerDay": "Gain per Day",
+      "feedConsumption": "Feed Consumption"
+    },
+    "feedConversion": {
+      "title": "Feed Conversion",
+      "history": "FCR History",
+      "fcrHistory": "FCR History",
+      "table": {
+        "dateRange": "Date Range",
+        "phase": "Phase",
+        "initialWeight": "Initial Weight",
+        "finalWeight": "Final Weight",
+        "feedConsumed": "Feed Consumed",
+        "fcr": "FCR",
+        "actions": "Actions"
+      },
+      "form": {
+        "startDate": "Start Date",
+        "endDate": "End Date",
+        "initialWeight": "Initial Weight (kg)",
+        "finalWeight": "Final Weight (kg)",
+        "feedConsumed": "Feed Consumed (kg)",
+        "addRecord": "Add Record",
+        "growthPhase": "Growth Phase"
+      },
+      "phases": {
+        "nursery": "Nursery",
+        "grower": "Grower",
+        "finisher": "Finisher"
+      },
+      "feedCostPerKg": "Feed Cost/kg",
+      "profitMargin": "Profit Margin"
+    },
+    "breedingManagementTitle": "Breeding Management",
+    "breeding": {
+      "cycles": "Breeding Cycles",
+      "addCycle": "Add Cycle",
+      "selectedCycleDetails": "Selected Cycle Details",
+      "viewDetails": "View Details",
+      "table": {
+        "sowId": "Sow ID",
+        "startDate": "Start Date",
+        "expectedDueDate": "Expected Due Date",
+        "status": "Status",
+        "actions": "Actions"
+      },
+      "status": {
+        "pending": "Pending",
+        "active": "Active",
+        "completed": "Completed"
+      }
+    },
+    "geneticPerformanceTitle": "Genetic Performance",
+    "geneticPerformance": {
+      "title": "Genetic Performance",
+      "addRecord": "Add Record",
+      "breedingLine": "Breeding Line",
+      "selectBreed": "Select breed",
+      "type": "Type",
+      "changes": {
+        "improved_growth_rate": "Improved growth rate",
+        "better_feed_efficiency": "Better feed efficiency",
+        "increased_litter_size": "Increased litter size",
+        "better_disease_resistance": "Better disease resistance",
+        "improved_meat_quality": "Improved meat quality",
+        "higher_survival_rate": "Higher survival rate",
+        "better_mothering_ability": "Better mothering ability",
+        "decreased_growth_rate": "Decreased growth rate",
+        "bad_feed_efficiency": "Bad feed efficiency",
+        "decreased_litter_size": "Decreased litter size",
+        "poor_disease_resistance": "Poor disease resistance",
+        "poor_meat_quality": "Poor meat quality",
+        "lower_survival_rate": "Lower survival rate",
+        "poor_mothering_ability": "Poor mothering ability"
+      },
+      "improvements": "Improvements",
+      "deteriorations": "Deteriorations",
+      "noRecords": "No genetic performance records. Add one to get started."
+    },
+    "environmentalImpactTitle": "Environmental Impact",
+    "environmentalImpact": {
+      "title": "Environmental Impact",
+      "addMetric": "Add Metric",
+      "resourceType": "Resource Type",
+      "Water": "Water",
+      "Electricity": "Electricity",
+      "Waste": "Waste",
+      "Emissions": "Emissions",
+      "usageTrends": "Usage Trends (Last 10 Records)",
+      "usage": "usage",
+      "noMetrics": "No environmental metrics. Add one to get started."
+    },
+    "growthPerformanceTitle": "Growth Performance",
+    "growthPerformance": {
+      "nurseryPhase": "Nursery Phase",
+      "growerPhase": "Grower Phase",
+      "finisherPhase": "Finisher Phase",
+      "avgDailyGain": "Avg. Daily Gain",
+      "avgFCR": "Avg. FCR",
+      "feedConsumed": "Feed Consumed",
+      "daysInPhase": "Days in Phase"
+    }
   }
 } 

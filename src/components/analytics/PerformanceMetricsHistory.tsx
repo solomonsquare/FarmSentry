@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Activity } from 'lucide-react';
-import { PerformanceMetric, FarmCategory } from '../../types';
+import { FarmCategory } from '../../types';
+import { PerformanceMetric } from '../../types/performance';
 import { RecordsPagination } from '../common/RecordsPagination';
 import { formatDate } from '../../utils/date';
 
@@ -10,6 +12,7 @@ interface Props {
 }
 
 export function PerformanceMetricsHistory({ metrics, category }: Props) {
+  const { t } = useTranslation();
   const [currentPage, setCurrentPage] = useState(1);
   const recordsPerPage = 5;
   
@@ -21,13 +24,13 @@ export function PerformanceMetricsHistory({ metrics, category }: Props) {
     <div className="bg-white rounded-lg shadow-sm p-6">
       <div className="flex items-center gap-2 mb-6">
         <Activity className="w-5 h-5 text-indigo-600" />
-        <h2 className="text-xl font-semibold">Performance History</h2>
+        <h2 className="text-xl font-semibold">{t('analytics.performance.title')}</h2>
       </div>
 
       <div className="space-y-4">
         {metrics.length === 0 ? (
           <p className="text-gray-500 text-center py-4">
-            No performance metrics recorded yet.
+            {t('analytics.performance.noRecords')}
           </p>
         ) : (
           <>
@@ -35,21 +38,39 @@ export function PerformanceMetricsHistory({ metrics, category }: Props) {
               <table className="min-w-full divide-y divide-gray-200">
                 <thead>
                   <tr>
-                    <th className="px-4 py-2 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Date</th>
-                    <th className="px-4 py-2 text-right text-sm font-medium text-gray-500 dark:text-gray-400">FCR</th>
-                    <th className="px-4 py-2 text-right text-sm font-medium text-gray-500 dark:text-gray-400">Daily Gain</th>
-                    <th className="px-4 py-2 text-right text-sm font-medium text-gray-500 dark:text-gray-400">Mortality</th>
-                    <th className="px-4 py-2 text-right text-sm font-medium text-gray-500 dark:text-gray-400">Feed Cost/kg</th>
+                    <th className="px-4 py-2 text-left text-sm font-medium text-gray-500 dark:text-gray-400">
+                      {t('analytics.performance.table.date')}
+                    </th>
+                    <th className="px-4 py-2 text-right text-sm font-medium text-gray-500 dark:text-gray-400">
+                      {t('analytics.performance.table.fcr')}
+                    </th>
+                    <th className="px-4 py-2 text-right text-sm font-medium text-gray-500 dark:text-gray-400">
+                      {t('analytics.performance.table.dailyGain')}
+                    </th>
+                    <th className="px-4 py-2 text-right text-sm font-medium text-gray-500 dark:text-gray-400">
+                      {t('analytics.performance.table.mortality')}
+                    </th>
+                    <th className="px-4 py-2 text-right text-sm font-medium text-gray-500 dark:text-gray-400">
+                      {t('analytics.performance.table.feedCost')}
+                    </th>
                     {category === 'birds' && (
                       <>
-                        <th className="px-4 py-2 text-right text-sm font-medium text-gray-500 dark:text-gray-400">Egg Prod.</th>
-                        <th className="px-4 py-2 text-right text-sm font-medium text-gray-500 dark:text-gray-400">Laying Rate</th>
+                        <th className="px-4 py-2 text-right text-sm font-medium text-gray-500 dark:text-gray-400">
+                          {t('analytics.performance.table.eggProd')}
+                        </th>
+                        <th className="px-4 py-2 text-right text-sm font-medium text-gray-500 dark:text-gray-400">
+                          {t('analytics.performance.table.layingRate')}
+                        </th>
                       </>
                     )}
                     {category === 'pigs' && (
                       <>
-                        <th className="px-4 py-2 text-right text-sm font-medium text-gray-500 dark:text-gray-400">Litter Size</th>
-                        <th className="px-4 py-2 text-right text-sm font-medium text-gray-500 dark:text-gray-400">Weaning Rate</th>
+                        <th className="px-4 py-2 text-right text-sm font-medium text-gray-500 dark:text-gray-400">
+                          {t('analytics.performance.table.litterSize')}
+                        </th>
+                        <th className="px-4 py-2 text-right text-sm font-medium text-gray-500 dark:text-gray-400">
+                          {t('analytics.performance.table.weaningRate')}
+                        </th>
                       </>
                     )}
                   </tr>
@@ -57,11 +78,11 @@ export function PerformanceMetricsHistory({ metrics, category }: Props) {
                 <tbody className="divide-y divide-gray-200">
                   {paginatedMetrics.map((metric) => (
                     <tr key={metric.id}>
-                      <td className="px-4 py-2 text-sm">{formatDate(metric.date)}</td>
+                      <td className="px-4 py-2 text-sm text-gray-900">{formatDate(metric.date)}</td>
                       <td className="px-4 py-2 text-sm text-right">{metric.metrics.feedConversionRatio.toFixed(2)}</td>
                       <td className="px-4 py-2 text-sm text-right">{metric.metrics.dailyWeightGain.toFixed(2)} kg</td>
                       <td className="px-4 py-2 text-sm text-right">{metric.metrics.mortalityRate.toFixed(1)}%</td>
-                      <td className="px-4 py-2 text-sm text-right">₦{metric.metrics.feedCostPerKg.toFixed(2)}</td>
+                      <td className="px-4 py-2 text-sm text-right">{metric.metrics.feedCostPerKg.toFixed(2)}</td>
                       {category === 'birds' && (
                         <>
                           <td className="px-4 py-2 text-sm text-right">{metric.metrics.eggProduction || '-'}</td>

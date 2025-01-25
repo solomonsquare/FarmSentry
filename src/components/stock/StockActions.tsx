@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
 import { Plus, Skull } from 'lucide-react';
-import { Stock, Expense } from '../../types';
+import { useTranslation } from 'react-i18next';
+import { Stock, Expense, StockEntry, FarmCategory } from '../../types';
 import { formatDateTime } from '../../utils/date';
 
 interface Props {
   stock: Stock;
   onUpdate: (stock: Stock, newExpenses?: Expense) => void;
+  category: FarmCategory;
 }
 
-export function StockActions({ stock, onUpdate }: Props) {
+export function StockActions({ stock, onUpdate, category }: Props) {
+  const { t } = useTranslation();
   const [addQuantity, setAddQuantity] = useState<number>(0);
   const [deathCount, setDeathCount] = useState<number>(0);
   const [expenses, setExpenses] = useState<Expense>({
@@ -18,21 +21,23 @@ export function StockActions({ stock, onUpdate }: Props) {
     additionals: 0
   });
 
+  const farmType = category === 'birds' ? t('farm.poultryFarm') : t('farm.pigFarm');
+
   const handleAddStock = () => {
     if (addQuantity <= 0) return;
 
     const { date, time } = formatDateTime();
     const newStock = stock.currentBirds + addQuantity;
     
-    const newEntry = {
+    const newEntry: StockEntry = {
       id: Date.now().toString(),
       date,
       time,
-      type: stock.history.length === 0 ? 'initial' : 'addition',
+      type: stock.history.length === 0 ? 'initial' as const : 'addition' as const,
       quantity: addQuantity,
       remainingStock: newStock,
-      description: `Added ${addQuantity} birds to stock`,
-      expenses: { ...expenses }
+      description: t('stock.actions.addedDescription', { quantity: addQuantity, farm: farmType }),
+      expenses
     };
 
     onUpdate({
@@ -57,14 +62,14 @@ export function StockActions({ stock, onUpdate }: Props) {
     const { date, time } = formatDateTime();
     const newStock = stock.currentBirds - deathCount;
     
-    const newEntry = {
+    const newEntry: StockEntry = {
       id: Date.now().toString(),
       date,
       time,
-      type: 'death',
+      type: 'death' as const,
       quantity: deathCount,
       remainingStock: newStock,
-      description: `Recorded ${deathCount} bird deaths`
+      description: t('stock.actions.deathDescription', { quantity: deathCount, farm: farmType })
     };
 
     onUpdate({
@@ -80,24 +85,24 @@ export function StockActions({ stock, onUpdate }: Props) {
     <div className="space-y-4">
       <div className="pt-4 border-t space-y-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700">
-            Add New Stock
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+            {t('stock.actions.addNewStock', { farm: farmType })}
           </label>
           <input
             type="number"
             value={addQuantity}
             onChange={(e) => setAddQuantity(Number(e.target.value))}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
             min="0"
-            placeholder="Enter quantity"
+            placeholder={t('stock.actions.enterQuantity')}
           />
         </div>
 
         {addQuantity > 0 && (
           <div className="space-y-4">
-            <h3 className="font-medium text-gray-700">Stock Expenses</h3>
+            <h3 className="font-medium text-gray-700 dark:text-gray-300">{t('stock.actions.stockExpenses')}</h3>
             <div>
-              <label className="block text-sm font-medium text-gray-700">Birds Cost</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">{t('stock.table.costs')}</label>
               <input
                 type="number"
                 value={expenses.birds || ''}
@@ -105,13 +110,13 @@ export function StockActions({ stock, onUpdate }: Props) {
                   ...prev,
                   birds: Number(e.target.value)
                 }))}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                 min="0"
-                placeholder="Enter birds cost"
+                placeholder={t('stock.actions.enterCost')}
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">Medicine</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">{t('stock.table.medicine')}</label>
               <input
                 type="number"
                 value={expenses.medicine || ''}
@@ -119,13 +124,13 @@ export function StockActions({ stock, onUpdate }: Props) {
                   ...prev,
                   medicine: Number(e.target.value)
                 }))}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                 min="0"
-                placeholder="Enter medicine cost"
+                placeholder={t('stock.actions.enterMedicineCost')}
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">Feeds</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">{t('stock.table.feed')}</label>
               <input
                 type="number"
                 value={expenses.feeds || ''}
@@ -133,13 +138,13 @@ export function StockActions({ stock, onUpdate }: Props) {
                   ...prev,
                   feeds: Number(e.target.value)
                 }))}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                 min="0"
-                placeholder="Enter feeds cost"
+                placeholder={t('stock.actions.enterFeedCost')}
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">Additional Costs</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">{t('stock.table.additional')}</label>
               <input
                 type="number"
                 value={expenses.additionals || ''}
@@ -147,9 +152,9 @@ export function StockActions({ stock, onUpdate }: Props) {
                   ...prev,
                   additionals: Number(e.target.value)
                 }))}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                 min="0"
-                placeholder="Enter additional costs"
+                placeholder={t('stock.actions.enterAdditionalCosts')}
               />
             </div>
           </div>
@@ -160,30 +165,30 @@ export function StockActions({ stock, onUpdate }: Props) {
           disabled={addQuantity <= 0}
           className="w-full flex items-center justify-center gap-1 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          <Plus className="w-4 h-4" /> Add Stock with Expenses
+          <Plus className="w-4 h-4" /> {t('stock.actions.addStockWithExpenses')}
         </button>
       </div>
 
       <div className="pt-4 border-t">
-        <label className="block text-sm font-medium text-gray-700">
-          Record Deaths
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+          {t('stock.actions.recordDeaths')}
         </label>
         <div className="mt-1 flex gap-2">
           <input
             type="number"
             value={deathCount}
             onChange={(e) => setDeathCount(Number(e.target.value))}
-            className="block w-full rounded-md border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500"
+            className="block w-full rounded-md border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
             min="0"
             max={stock.currentBirds}
-            placeholder="Enter number of deaths"
+            placeholder={t('stock.actions.enterDeathCount')}
           />
           <button
             onClick={handleRecordDeaths}
             disabled={deathCount <= 0 || deathCount > stock.currentBirds}
             className="flex items-center gap-1 px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            <Skull className="w-4 h-4" /> Record
+            <Skull className="w-4 h-4" /> {t('stock.actions.record')}
           </button>
         </div>
       </div>

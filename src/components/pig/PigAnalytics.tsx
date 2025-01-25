@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { FeedConversionAnalytics } from './feed/FeedConversionAnalytics';
 import { BreedingCycleManager } from './breeding';
 import usePigFarmData from '../../hooks/usePigFarmData';
@@ -15,6 +16,7 @@ import { LoadingSpinner } from '../common/LoadingSpinner';
 import { ErrorMessage } from '../common/ErrorMessage';
 
 const PigAnalytics = () => {
+  const { t } = useTranslation();
   const { currentUser } = useAuth();
   const { farmData, loading, error } = usePigFarmData();
   const [breedingPage, setBreedingPage] = useState(1);
@@ -124,7 +126,7 @@ const PigAnalytics = () => {
   }, [farmData]);
 
   if (loading) return <LoadingSpinner />;
-  if (error) return <ErrorMessage message={error} />;
+  if (error) return <ErrorMessage message={t('common.error')} />;
   if (!farmData) return <DataMigration />;
 
   // Get the first weight record to use as current weight and calculate stats
@@ -168,7 +170,7 @@ const PigAnalytics = () => {
 
   const overviewStats = [
     {
-      label: 'Total Pigs',
+      label: t('analytics.stats.totalPigs'),
       value: totalPigs.toString(),
       icon: Activity,
       color: 'blue',
@@ -176,7 +178,7 @@ const PigAnalytics = () => {
       textColor: 'text-blue-600'
     },
     {
-      label: 'Mortality Rate',
+      label: t('analytics.stats.mortalityRate'),
       value: `${mortalityRate}%`,
       icon: TrendingUp,
       color: 'red',
@@ -184,7 +186,7 @@ const PigAnalytics = () => {
       textColor: 'text-red-600'
     },
     {
-      label: 'Avg. Daily Gain',
+      label: t('analytics.stats.avgDailyGain'),
       value: `${avgDailyGain} kg/day`,
       icon: Scale,
       color: 'green',
@@ -192,7 +194,7 @@ const PigAnalytics = () => {
       textColor: 'text-green-600'
     },
     {
-      label: 'Avg. FCR (30d)',
+      label: t('analytics.stats.avgFCR'),
       value: avgFCR,
       icon: Warehouse,
       color: 'purple',
@@ -235,11 +237,11 @@ const PigAnalytics = () => {
         {/* Feed Conversion and Breeding Management side by side */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Feed Conversion Section */}
-          <ErrorBoundary fallback={<div className="p-4 bg-red-100">Error in Feed Conversion</div>}>
+          <ErrorBoundary fallback={<div className="p-4 bg-red-100">{t('common.error.feedConversion')}</div>}>
             <div className="relative p-6 bg-white rounded-lg shadow-sm border border-gray-200">
               <div className="flex items-center gap-2 mb-4">
                 <Calculator className="w-5 h-5 text-blue-600" />
-                <h2 className="text-xl font-semibold">Feed Conversion</h2>
+                <h2 className="text-xl font-semibold">{t('analytics.feedConversion.title')}</h2>
               </div>
               <FeedConversionAnalytics
                 feedConversion={farmData?.feedConversion || []}
@@ -252,15 +254,15 @@ const PigAnalytics = () => {
           </ErrorBoundary>
 
           {/* Breeding Section */}
-          <ErrorBoundary fallback={<div className="p-4 bg-red-100">Error in Breeding Section</div>}>
+          <ErrorBoundary fallback={<div className="p-4 bg-red-100">{t('common.error')}</div>}>
             <div className="relative p-6 bg-white rounded-lg shadow-sm border border-gray-200">
               <div className="flex items-center gap-2 mb-4">
                 <Baby className="w-5 h-5 text-pink-600" />
-                <h2 className="text-xl font-semibold">Breeding Cycle Management</h2>
+                <h2 className="text-xl font-semibold">{t('analytics.breedingManagementTitle')}</h2>
               </div>
               <div className="bg-gray-50 p-4 rounded-lg">
                 {farmData?.breedingCycles?.length === 0 ? (
-                  <div className="text-center text-gray-500">No breeding cycles yet. Add one to get started.</div>
+                  <div className="text-center text-gray-500">{t('analytics.breeding.noCycles')}</div>
                 ) : (
                   <BreedingCycleManager
                     breedingCycles={farmData?.breedingCycles || []}
@@ -278,8 +280,12 @@ const PigAnalytics = () => {
         {/* Additional Features */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Genetic Performance */}
-          <ErrorBoundary fallback={<div className="p-4 bg-red-100">Error in Genetic Performance</div>}>
+          <ErrorBoundary fallback={<div className="p-4 bg-red-100">{t('common.error')}</div>}>
             <div className="relative p-6 bg-white rounded-lg shadow-sm border border-gray-200">
+              <div className="flex items-center gap-2 mb-4">
+                <Dna className="w-5 h-5 text-purple-600" />
+                <h2 className="text-xl font-semibold">{t('analytics.geneticPerformanceTitle')}</h2>
+              </div>
               <GeneticPerformance
                 geneticRecords={farmData?.geneticRecords || []}
                 onUpdate={(records) => handleUpdateFarm({ geneticRecords: records })}
@@ -288,8 +294,12 @@ const PigAnalytics = () => {
           </ErrorBoundary>
 
           {/* Environmental Impact */}
-          <ErrorBoundary fallback={<div className="p-4 bg-red-100">Error in Environmental Impact</div>}>
+          <ErrorBoundary fallback={<div className="p-4 bg-red-100">{t('common.error')}</div>}>
             <div className="relative p-6 bg-white rounded-lg shadow-sm border border-gray-200">
+              <div className="flex items-center gap-2 mb-4">
+                <Leaf className="w-5 h-5 text-green-600" />
+                <h2 className="text-xl font-semibold">{t('analytics.environmentalImpactTitle')}</h2>
+              </div>
               <EnvironmentalImpact
                 environmentalMetrics={farmData?.environmentalMetrics || []}
                 onUpdate={(metrics) => handleUpdateFarm({ environmentalMetrics: metrics })}
@@ -299,11 +309,11 @@ const PigAnalytics = () => {
         </div>
 
         {/* Growth Performance by Phase */}
-        <ErrorBoundary fallback={<div className="p-4 bg-red-100">Error in Growth Performance</div>}>
+        <ErrorBoundary fallback={<div className="p-4 bg-red-100">{t('common.error')}</div>}>
           <div className="relative p-6 bg-white rounded-lg shadow-sm border border-gray-200">
             <div className="flex items-center gap-2 mb-4">
               <Scale className="w-5 h-5 text-indigo-600" />
-              <h2 className="text-xl font-semibold">Growth Performance by Phase</h2>
+              <h2 className="text-xl font-semibold">{t('analytics.growthPerformanceTitle')}</h2>
             </div>
             <GrowthPerformanceDisplay
               feedConversion={farmData?.feedConversion || []}

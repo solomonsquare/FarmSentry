@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useAnalyticsData } from '../hooks/analytics/useAnalyticsData';
 import { LoadingSpinner } from '../components/common/LoadingSpinner';
 import { ErrorMessage } from '../components/common/ErrorMessage';
@@ -12,6 +13,9 @@ interface Props {
 }
 
 export function Analytics({ category }: Props) {
+  const { t } = useTranslation();
+  const farmType = t(category === 'birds' ? 'farm.poultryFarm' : 'farm.pigFarm');
+  const farmTypeKey = category === 'birds' ? 'poultryFarm' : 'pigFarm';
   const { 
     data, 
     loading, 
@@ -23,23 +27,23 @@ export function Analytics({ category }: Props) {
 
   if (loading) return <LoadingSpinner />;
   if (error) return <ErrorMessage message={error} />;
-  if (!data) return <ErrorMessage message="No analytics data available" />;
+  if (!data) return <ErrorMessage message={t('common.error.noData')} />;
 
   const stats = [
     {
-      label: 'Current Stock',
+      label: t('dashboard.stats.currentStock'),
       value: data.currentFlockSize.toLocaleString(),
       icon: Activity,
       color: 'blue'
     },
     {
-      label: 'Total Deaths',
+      label: t('dashboard.stats.deaths'),
       value: data.totalDeaths.toLocaleString(),
       icon: Skull,
       color: 'red'
     },
     {
-      label: 'Mortality Rate',
+      label: t('analytics.stats.mortalityRate'),
       value: `${data.mortalityRate.toFixed(1)}%`,
       icon: TrendingUp,
       color: 'yellow'
@@ -50,13 +54,7 @@ export function Analytics({ category }: Props) {
   if (category === 'birds' && data.birds) {
     stats.push(
       {
-        label: 'Egg Production',
-        value: data.birds.eggProduction?.toLocaleString() || '0',
-        icon: Bird,
-        color: 'green'
-      },
-      {
-        label: 'Average FCR',
+        label: t('analytics.feedConversion.title'),
         value: data.birds.feedConversionRatio?.toFixed(2) || '0',
         icon: Scale,
         color: 'purple'
@@ -65,20 +63,20 @@ export function Analytics({ category }: Props) {
   } else if (category === 'pigs' && data.pigs) {
     stats.push(
       {
-        label: 'Avg. Litter Size',
+        label: t('analytics.stats.totalPigs'),
         value: data.pigs.litterSize?.toFixed(1) || '0',
         icon: Warehouse,
         color: 'green'
       },
       {
-        label: 'Weaning Rate',
-        value: `${data.pigs.weaningRate?.toFixed(1) || '0'}%`,
+        label: t('analytics.stats.avgDailyGain'),
+        value: `${data.pigs.weaningRate?.toFixed(1) || '0'} kg/day`,
         icon: Scale,
         color: 'purple'
       },
       {
-        label: 'Breeding Efficiency',
-        value: `${data.pigs.breedingEfficiency?.toFixed(1) || '0'}%`,
+        label: t('analytics.stats.avgFCR'),
+        value: data.pigs.breedingEfficiency?.toFixed(2) || '0',
         icon: TrendingUp,
         color: 'indigo'
       }
@@ -87,8 +85,8 @@ export function Analytics({ category }: Props) {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
-        {category === 'birds' ? 'Poultry' : 'Pig'} Analytics
+      <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+        {category === 'birds' ? t('analytics.poultryFarmAnalytics') : t('analytics.pigFarmAnalytics')}
       </h1>
 
       {/* Stats Grid */}
@@ -96,17 +94,21 @@ export function Analytics({ category }: Props) {
         {stats.map((stat) => (
           <div
             key={stat.label}
-            className="bg-white rounded-lg shadow-sm p-6"
+            className="bg-white p-6 rounded-lg shadow-sm"
           >
             <div className="flex items-center">
-              <div className={`p-3 rounded-lg bg-${stat.color}-100`}>
+              <div className={`flex-shrink-0 rounded-md bg-${stat.color}-100 p-3`}>
                 <stat.icon className={`w-6 h-6 text-${stat.color}-600`} />
               </div>
-              <div className="ml-4">
-                <p className="text-sm font-medium text-gray-600">{stat.label}</p>
-                <p className={`text-xl font-semibold text-${stat.color}-600`}>
-                  {stat.value}
-                </p>
+              <div className="ml-5 w-0 flex-1">
+                <dl>
+                  <dt className="text-sm font-medium text-gray-500 truncate">
+                    {stat.label}
+                  </dt>
+                  <dd className={`text-lg font-semibold text-${stat.color}-600`}>
+                    {stat.value}
+                  </dd>
+                </dl>
               </div>
             </div>
           </div>
@@ -134,15 +136,15 @@ export function Analytics({ category }: Props) {
       ) : (
         <PigBreedingAnalytics
           breedingStats={{
-            totalBreedings: data.pigs?.totalBreedings ?? 0,
-            successfulBreedings: data.pigs?.successfulBreedings ?? 0,
-            averageLitterSize: data.pigs?.litterSize ?? 0,
-            weaningRate: data.pigs?.weaningRate ?? 0,
-            averageWeaningAge: data.pigs?.averageWeaningAge ?? 0,
-            averageBreedingInterval: data.pigs?.averageBreedingInterval ?? 0,
-            successfulFarrowings: data.pigs?.successfulFarrowings ?? 0,
-            averageLiveBorn: data.pigs?.averageLiveBorn ?? 0,
-            preWeaningMortality: data.pigs?.preWeaningMortality ?? 0
+            totalBreedings: data.pigs?.totalBreedings || 0,
+            successfulBreedings: data.pigs?.successfulBreedings || 0,
+            averageLitterSize: data.pigs?.litterSize || 0,
+            weaningRate: data.pigs?.weaningRate || 0,
+            averageWeaningAge: data.pigs?.averageWeaningAge || 0,
+            averageBreedingInterval: data.pigs?.averageBreedingInterval || 0,
+            successfulFarrowings: data.pigs?.successfulFarrowings || 0,
+            averageLiveBorn: data.pigs?.averageLiveBorn || 0,
+            preWeaningMortality: data.pigs?.preWeaningMortality || 0
           }}
         />
       )}

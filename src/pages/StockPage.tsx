@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { FarmCategory, Stock, StockEntry, Expense } from '../types';
+import { useTranslation } from 'react-i18next';
+import { FarmCategory, Stock, StockEntry } from '../types';
 import { StockManager } from '../components/stock/StockManager';
 import { useStockData } from '../hooks/useStockData';
 import { LoadingSpinner } from '../components/common/LoadingSpinner';
@@ -15,6 +16,7 @@ interface Props {
 
 export function StockPage({ category, stock, onUpdate }: Props) {
   const { currentUser } = useAuth();
+  const { t, i18n } = useTranslation();
   const { stock: currentStock, loading, error } = useStockData(category);
   const [stockHistory, setStockHistory] = useState<StockEntry[]>([]);
 
@@ -34,18 +36,20 @@ export function StockPage({ category, stock, onUpdate }: Props) {
     fetchStockHistory();
   }, [currentUser, category]);
 
+  useEffect(() => {
+    // Debug translation loading
+    console.log('Current language:', i18n.language);
+    console.log('Available languages:', i18n.languages);
+    console.log('Translation test:', t('stock.poultryTitle'));
+  }, [i18n.language, t]);
+
   if (loading) return <LoadingSpinner />;
   if (error) return <ErrorMessage message={error} />;
-
-  const farmTypeDisplay = {
-    birds: 'Poultry',
-    pigs: 'Pig'
-  };
 
   return (
     <div className="space-y-6 text-black dark:text-white">
       <h1 className="text-[3.5rem] font-bold mb-8">
-        {farmTypeDisplay[category]} Stock Management
+        {category === 'birds' ? t('stock.poultryTitle', 'Poultry Farm Stock Management') : t('stock.pigTitle', 'Pig Farm Stock Management')}
       </h1>
       <StockManager
         category={category}

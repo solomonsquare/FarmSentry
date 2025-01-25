@@ -13,10 +13,38 @@
     "currentFarm": {
       "title": "Oko Lọ́wọ́lọ́wọ́",
       "poultryFarm": "Oko Ẹran Ẹyẹ",
-      "pigFarm": "Oko Ẹlẹ́dẹ̀"
+      "pigFarm": "Oko Ẹlẹ́dẹ̀",
+      "noFarmSelected": "Kò sí oko tí a yàn",
+      "selectFarmType": "Yan Iru Oko",
+      "changeFarmType": "Yí Iru Oko Padà",
+      "changeFarmConfirm": "Yíyí iru oko padà yóò mú ẹ lọ sí ojú-ìwé yíyan oko. Ṣe ìtẹ̀síwájú?"
     },
     "subscription": {
-      "title": "Ètò Ìforúkọsílẹ̀"
+      "title": "Ètò Ìforúkọsílẹ̀",
+      "plans": {
+        "basic": "Ìpìlẹ̀",
+        "professional": "Oníṣẹ́",
+        "enterprise": "Ilé-iṣẹ́"
+      },
+      "features": {
+        "upTo5000": "Títí dé ẹyẹ 5,000",
+        "upTo20000": "Títí dé ẹyẹ 20,000",
+        "unlimited": "Ẹyẹ láìlópin",
+        "upTo50Pigs": "Títí dé ẹlẹ́dẹ̀ 50",
+        "upTo200Pigs": "Títí dé ẹlẹ́dẹ̀ 200",
+        "unlimitedPigs": "Ẹlẹ́dẹ̀ láìlópin",
+        "basicTracking": "Àwọn ẹ̀yà ìtọ́jú ìpìlẹ̀",
+        "advancedAnalytics": "Àtúpalẹ̀ tó ga",
+        "multiFarm": "Ìṣàkóso ọ̀pọ̀lọpọ̀ oko",
+        "emailSupport": "Àtìlẹ́yìn ímeèlì",
+        "prioritySupport": "Àtìlẹ́yìn pàtàkì",
+        "dedicatedSupport": "Àtìlẹ́yìn pàtó",
+        "customReports": "Àwọn ìjábọ̀ pàtó",
+        "customIntegrations": "Àwọn ìsopọ̀ pàtó"
+      },
+      "currentPlan": "Ètò Lọ́wọ́lọ́wọ́",
+      "switchPlan": "Yí Ètò Padà",
+      "custom": "Pàtó"
     },
     "language": {
       "title": "Èdè",
@@ -51,10 +79,278 @@
     "back": "Padà",
     "loading": "Ń gbé wọlé...",
     "error": "Àṣìṣe kan ṣẹlẹ̀",
-    "save": "Fipamọ́",
+    "save": "Fi pamọ́",
     "cancel": "Parẹ́",
-    "confirm": "Ìmúdájú",
+    "confirm": "Jẹ́rìí sí",
     "delete": "Parẹ́",
-    "edit": "Ṣàtúnṣe"
+    "edit": "Ṣàtúnṣe",
+    "date": "Ọjọ́",
+    "time": "Àkókò",
+    "quantity": "Iye",
+    "kgPerDay": "kg/ọjọ́",
+    "percentageSymbol": "%",
+    "notAvailable": "Kò sí",
+    "update": "Ṣe Àtúnṣe",
+    "updating": "Ń ṣe àtúnṣe...",
+    "close": "Tì"
+  },
+  "farm": {
+    "birds": "Ẹyẹ",
+    "pigs": "Ẹlẹ́dẹ̀",
+    "poultryDescription": "Ṣàkóso àwọn ẹyẹ eléran àti olówó ẹyin",
+    "pigDescription": "Ṣàkóso ìbísí àti ìdàgbàsókè ẹlẹ́dẹ̀",
+    "features": {
+      "flockTracking": "Ìtọ́jú ọ̀wọ́ ẹyẹ",
+      "feedMonitoring": "Ìṣàkóso oúnjẹ tí wọ́n jẹ",
+      "weightTracking": "Ìtọ́jú ìwúwo",
+      "mortalityTracking": "Ìtọ́jú ikú",
+      "breedingTracking": "Ìtọ́jú àkókò ìbísí",
+      "growthMonitoring": "Ìṣàkóso ìdàgbàsókè",
+      "feedConversion": "Àtúpalẹ̀ ìyípadà oúnjẹ"
+    }
+  },
+  "stock": {
+    "title": "Ìṣàkóso Ọjà {{farmType}}",
+    "poultryTitle": "Ìṣàkóso Ọjà Oko Ẹran Ẹyẹ",
+    "pigTitle": "Ìṣàkóso Ọjà Oko Ẹlẹ́dẹ̀",
+    "table": {
+      "type": "Irú",
+      "breed": "Ẹ̀yà",
+      "costs": "Owó",
+      "medicine": "Òògùn",
+      "feed": "Oúnjẹ",
+      "additional": "Àfikún",
+      "total": "Àpapọ̀"
+    },
+    "entryTypes": {
+      "initial": "Ìbẹ̀rẹ̀",
+      "addition": "Àfikún",
+      "death": "Ikú",
+      "sale": "Títà"
+    },
+    "actions": {
+      "addNewStock": "Fi Ọjà Tuntun Sí i",
+      "enterQuantity": "Tẹ iye sílẹ̀",
+      "stockExpenses": "Àwọn Ìnáwó Ọjà",
+      "enterCost": "Tẹ owó sílẹ̀",
+      "enterMedicineCost": "Tẹ owó òògùn sílẹ̀",
+      "enterFeedCost": "Tẹ owó oúnjẹ sílẹ̀",
+      "enterAdditionalCosts": "Tẹ àwọn owó mìíràn sílẹ̀",
+      "addStockWithExpenses": "Fi Ọjà Tuntun Sí i pẹ̀lú Àwọn Ìnáwó",
+      "recordDeaths": "Forúkọ Àwọn Ikú Sílẹ̀",
+      "enterDeathCount": "Tẹ iye ikú sílẹ̀",
+      "record": "Forúkọ Sílẹ̀",
+      "addedDescription": "A ti fi {{quantity}} ẹyẹ sí ọjà",
+      "deathDescription": "A ti forúkọ ikú {{quantity}} ẹyẹ sílẹ̀"
+    },
+    "poultryHistory": "Ìtàn Ọjà Ẹyẹ",
+    "pigHistory": "Ìtàn Ọjà Ẹlẹ́dẹ̀",
+    "searchByType": "Wá nípa irú...",
+    "exportCSV": "Ṣe Àgbéjáde CSV",
+    "overview": "Àkọsílẹ̀ Ọjà",
+    "noHistoryRecorded": "Kò sí ìtàn ọjà tí a ti kọ sílẹ̀",
+    "errors": {
+      "fetchHistoryFailed": "Kùnà láti mú ìtàn ọjà wá"
+    },
+    "currentStock": "{{animal}} tó wà ní Ọjà Lọ́wọ́lọ́wọ́",
+    "lastUpdated": "Ìgbà Tí A Ṣe Àtúnṣe Kẹ́yìn"
+  },
+  "dashboard": {
+    "title": "Páńẹ́ẹ̀lì Ìdarí",
+    "welcome": "Káàbọ̀ padà, {{email}}",
+    "stats": {
+      "currentStock": "Ọjà Lọ́wọ́lọ́wọ́",
+      "totalSales": "Àpapọ̀ Títà",
+      "revenue": "Àwọn Owó Tí A Rí",
+      "expenses": "Àwọn Ìnáwó",
+      "deaths": "Àpapọ̀ Ikú",
+      "sold": "{{animal}} Tí A Tà",
+      "profit": "Èrè",
+      "expenseBreakdown": "Àlàyé Ìnáwó"
+    }
+  },
+  "sales": {
+    "title": "Ìṣakoso Tita {{farmType}}",
+    "poultryTitle": "Ìṣakoso Tita Oko Ẹran Ẹyẹ",
+    "pigTitle": "Ìṣakoso Tita Oko Ẹlẹ́dẹ̀",
+    "newSale": {
+      "title": "Tita Tuntun",
+      "quantity": "Iye {{animal}} Láti Tà",
+      "pricePerUnit": "Iye Owo fun {{unit}} (₦)",
+      "costPerUnit": "Iye Owo Inawo fun {{unit}}",
+      "subtotal": "Apapo Owo",
+      "profitPerUnit": "Ere fun {{unit}}",
+      "totalProfit": "Apapo Ere",
+      "complete": "Pari Tita"
+    },
+    "history": {
+      "title": "Itan Tita",
+      "noRecords": "Ko si itan tita ti a ti ṣe akọsilẹ.",
+      "export": "Fi CSV Ranṣẹ",
+      "clear": "Pa Itan Rẹ",
+      "clearConfirm": "Ṣe o da ọ loju pe o fẹ pa itan tita rẹ? A ko le yí iṣẹ yii pada.",
+      "table": {
+        "date": "Ọjọ",
+        "time": "Akoko",
+        "quantity": "Iye",
+        "pricePerUnit": "Owo/{{unit}}",
+        "totalRevenue": "Apapo Owo",
+        "totalProfit": "Apapo Ere",
+        "totals": "Apapo"
+      },
+      "search": "Wa awọn tita...",
+      "sort": {
+        "byDate": "To nipasẹ Ọjọ",
+        "byAmount": "To nipasẹ Iye Owo",
+        "newest": "Tuntun Akọkọ",
+        "oldest": "Atijọ Akọkọ"
+      }
+    },
+    "summary": {
+      "revenue": "Apapo Owo",
+      "profit": "Apapo Ere"
+    }
+  },
+  "navigation": {
+    "dashboard": "Páńẹ́lì",
+    "stockManagement": "Ìṣàkóso Ẹ̀kọ́",
+    "sales": "Títà",
+    "analytics": "Ìtúpalẹ̀",
+    "settings": "Ìṣètò",
+    "logout": "Jáde"
+  },
+  "analytics": {
+    "title": "Ìtúpalẹ̀ {{farmType}}",
+    "poultryTitle": "Ìtúpalẹ̀ Pápá Ẹyẹ",
+    "pigTitle": "Ìtúpalẹ̀ Pápá Ẹlẹ́dẹ̀",
+    "pigFarmAnalytics": "Ìtúpalẹ̀ Pápá Ẹlẹ́dẹ̀",
+    "poultryFarmAnalytics": "Ìtúpalẹ̀ Pápá Ẹyẹ",
+    "stats": {
+      "totalPigs": "Àpapọ̀ Ẹlẹ́dẹ̀",
+      "mortalityRate": "Òsùwọ̀n Ikú",
+      "avgDailyGain": "Àgbàwọ́n Ìlọ́sí Ojoojúmọ́",
+      "avgFCR": "Àgbàwọ́n FCR (Ọjọ́ 30)"
+    },
+    "weightTracking": {
+      "title": "Ìtọ́pajú Ìwúwo",
+      "sampleSize": "Iye Àwọn {{animal}} (Púpọ̀jùlọ: {{max}})",
+      "totalWeight": "Àpapọ̀ Ìwúwo (kg)",
+      "targetWeight": "Ìwúwo Àfojúsùn fún {{animal}} (kg)",
+      "belowTarget": "{{animal}} tí ó kéré ju Ìwúwo Àfojúsùn",
+      "aboveTarget": "{{animal}} tí ó pọ̀ ju Ìwúwo Àfojúsùn",
+      "addRecord": "Fi Ìwúwo Sí i",
+      "weightRecords": "Àkọsílẹ̀ Ìwúwo",
+      "records": "Àkọsílẹ̀ Ìwúwo",
+      "noRecords": "Kò sí àkọsílẹ̀ ìwúwo"
+    },
+    "feedData": {
+      "title": "Dátà Oúnjẹ",
+      "totalConsumption": "Àpapọ̀ Oúnjẹ Ojoojúmọ́ (kg)",
+      "consumptionSummary": "Àpapọ̀ oúnjẹ fún {{total}} {{animal}} lójúmọ́. Fún {{animal}} kọ̀ọ̀kan: {{amount}} kg",
+      "estimatedDays": "Ọjọ́ tí ó ṣẹ́ku sí Ìwúwo Ọjà",
+      "estimatedDaysNote": "Ní ìbámu pẹ̀lú òsùwọ̀n ìdàgbàsókè àti ìwúwo ọjà tí a fẹ́",
+      "dailyCost": "Owó Oúnjẹ Ojoojúmọ́ (₦)",
+      "records": "Àkọsílẹ̀ Oúnjẹ",
+      "type": "Irú Oúnjẹ",
+      "cost": "Owó",
+      "notes": "Àkíyèsí",
+      "feedConversion": "Ìyípadà Oúnjẹ",
+      "feedConversionRatio": "Òsùwọ̀n Ìyípadà Oúnjẹ",
+      "gainPerDay": "Ìlọ́sí Ojoojúmọ́",
+      "feedConsumption": "Ìlò Oúnjẹ"
+    },
+    "weightAnalysis": {
+      "title": "Ìtúpalẹ̀ Ìwúwo"
+    },
+    "feedConversion": {
+      "title": "Ìyípadà Oúnjẹ",
+      "history": "Ìtàn FCR",
+      "fcrHistory": "Ìtàn FCR",
+      "table": {
+        "dateRange": "Àsìkò",
+        "phase": "Ipele",
+        "initialWeight": "Ìwúwo Ìbẹ̀rẹ̀",
+        "finalWeight": "Ìwúwo Ìparí",
+        "feedConsumed": "Oúnjẹ tí a Lò",
+        "fcr": "FCR",
+        "actions": "Ìgbésẹ̀"
+      },
+      "phases": {
+        "nursery": "Ipele Ọmọ",
+        "grower": "Ipele Ìdàgbà",
+        "finisher": "Ipele Ìparí"
+      },
+      "feedCostPerKg": "Owó Oúnjẹ/kg",
+      "profitMargin": "Èrè"
+    },
+    "breedingManagementTitle": "Ìṣàkóso Ìbísí",
+    "breeding": {
+      "cycles": "Àwọn Àsìkò Ìbísí",
+      "addCycle": "Fi Àsìkò Sí i",
+      "selectedCycleDetails": "Àlàyé Àsìkò tí a Yàn",
+      "viewDetails": "Wo Àlàyé",
+      "table": {
+        "sowId": "ID Abo",
+        "startDate": "Ọjọ́ Ìbẹ̀rẹ̀",
+        "expectedDueDate": "Ọjọ́ tí a Retí",
+        "status": "Ipò",
+        "actions": "Ìgbésẹ̀"
+      },
+      "status": {
+        "pending": "Dúró",
+        "active": "Ńṣiṣẹ́",
+        "completed": "Parí"
+      }
+    },
+    "geneticPerformanceTitle": "Ìṣesí Àjogún",
+    "geneticPerformance": {
+      "title": "Ìṣẹ́ṣe Àbọ̀rìṣí",
+      "addRecord": "Ṣàfikún Àkọsílẹ̀",
+      "breedingLine": "Ìlà Ìbísí",
+      "selectBreed": "Yan ẹ̀yà",
+      "type": "Irú",
+      "changes": {
+        "improved_growth_rate": "Ìlọsíwájú ìdàgbà",
+        "better_feed_efficiency": "Ìlọsíwájú ìlò oúnjẹ",
+        "increased_litter_size": "Ìlọsíwájú iye ọmọ",
+        "better_disease_resistance": "Ìlọsíwájú ìdáàbòbò àrùn",
+        "improved_meat_quality": "Ìlọsíwájú dídára ẹran",
+        "higher_survival_rate": "Ìlọsíwájú òsùnwọ̀n ìyè",
+        "better_mothering_ability": "Ìlọsíwájú agbára ìyá",
+        "decreased_growth_rate": "Ìdínkù ìdàgbà",
+        "bad_feed_efficiency": "Àìdára ìlò oúnjẹ",
+        "decreased_litter_size": "Ìdínkù iye ọmọ",
+        "poor_disease_resistance": "Àìdára ìdáàbòbò àrùn",
+        "poor_meat_quality": "Àìdára dídára ẹran",
+        "lower_survival_rate": "Ìdínkù òsùnwọ̀n ìyè",
+        "poor_mothering_ability": "Àìdára agbára ìyá"
+      },
+      "improvements": "Àwọn Ìlọsíwájú",
+      "deteriorations": "Àwọn Ìdínkù",
+      "noRecords": "Kò sí àkọsílẹ̀ àbọ̀rìṣí. Fi ọ̀kan kún láti bẹ̀rẹ̀."
+    },
+    "environmentalImpactTitle": "Ipa Àyíká",
+    "environmentalImpact": {
+      "title": "Ipa Àyíká",
+      "addMetric": "Fi Òsùwọ̀n Sí i",
+      "resourceType": "Irú Ohun Èlò",
+      "Water": "Omi",
+      "Electricity": "Iná",
+      "Waste": "Ìdọ̀tí",
+      "Emissions": "Èéfín",
+      "usageTrends": "Ìlò (Àkọsílẹ̀ 10 Tó Kẹ́yìn)",
+      "usage": "ìlò",
+      "noMetrics": "Kò sí òsùwọ̀n àyíká. Fi ọ̀kan sí láti bẹ̀rẹ̀."
+    },
+    "growthPerformanceTitle": "Ìṣesí Ìdàgbà",
+    "growthPerformance": {
+      "nurseryPhase": "Ipele Ọmọ",
+      "growerPhase": "Ipele Ìdàgbà",
+      "finisherPhase": "Ipele Ìparí",
+      "avgDailyGain": "Àgbàwọ́n Ìlọ́sí Ojoojúmọ́",
+      "avgFCR": "Àgbàwọ́n FCR",
+      "feedConsumed": "Oúnjẹ tí a Lò",
+      "daysInPhase": "Ọjọ́ ní Ipele"
+    }
   }
 } 

@@ -4,6 +4,7 @@ import { FarmCategory } from '../../types';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { UserService } from '../../services/userService';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   currentType: FarmCategory | null;
@@ -12,28 +13,29 @@ interface Props {
 export function CurrentFarmSection({ currentType }: Props) {
   const navigate = useNavigate();
   const { currentUser } = useAuth();
+  const { t } = useTranslation();
 
   const farmInfo = {
     birds: {
-      title: 'Poultry Farm',
+      title: t('settings.currentFarm.poultryFarm'),
       icon: Bird,
-      description: 'Manage broiler birds and layers',
+      description: t('farm.poultryDescription'),
       features: [
-        'Flock tracking',
-        'Feed consumption monitoring',
-        'Weight tracking',
-        'Mortality tracking'
+        t('farm.features.flockTracking'),
+        t('farm.features.feedMonitoring'),
+        t('farm.features.weightTracking'),
+        t('farm.features.mortalityTracking')
       ]
     },
     pigs: {
-      title: 'Pig Farm',
+      title: t('settings.currentFarm.pigFarm'),
       icon: Warehouse,
-      description: 'Manage pig breeding and growth',
+      description: t('farm.pigDescription'),
       features: [
-        'Breeding cycle tracking',
-        'Growth stage monitoring',
-        'Feed conversion analysis',
-        'Weight tracking'
+        t('farm.features.breedingTracking'),
+        t('farm.features.growthMonitoring'),
+        t('farm.features.feedConversion'),
+        t('farm.features.weightTracking')
       ]
     }
   };
@@ -41,12 +43,12 @@ export function CurrentFarmSection({ currentType }: Props) {
   if (!currentType) {
     return (
       <div className="text-center p-6">
-        <p className="text-gray-600 dark:text-gray-400">No farm type selected</p>
+        <p className="text-gray-600 dark:text-gray-400">{t('settings.currentFarm.noFarmSelected')}</p>
         <button
           onClick={() => navigate('/')}
           className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
         >
-          Select Farm Type
+          {t('settings.currentFarm.selectFarmType')}
         </button>
       </div>
     );
@@ -58,7 +60,7 @@ export function CurrentFarmSection({ currentType }: Props) {
   const handleChangeFarm = async () => {
     if (!currentUser) return;
 
-    if (window.confirm('Changing farm type will take you to the farm selection page. Continue?')) {
+    if (window.confirm(t('settings.currentFarm.changeFarmConfirm'))) {
       try {
         await UserService.resetUserData(currentUser.uid);
         navigate('/');
@@ -98,7 +100,7 @@ export function CurrentFarmSection({ currentType }: Props) {
         onClick={handleChangeFarm}
         className="w-full px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
       >
-        Change Farm Type
+        {t('settings.currentFarm.changeFarmType')}
       </button>
     </div>
   );

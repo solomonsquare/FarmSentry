@@ -13,10 +13,38 @@
     "currentFarm": {
       "title": "Ubi Ugbu a",
       "poultryFarm": "Ubi Ọkụkọ",
-      "pigFarm": "Ubi Ezi"
+      "pigFarm": "Ubi Ezi",
+      "noFarmSelected": "Ahọrọbeghị ụdị ubi",
+      "selectFarmType": "Họrọ Ụdị Ubi",
+      "changeFarmType": "Gbanwee Ụdị Ubi",
+      "changeFarmConfirm": "Ịgbanwe ụdị ubi ga-eduga gị na peeji nhọrọ ubi. Gaa n'ihu?"
     },
     "subscription": {
-      "title": "Atụmatụ Ndenye Aha"
+      "title": "Atụmatụ Ndenye Aha",
+      "plans": {
+        "basic": "Ntọala",
+        "professional": "Ọkachamara",
+        "enterprise": "Ụlọ Ọrụ"
+      },
+      "features": {
+        "upTo5000": "Ruo 5,000 nnụnụ",
+        "upTo20000": "Ruo 20,000 nnụnụ",
+        "unlimited": "Nnụnụ na-enweghị oke",
+        "upTo50Pigs": "Ruo 50 ezi",
+        "upTo200Pigs": "Ruo 200 ezi",
+        "unlimitedPigs": "Ezi na-enweghị oke",
+        "basicTracking": "Atụmatụ nlekọta ntọala",
+        "advancedAnalytics": "Nyocha dị elu",
+        "multiFarm": "Njikwa ọtụtụ ubi",
+        "emailSupport": "Nkwado email",
+        "prioritySupport": "Nkwado pụrụ iche",
+        "dedicatedSupport": "Nkwado nkịtị",
+        "customReports": "Akụkọ pụrụ iche",
+        "customIntegrations": "Mmekọ pụrụ iche"
+      },
+      "currentPlan": "Atụmatụ Ugbu a",
+      "switchPlan": "Gbanwee Atụmatụ",
+      "custom": "Pụrụ Iche"
     },
     "language": {
       "title": "Asụsụ",
@@ -52,9 +80,303 @@
     "loading": "Na-ebubata...",
     "error": "Nsogbu dapụtara",
     "save": "Chekwa",
-    "cancel": "Kwụsị",
+    "cancel": "Kagbuo",
     "confirm": "Kwenye",
     "delete": "Hichapụ",
-    "edit": "Dezie"
+    "edit": "Dezie",
+    "date": "Ụbọchị",
+    "time": "Oge",
+    "quantity": "Ọnụ Ọgụgụ",
+    "kgPerDay": "kg/ụbọchị",
+    "percentageSymbol": "%",
+    "notAvailable": "Adịghị",
+    "update": "Melite",
+    "updating": "Na-emelite...",
+    "close": "Mechie"
+  },
+  "navigation": {
+    "dashboard": "Ogwe Njikwa",
+    "stockManagement": "Njikwa Ngwaahịa",
+    "sales": "Ahịa",
+    "analytics": "Nyocha",
+    "settings": "Ntọala",
+    "logout": "Pụọ"
+  },
+  "farm": {
+    "birds": "Nnụnụ",
+    "pigs": "Ezi",
+    "poultryDescription": "Jikwaa ọkụkọ anụ na ndị na-atụ akwa",
+    "pigDescription": "Jikwaa ọmụmụ na uto ezi",
+    "features": {
+      "flockTracking": "Nlekọta ìgwè nnụnụ",
+      "feedMonitoring": "Nlekọta nri a na-eri",
+      "weightTracking": "Nlekọta arọ",
+      "mortalityTracking": "Nlekọta ọnwụ",
+      "breedingTracking": "Nlekọta usoro ọmụmụ",
+      "growthMonitoring": "Nlekọta uto",
+      "feedConversion": "Nyocha mgbanwe nri"
+    }
+  },
+  "stock": {
+    "title": "Njikwa Ngwaahịa {{farmType}}",
+    "poultryTitle": "Njikwa Ngwaahịa Ubi Ọkụkọ",
+    "pigTitle": "Njikwa Ngwaahịa Ubi Ezi",
+    "table": {
+      "type": "Ụdị",
+      "breed": "Agbụrụ",
+      "costs": "Ọnụ Ahịa",
+      "medicine": "Ọgwụ",
+      "feed": "Nri",
+      "additional": "Ndị Ọzọ",
+      "total": "Mkpokọta"
+    },
+    "entryTypes": {
+      "initial": "Mmalite",
+      "addition": "Mgbakwunye",
+      "death": "Ọnwụ",
+      "sale": "Nrere"
+    },
+    "actions": {
+      "addNewStock": "Tinye Ngwaahịa Ọhụrụ",
+      "enterQuantity": "Tinye ọnụ ọgụgụ",
+      "stockExpenses": "Ego Maka Ngwaahịa",
+      "enterCost": "Tinye ọnụ ahịa",
+      "enterMedicineCost": "Tinye ọnụ ahịa ọgwụ",
+      "enterFeedCost": "Tinye ọnụ ahịa nri",
+      "enterAdditionalCosts": "Tinye ọnụ ahịa ndị ọzọ",
+      "addStockWithExpenses": "Tinye Ngwaahịa na Ego E Mefuru",
+      "recordDeaths": "Dee Ọnwụ",
+      "enterDeathCount": "Tinye ọnụ ọgụgụ ọnwụ",
+      "record": "Dee",
+      "addedDescription": "E tinyere {{quantity}} nnụnụ na ngwaahịa",
+      "deathDescription": "E dere {{quantity}} ọnwụ nnụnụ"
+    },
+    "poultryHistory": "Akụkọ Ngwaahịa Nnụnụ",
+    "pigHistory": "Akụkọ Ngwaahịa Ezi",
+    "searchByType": "Chọọ site na ụdị...",
+    "exportCSV": "Bubata CSV",
+    "overview": "Nlele Ngwaahịa",
+    "noHistoryRecorded": "Enweghị akụkọ ngwaahịa edere",
+    "errors": {
+      "fetchHistoryFailed": "Ọ daghị ebe a na-eweta akụkọ ngwaahịa"
+    },
+    "currentStock": "{{animal}} dị ugbu a na Ngwaahịa",
+    "lastUpdated": "Mgbe Ikpeazụ E Melitere"
+  },
+  "dashboard": {
+    "title": "Ogwe Njikwa",
+    "welcome": "Nnọọ ọzọ, {{email}}",
+    "stats": {
+      "currentStock": "Ihe E Nwere Ugbu a",
+      "totalSales": "Mkpokọta Ere Ere",
+      "revenue": "Ego E Nwetara",
+      "expenses": "Ego E Mefuru",
+      "deaths": "Mkpokọta Ọnwụ",
+      "sold": "{{animal}} E Rere",
+      "profit": "Uru",
+      "expenseBreakdown": "Nkọwa Ego E Mefuru"
+    }
+  },
+  "sales": {
+    "title": "Njikwa Nrere {{farmType}}",
+    "poultryTitle": "Njikwa Nrere Ulo Nnunu",
+    "pigTitle": "Njikwa Nrere Ulo Ezi",
+    "newSale": {
+      "title": "Ere Ere Ọhụrụ",
+      "quantity": "Ọnụọgụ {{animal}} Ere",
+      "pricePerUnit": "Ọnụahịa kwa {{unit}} (₦)",
+      "costPerUnit": "Ọnụ Ego kwa {{unit}}",
+      "subtotal": "Mkpokọta Nta",
+      "profitPerUnit": "Uru kwa {{unit}}",
+      "totalProfit": "Mkpokọta Uru",
+      "complete": "Mechaa Ere Ere"
+    },
+    "history": {
+      "title": "Akụkọ Ere Ere",
+      "noRecords": "Enweghị ere ere edepụtara.",
+      "export": "Bubata CSV",
+      "clear": "Hichaa Akụkọ",
+      "clearConfirm": "Ị na-achọ ihichapụ akụkọ ere ere? A gaghị emenwu ihe a.",
+      "table": {
+        "date": "Ụbọchị",
+        "time": "Oge",
+        "quantity": "Ọnụọgụ",
+        "pricePerUnit": "Ọnụahịa/{{unit}}",
+        "totalRevenue": "Mkpokọta Ego",
+        "totalProfit": "Mkpokọta Uru",
+        "totals": "Mkpokọta"
+      },
+      "search": "Chọọ ere ere...",
+      "sort": {
+        "byDate": "Hazie site na Ụbọchị",
+        "byAmount": "Hazie site na Ego",
+        "newest": "Ọhụrụ Mbụ",
+        "oldest": "Ochie Mbụ"
+      }
+    },
+    "summary": {
+      "revenue": "Mkpokọta Ego",
+      "profit": "Mkpokọta Uru"
+    }
+  },
+  "analytics": {
+    "title": "Nyocha {{farmType}}",
+    "poultryTitle": "Nyocha Ubi Ọkụkọ",
+    "pigTitle": "Nyocha Ubi Ezi",
+    "pigFarmAnalytics": "Nyocha Ubi Ezi",
+    "poultryFarmAnalytics": "Nyocha Ubi Ọkụkọ",
+    "stats": {
+      "totalPigs": "Ọnụ Ọgụ Ezi",
+      "mortalityRate": "Ọnụ Ọgụ Ọnwụ",
+      "avgDailyGain": "Mmewe Kwa Ụbọchị",
+      "avgFCR": "FCR Kwa Oge (Ụbọchị 30)"
+    },
+    "weightTracking": {
+      "title": "Nlele Arọ",
+      "sampleSize": "Ọnụ Ọgụgụ Nnwale ({{animal}}) - Kachasị: {{max}}",
+      "totalWeight": "Mkpokọta Arọ nke Nnwale (kg)",
+      "targetWeight": "Arọ Ebumnuche kwa {{animal}} (kg)",
+      "belowTarget": "{{animal}} dị na Okpuru Arọ Ebumnuche",
+      "aboveTarget": "{{animal}} karịrị Arọ Ebumnuche",
+      "notes": "Ndetu",
+      "saving": "Na-echekwa...",
+      "addRecord": "Tinye Ndekọ Arọ",
+      "weightRecords": "Ndekọ Arọ",
+      "averageWeight": "Arọ Etiti",
+      "noWeightRecords": "Enweghị ndekọ arọ dị",
+      "totalExceedError": "Mkpokọta nke okpuru na elu ebumnuche agaghị akarị ọnụ ọgụgụ nnwale",
+      "table": {
+        "sampleSize": "Ọnụ Ọgụgụ Nnwale",
+        "averageWeight": "Arọ Etiti",
+        "targetWeight": "Arọ Ebumnuche",
+        "belowTarget": "Dị na Okpuru",
+        "aboveTarget": "Karịrị"
+      }
+    },
+    "feedData": {
+      "title": "Data Nri",
+      "totalConsumption": "Mkpokọta Nri E Riri Kwa Ụbọchị (kg)",
+      "consumptionSummary": "Mkpokọta nri {{total}} {{animal}} niile riri kwa ụbọchị. Kwa {{animal}}: {{amount}} kg",
+      "estimatedDays": "Ụbọchị E Chere Tupu Arọ Ahịa",
+      "estimatedDaysNote": "Dabere na ọsọ uto ugbu a na arọ ahịa ebumnuche",
+      "dailyCost": "Ọnụ Ahịa Nri Kwa Ụbọchị (₦)",
+      "records": "Ndekọ Nri",
+      "type": "Ụdị Nri",
+      "cost": "Ọnụ Ahịa",
+      "notes": "Ndetu",
+      "table": {
+        "date": "Ụbọchị",
+        "feedType": "Ụdị Nri",
+        "quantity": "Ọnụ Ọgụgụ",
+        "cost": "Ọnụ Ahịa",
+        "notes": "Ndetu"
+      },
+      "feedConversion": "Mgbanwe Nri",
+      "feedConversionRatio": "Akara Mgbanwe Nri",
+      "gainPerDay": "Mmewe Kwa Ụbọchị",
+      "feedConsumption": "Nri E Riri"
+    },
+    "weightAnalysis": {
+      "title": "Nyocha Arọ"
+    },
+    "feedConversion": {
+      "title": "Mgbanwe Nri",
+      "history": "Akụkọ FCR",
+      "fcrHistory": "Akụkọ FCR",
+      "table": {
+        "dateRange": "Oge",
+        "phase": "Ọnọdụ",
+        "initialWeight": "Arọ Mmalite",
+        "finalWeight": "Arọ Ikpeazụ",
+        "feedConsumed": "Nri E Riri",
+        "fcr": "FCR",
+        "actions": "Omume"
+      },
+      "form": {
+        "startDate": "Ụbọchị Mmalite",
+        "endDate": "Ụbọchị Ọgwụgwụ",
+        "initialWeight": "Arọ Mmalite (kg)",
+        "finalWeight": "Arọ Ikpeazụ (kg)",
+        "feedConsumed": "Nri E Riri (kg)",
+        "addRecord": "Tinye Ndekọ",
+        "growthPhase": "Ọnọdụ Uto"
+      },
+      "phases": {
+        "nursery": "Nwa",
+        "grower": "Uto",
+        "finisher": "Mmechi"
+      },
+      "feedCostPerKg": "Ọnụ Ahịa Nri/kg",
+      "profitMargin": "Mgbakwunye Uru"
+    },
+    "breedingManagementTitle": "Njikwa Ọmụmụ",
+    "breeding": {
+      "cycles": "Usoro Ọmụmụ",
+      "addCycle": "Tinye Usoro",
+      "selectedCycleDetails": "Nkọwa Usoro A Họrọ",
+      "viewDetails": "Lelee Nkọwa",
+      "table": {
+        "sowId": "ID Ezinne",
+        "startDate": "Ụbọchị Mmalite",
+        "expectedDueDate": "Ụbọchị A Na-atụ Anya",
+        "status": "Ọnọdụ",
+        "actions": "Omume"
+      },
+      "status": {
+        "pending": "Na-eche",
+        "active": "Na-arụ Ọrụ",
+        "completed": "Emechara"
+      }
+    },
+    "geneticPerformanceTitle": "Arụmọrụ Agbụrụ",
+    "geneticPerformance": {
+      "title": "Arụmọrụ Agbụrụ",
+      "addRecord": "Tinye Ndekọ",
+      "breedingLine": "Ahịrị Ọmụmụ",
+      "selectBreed": "Họrọ agbụrụ",
+      "type": "Ụdị",
+      "changes": {
+        "improved_growth_rate": "Ọganihu ọsịsọ uto",
+        "better_feed_efficiency": "Nri ka mma",
+        "increased_litter_size": "Ọnụ ọgụgụ ụmụ ka mma",
+        "better_disease_resistance": "Mgbochi ọrịa ka mma",
+        "improved_meat_quality": "Ọdịmma anụ ka mma",
+        "higher_survival_rate": "Ọnụ ọgụgụ ndụ ka mma",
+        "better_mothering_ability": "Ike nne ka mma",
+        "decreased_growth_rate": "Mbelata ọsịsọ uto",
+        "bad_feed_efficiency": "Njọ nri",
+        "decreased_litter_size": "Mbelata ọnụ ọgụgụ ụmụ",
+        "poor_disease_resistance": "Adịghị mgbochi ọrịa",
+        "poor_meat_quality": "Njọ ọdịmma anụ",
+        "lower_survival_rate": "Mbelata ọnụ ọgụgụ ndụ",
+        "poor_mothering_ability": "Adịghị ike nne"
+      },
+      "improvements": "Ọganihu",
+      "deteriorations": "Mbelata",
+      "noRecords": "Enweghị ndekọ arụmọrụ agbụrụ. Tinye otu iji malite."
+    },
+    "environmentalImpactTitle": "Mmetụta Gburugburu",
+    "environmentalImpact": {
+      "title": "Mmetụta Gburugburu",
+      "addMetric": "Tinye Atụmatụ",
+      "resourceType": "Ụdị Ihe",
+      "Water": "Mmiri",
+      "Electricity": "Ọkụ",
+      "Waste": "Ihe Efu",
+      "Emissions": "Ọnwụnwa",
+      "usageTrends": "Usoro Ojiji (Ndekọ 10 Ikpeazụ)",
+      "usage": "ojiji",
+      "noMetrics": "Enweghị atụmatụ gburugburu. Tinye otu iji malite."
+    },
+    "growthPerformanceTitle": "Arụmọrụ Uto",
+    "growthPerformance": {
+      "nurseryPhase": "Oge Nwa Ezi",
+      "growerPhase": "Oge Uto",
+      "finisherPhase": "Oge Mmechi",
+      "avgDailyGain": "Nnukwu Uto Kwa Ụbọchị",
+      "avgFCR": "FCR Nke Ọma",
+      "feedConsumed": "Nri E Riri",
+      "daysInPhase": "Ụbọchị n'Oge"
+    }
   }
 } 

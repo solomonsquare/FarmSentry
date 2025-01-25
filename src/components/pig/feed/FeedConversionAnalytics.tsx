@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Calculator } from 'lucide-react';
 import { FeedConversionRecord } from '../../../types/pig';
 import { PaginationContainer } from '../../common/PaginationContainer';
@@ -19,6 +20,8 @@ export function FeedConversionAnalytics({
   onPageChange, 
   onUpdate 
 }: Props) {
+  const { t } = useTranslation();
+  
   console.log('FeedConversionAnalytics render:', { feedConversion, currentPage, recordsPerPage });
   
   // Calculate pagination
@@ -39,32 +42,32 @@ export function FeedConversionAnalytics({
       />
 
       <div className="mt-6">
-        <h3 className="text-lg font-medium mb-4">FCR History</h3>
+        <h3 className="text-lg font-medium mb-4">{t('analytics.feedConversion.history')}</h3>
         <div className="bg-white border rounded-lg">
           <div className="overflow-x-auto">
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">
                 <tr>
                   <th scope="col" className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                    Date Range
+                    {t('analytics.feedConversion.table.dateRange')}
                   </th>
                   <th scope="col" className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                    Phase
+                    {t('analytics.feedConversion.table.phase')}
                   </th>
                   <th scope="col" className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                    Initial Weight
+                    {t('analytics.feedConversion.table.initialWeight')}
                   </th>
                   <th scope="col" className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                    Final Weight
+                    {t('analytics.feedConversion.table.finalWeight')}
                   </th>
                   <th scope="col" className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                    Feed Consumed
+                    {t('analytics.feedConversion.table.feedConsumed')}
                   </th>
                   <th scope="col" className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                    FCR
+                    {t('analytics.feedConversion.table.fcr')}
                   </th>
                   <th scope="col" className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                    Actions
+                    {t('analytics.feedConversion.table.actions')}
                   </th>
                 </tr>
               </thead>
@@ -82,7 +85,7 @@ export function FeedConversionAnalytics({
                         onClick={() => handleFeedConversionUpdate([record])}
                         className="text-teal-600 hover:text-teal-800"
                       >
-                        Edit
+                        {t('common.edit')}
                       </button>
                     </td>
                   </tr>

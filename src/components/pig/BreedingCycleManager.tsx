@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Calendar, Plus } from 'lucide-react';
 import { PigFarmFeatures } from '../../types/farm';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   breedingCycles: PigFarmFeatures['breedingCycles'];
@@ -10,6 +11,7 @@ interface Props {
 export function BreedingCycleManager({ breedingCycles, onUpdate }: Props) {
   const [sowId, setSowId] = useState('');
   const [startDate, setStartDate] = useState('');
+  const { t } = useTranslation();
 
   const handleAddCycle = () => {
     if (!sowId || !startDate) return;
@@ -34,23 +36,23 @@ export function BreedingCycleManager({ breedingCycles, onUpdate }: Props) {
     <div className="bg-white p-6 rounded-lg shadow-md">
       <div className="flex items-center gap-2 mb-4">
         <Calendar className="w-5 h-5 text-purple-600" />
-        <h2 className="text-xl font-semibold">Breeding Cycle Management</h2>
+        <h2 className="text-xl font-semibold">{t('analytics.stats.breedingCycles')}</h2>
       </div>
 
       <div className="space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700">Sow ID</label>
+            <label className="block text-sm font-medium text-gray-700">{t('analytics.stats.sowId')}</label>
             <input
               type="text"
               value={sowId}
               onChange={(e) => setSowId(e.target.value)}
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500"
-              placeholder="Enter sow identifier"
+              placeholder={t('analytics.stats.sowIdPlaceholder')}
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">Start Date</label>
+            <label className="block text-sm font-medium text-gray-700">{t('analytics.stats.startDate')}</label>
             <input
               type="date"
               value={startDate}
@@ -65,19 +67,20 @@ export function BreedingCycleManager({ breedingCycles, onUpdate }: Props) {
           disabled={!sowId || !startDate}
           className="w-full flex items-center justify-center gap-1 px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          <Plus className="w-4 h-4" /> Add Breeding Cycle
+          <Plus className="w-4 h-4" /> {t('analytics.stats.addBreedingCycle')}
         </button>
 
         <div className="mt-6">
-          <h3 className="text-lg font-medium text-gray-900 mb-4">Active Breeding Cycles</h3>
+          <h3 className="text-lg font-medium text-gray-900 mb-4">{t('analytics.stats.activeBreedingCycles')}</h3>
           <div className="overflow-x-auto">
             <table className="min-w-full divide-y divide-gray-200">
               <thead>
                 <tr>
-                  <th className="px-4 py-2 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Sow ID</th>
-                  <th className="px-4 py-2 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Start Date</th>
-                  <th className="px-4 py-2 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Expected Due Date</th>
-                  <th className="px-4 py-2 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Status</th>
+                  <th className="px-4 py-2 text-left text-sm font-medium text-gray-500 dark:text-gray-400">{t('analytics.stats.sowId')}</th>
+                  <th className="px-4 py-2 text-left text-sm font-medium text-gray-500 dark:text-gray-400">{t('analytics.stats.startDate')}</th>
+                  <th className="px-4 py-2 text-left text-sm font-medium text-gray-500 dark:text-gray-400">{t('analytics.stats.dueDate')}</th>
+                  <th className="px-4 py-2 text-left text-sm font-medium text-gray-500 dark:text-gray-400">{t('analytics.stats.status')}</th>
+                  <th className="px-4 py-2 text-left text-sm font-medium text-gray-500 dark:text-gray-400">{t('analytics.stats.actions')}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
@@ -94,8 +97,13 @@ export function BreedingCycleManager({ breedingCycles, onUpdate }: Props) {
                           ? 'bg-blue-100 text-blue-800'
                           : 'bg-yellow-100 text-yellow-800'
                       }`}>
-                        {cycle.status.charAt(0).toUpperCase() + cycle.status.slice(1)}
+                        {t(`analytics.stats.${cycle.status}`)}
                       </span>
+                    </td>
+                    <td className="px-4 py-2 text-sm">
+                      <button className="text-blue-600 hover:text-blue-800">
+                        {t('analytics.stats.viewDetails')}
+                      </button>
                     </td>
                   </tr>
                 ))}

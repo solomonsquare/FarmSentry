@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Sale, FarmCategory } from '../../types';
 import { formatDate } from '../../utils/date';
 import { formatNaira } from '../../utils/currency';
@@ -10,6 +11,7 @@ interface Props {
 }
 
 export function SalesHistoryTable({ sales, category }: Props) {
+  const { t } = useTranslation();
   const [currentPage, setCurrentPage] = useState(1);
   const [displayedSales, setDisplayedSales] = useState<Sale[]>([]);
   const recordsPerPage = 5;
@@ -26,12 +28,15 @@ export function SalesHistoryTable({ sales, category }: Props) {
     setCurrentPage(page);
   };
 
-  const animalType = category === 'birds' ? 'BIRD' : 'PIG';
+  const animalType = category === 'birds' ? t('farm.birds') : t('farm.pigs');
 
-  const getPricePerUnit = (sale: Sale) => {
-    if (category === 'birds') return sale.pricePerBird;
-    return sale.pricePerPig || sale.pricePerBird;
-  };
+  if (sales.length === 0) {
+    return (
+      <div className="text-center py-8 text-gray-500">
+        {t('sales.history.noRecords')}
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-4">
@@ -39,25 +44,37 @@ export function SalesHistoryTable({ sales, category }: Props) {
         <table className="min-w-full divide-y divide-gray-200">
           <thead>
             <tr>
-              <th className="px-4 py-2 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Date</th>
-              <th className="px-4 py-2 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Time</th>
-              <th className="px-4 py-2 text-right text-sm font-medium text-gray-500 dark:text-gray-400">Quantity</th>
-              <th className="px-4 py-2 text-right text-sm font-medium text-gray-500 dark:text-gray-400">Price/{animalType}</th>
-              <th className="px-4 py-2 text-right text-sm font-medium text-gray-500 dark:text-gray-400">Total Revenue</th>
-              <th className="px-4 py-2 text-right text-sm font-medium text-gray-500 dark:text-gray-400">Total Profit</th>
+              <th className="px-4 py-2 text-left text-sm font-medium text-gray-500 dark:text-gray-400">
+                {t('common.date')}
+              </th>
+              <th className="px-4 py-2 text-left text-sm font-medium text-gray-500 dark:text-gray-400">
+                {t('common.time')}
+              </th>
+              <th className="px-4 py-2 text-right text-sm font-medium text-gray-500 dark:text-gray-400">
+                {t('common.quantity')}
+              </th>
+              <th className="px-4 py-2 text-right text-sm font-medium text-gray-500 dark:text-gray-400">
+                {t('sales.history.table.pricePerUnit', { unit: animalType })}
+              </th>
+              <th className="px-4 py-2 text-right text-sm font-medium text-gray-500 dark:text-gray-400">
+                {t('sales.summary.revenue')}
+              </th>
+              <th className="px-4 py-2 text-right text-sm font-medium text-gray-500 dark:text-gray-400">
+                {t('sales.summary.profit')}
+              </th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200">
             {displayedSales.map((sale) => (
               <tr key={sale.id}>
-                <td className="px-4 py-2 text-sm text-gray-900">{sale.date}</td>
+                <td className="px-4 py-2 text-sm text-gray-900">{formatDate(sale.date)}</td>
                 <td className="px-4 py-2 text-sm text-gray-900">{sale.time}</td>
                 <td className="px-4 py-2 text-sm text-right">{sale.quantity}</td>
                 <td className="px-4 py-2 text-sm text-right">
-                  {formatNaira(getPricePerUnit(sale))}
+                  {formatNaira(sale.pricePerBird)}
                 </td>
                 <td className="px-4 py-2 text-sm text-right">
-                  {formatNaira(sale.quantity * getPricePerUnit(sale))}
+                  {formatNaira(sale.totalAmount)}
                 </td>
                 <td className="px-4 py-2 text-sm text-right">{formatNaira(sale.totalProfit)}</td>
               </tr>

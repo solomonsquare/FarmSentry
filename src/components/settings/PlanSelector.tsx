@@ -2,6 +2,7 @@ import React from 'react';
 import { Check } from 'lucide-react';
 import { FarmCategory } from '../../types';
 import { SubscriptionPlan } from '../../hooks/useSubscription';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   currentPlan: SubscriptionPlan;
@@ -10,19 +11,21 @@ interface Props {
 }
 
 export function PlanSelector({ currentPlan, farmType, onSelect }: Props) {
+  const { t } = useTranslation();
+
   const getCapacity = (plan: SubscriptionPlan) => {
     if (farmType === 'birds') {
       switch (plan) {
-        case 'basic': return '5,000 birds';
-        case 'professional': return '20,000 birds';
-        case 'enterprise': return 'Unlimited birds';
+        case 'basic': return t('settings.subscription.features.upTo5000');
+        case 'professional': return t('settings.subscription.features.upTo20000');
+        case 'enterprise': return t('settings.subscription.features.unlimited');
         default: return '';
       }
     } else {
       switch (plan) {
-        case 'basic': return '50 pigs';
-        case 'professional': return '200 pigs';
-        case 'enterprise': return 'Unlimited pigs';
+        case 'basic': return t('settings.subscription.features.upTo50Pigs');
+        case 'professional': return t('settings.subscription.features.upTo200Pigs');
+        case 'enterprise': return t('settings.subscription.features.unlimitedPigs');
         default: return '';
       }
     }
@@ -31,34 +34,34 @@ export function PlanSelector({ currentPlan, farmType, onSelect }: Props) {
   const plans = [
     {
       id: 'basic' as SubscriptionPlan,
-      name: 'Basic',
+      name: t('settings.subscription.plans.basic'),
       price: '₦15,000',
       features: [
-        `Up to ${getCapacity('basic')}`,
-        'Basic tracking features',
-        'Email support'
+        getCapacity('basic'),
+        t('settings.subscription.features.basicTracking'),
+        t('settings.subscription.features.emailSupport')
       ]
     },
     {
       id: 'professional' as SubscriptionPlan,
-      name: 'Professional',
+      name: t('settings.subscription.plans.professional'),
       price: '₦25,000',
       features: [
-        `Up to ${getCapacity('professional')}`,
-        'Advanced analytics',
-        'Priority support',
-        'Custom reports'
+        getCapacity('professional'),
+        t('settings.subscription.features.advancedAnalytics'),
+        t('settings.subscription.features.prioritySupport'),
+        t('settings.subscription.features.customReports')
       ]
     },
     {
       id: 'enterprise' as SubscriptionPlan,
-      name: 'Enterprise',
-      price: 'Custom',
+      name: t('settings.subscription.plans.enterprise'),
+      price: t('settings.subscription.custom'),
       features: [
         getCapacity('enterprise'),
-        'Multi-farm management',
-        'Dedicated support',
-        'Custom integrations'
+        t('settings.subscription.features.multiFarm'),
+        t('settings.subscription.features.dedicatedSupport'),
+        t('settings.subscription.features.customIntegrations')
       ]
     }
   ];
@@ -102,7 +105,7 @@ export function PlanSelector({ currentPlan, farmType, onSelect }: Props) {
                 : 'bg-blue-600 text-white hover:bg-blue-700'
             }`}
           >
-            {currentPlan === plan.id ? 'Current Plan' : 'Switch Plan'}
+            {currentPlan === plan.id ? t('settings.subscription.currentPlan') : t('settings.subscription.switchPlan')}
           </button>
         </div>
       ))}

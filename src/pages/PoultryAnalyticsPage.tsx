@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { PoultryAnalytics, FarmData } from '../components/poultry/PoultryAnalytics';
 import { usePoultryFarmData } from '../hooks/usePoultryFarmData';
 import { Stock, WeightRecord } from '../types';
@@ -18,6 +19,7 @@ interface Props {
 }
 
 export function PoultryAnalyticsPage({ currentFlockSize, maxSampleSize }: Props) {
+  const { t } = useTranslation();
   const { data, updateData } = usePoultryFarmData();
 
   // Ensure data has all required properties with proper typing
@@ -43,7 +45,9 @@ export function PoultryAnalyticsPage({ currentFlockSize, maxSampleSize }: Props)
 
   return (
     <div className="space-y-6">
-      <h1 className="text-3xl font-bold text-gray-900">Poultry Farm Analytics</h1>
+      <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+        {t('analytics.title', { farmType: t('analytics.poultryTitle') })}
+      </h1>
       <PoultryAnalytics 
         farmData={farmData as FarmData}
         onUpdate={handleUpdate}

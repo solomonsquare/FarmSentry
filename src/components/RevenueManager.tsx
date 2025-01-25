@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { BadgeDollarSign } from 'lucide-react';
 import { Sale, Expense, Stock, FarmCategory } from '../types';
 import { SaleEntry } from './sales/SaleEntry';
@@ -14,6 +15,7 @@ interface Props {
 }
 
 export function RevenueManager({ totalBirds, stock, category, onSaleComplete }: Props) {
+  const { t } = useTranslation();
   const { currentUser } = useAuth();
   const [error, setError] = useState<string | null>(null);
   const [processing, setProcessing] = useState(false);
@@ -52,7 +54,7 @@ export function RevenueManager({ totalBirds, stock, category, onSaleComplete }: 
       await onSaleComplete(saleWithProfit, updatedStock);
     } catch (error) {
       console.error('Error processing sale:', error);
-      setError('Failed to process sale. Please try again.');
+      setError(t('common.error'));
     } finally {
       setProcessing(false);
     }
@@ -62,7 +64,7 @@ export function RevenueManager({ totalBirds, stock, category, onSaleComplete }: 
     <div className="bg-white p-6 rounded-lg shadow-md">
       <div className="flex items-center gap-2 mb-6">
         <BadgeDollarSign className="w-5 h-5 text-green-600" />
-        <h2 className="text-xl font-semibold">New Sale</h2>
+        <h2 className="text-xl font-semibold">{t('sales.newSale.title')}</h2>
       </div>
 
       {error && <ErrorMessage message={error} />}

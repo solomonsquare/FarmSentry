@@ -38,10 +38,34 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  const setLanguage = async (lang: Language) => {
+    setLoading(true);
+    setError(null);
+    try {
+      if (currentUser) {
+        const userRef = doc(db, 'users', currentUser.uid);
+        await setDoc(userRef, { language: lang }, { merge: true });
+      }
+      await i18n.changeLanguage(lang);
+      setCurrentLanguage(lang);
+      document.documentElement.lang = lang;
+      localStorage.setItem('i18nextLng', lang);
+    } catch (error) {
+      console.error('Error setting language:', error);
+      setError('Failed to change language');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   // Load language preference from Firestore
   useEffect(() => {
     async function loadLanguagePreference() {
       if (!currentUser) {
+        const savedLang = localStorage.getItem('i18nextLng') as Language || 'en';
+        await i18n.changeLanguage(savedLang);
+        setCurrentLanguage(savedLang);
+        document.documentElement.lang = savedLang;
         setLoading(false);
         return;
       }
@@ -52,13 +76,18 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
         
         if (userDoc.exists()) {
           const data = userDoc.data();
-          const savedLanguage = (data.language || 'en') as Language;
-          setCurrentLanguage(savedLanguage);
+          const savedLanguage = (data.language || localStorage.getItem('i18nextLng') || 'en') as Language;
           await i18n.changeLanguage(savedLanguage);
+          setCurrentLanguage(savedLanguage);
+          document.documentElement.lang = savedLanguage;
         }
       } catch (error) {
         console.error('Error loading language preference:', error);
         setError('Failed to load language preference');
+        const fallbackLang = localStorage.getItem('i18nextLng') as Language || 'en';
+        await i18n.changeLanguage(fallbackLang);
+        setCurrentLanguage(fallbackLang);
+        document.documentElement.lang = fallbackLang;
       } finally {
         setLoading(false);
       }
@@ -66,34 +95,6 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
 
     loadLanguagePreference();
   }, [currentUser]);
-
-  // Initialize i18next with the current language
-  useEffect(() => {
-    if (!loading) {
-      i18n.changeLanguage(currentLanguage);
-      document.documentElement.lang = currentLanguage;
-    }
-  }, [currentLanguage, loading]);
-
-  const setLanguage = async (lang: Language) => {
-    if (!currentUser) return;
-
-    try {
-      setError(null);
-      const userRef = doc(db, 'users', currentUser.uid);
-      await setDoc(userRef, {
-        language: lang,
-        updatedAt: new Date().toISOString()
-      }, { merge: true });
-      
-      setCurrentLanguage(lang);
-      document.documentElement.lang = lang;
-    } catch (error) {
-      console.error('Error updating language:', error);
-      setError('Failed to update language preference');
-      throw error;
-    }
-  };
 
   const value = {
     currentLanguage,

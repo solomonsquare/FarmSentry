@@ -12,17 +12,16 @@ import { Onboarding } from './pages/Onboarding';
 import { FarmRoutes } from './components/FarmRoutes';
 import { FarmProvider } from './contexts/FarmContext';
 import { LoadingSpinner } from './components/common/LoadingSpinner';
-import './i18n';
 
 function App() {
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900">
-      <Suspense fallback={<div className="flex justify-center items-center min-h-screen"><LoadingSpinner /></div>}>
-        <Router>
-          <AuthProvider>
-            <ThemeProvider>
-              <LanguageProvider>
-                <FarmProvider>
+      <Router>
+        <AuthProvider>
+          <ThemeProvider>
+            <LanguageProvider>
+              <FarmProvider>
+                <Suspense fallback={<div className="flex justify-center items-center min-h-screen"><LoadingSpinner /></div>}>
                   <Routes>
                     {/* Public routes */}
                     <Route path="/login" element={<LoginPage />} />
@@ -66,12 +65,12 @@ function App() {
                     <Route path="/" element={<Navigate to="/login" replace />} />
                     <Route path="*" element={<Navigate to="/login" replace />} />
                   </Routes>
-                </FarmProvider>
-              </LanguageProvider>
-            </ThemeProvider>
-          </AuthProvider>
-        </Router>
-      </Suspense>
+                </Suspense>
+              </FarmProvider>
+            </LanguageProvider>
+          </ThemeProvider>
+        </AuthProvider>
+      </Router>
     </div>
   );
 }

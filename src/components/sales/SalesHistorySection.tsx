@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { FarmCategory, Sale } from '../../types';
 import { useSalesData } from '../../hooks/sales/useSalesData';
 import { SalesHistoryTable } from './SalesHistoryTable';
@@ -14,6 +15,7 @@ interface Props {
 }
 
 export function SalesHistorySection({ category, onUpdateSales }: Props) {
+  const { t } = useTranslation();
   const { 
     sales, 
     loading, 
@@ -36,7 +38,7 @@ export function SalesHistorySection({ category, onUpdateSales }: Props) {
   const paginatedSales = sales.slice(startIndex, endIndex);
 
   const handleClearHistory = async () => {
-    if (window.confirm('Are you sure you want to clear the sales history? This action cannot be undone.')) {
+    if (window.confirm(t('sales.history.clearConfirm'))) {
       await onUpdateSales([]);
       await refresh();
     }
@@ -50,14 +52,14 @@ export function SalesHistorySection({ category, onUpdateSales }: Props) {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <History className="w-5 h-5 text-gray-500" />
-          <h2 className="text-2xl font-semibold">Sales History</h2>
+          <h2 className="text-2xl font-semibold">{t('sales.history.title')}</h2>
         </div>
         <button
           onClick={handleExport}
           className="inline-flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
         >
           <Download className="w-4 h-4" />
-          Export CSV
+          {t('sales.history.export')}
         </button>
       </div>
 
@@ -65,14 +67,14 @@ export function SalesHistorySection({ category, onUpdateSales }: Props) {
         <div className="bg-green-50 p-4 rounded-lg">
           <div className="flex items-center gap-2 text-green-600">
             <DollarSign className="w-4 h-4" />
-            <h3 className="text-sm font-medium">Total Revenue</h3>
+            <h3 className="text-sm font-medium">{t('sales.summary.revenue')}</h3>
           </div>
           <p className="text-2xl font-bold text-green-700 mt-1">{formatNaira(totalRevenue)}</p>
         </div>
         <div className="bg-blue-50 p-4 rounded-lg">
           <div className="flex items-center gap-2 text-blue-600">
             <TrendingUp className="w-4 h-4" />
-            <h3 className="text-sm font-medium">Total Profit</h3>
+            <h3 className="text-sm font-medium">{t('sales.summary.profit')}</h3>
           </div>
           <p className="text-2xl font-bold text-blue-700 mt-1">{formatNaira(totalProfit)}</p>
         </div>
@@ -81,7 +83,7 @@ export function SalesHistorySection({ category, onUpdateSales }: Props) {
       <div className="flex gap-4">
         <input
           type="text"
-          placeholder="Search sales..."
+          placeholder={t('sales.history.search')}
           className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
           value={filters.searchTerm}
           onChange={(e) => setFilters({ ...filters, searchTerm: e.target.value })}
@@ -91,28 +93,28 @@ export function SalesHistorySection({ category, onUpdateSales }: Props) {
           value={filters.sortBy}
           onChange={(e) => setFilters({ ...filters, sortBy: e.target.value as 'date' | 'amount' })}
         >
-          <option value="date">Sort by Date</option>
-          <option value="amount">Sort by Amount</option>
+          <option value="date">{t('sales.history.sort.byDate')}</option>
+          <option value="amount">{t('sales.history.sort.byAmount')}</option>
         </select>
         <select
           className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 bg-white"
           value={filters.sortOrder}
           onChange={(e) => setFilters({ ...filters, sortOrder: e.target.value as 'asc' | 'desc' })}
         >
-          <option value="desc">Newest First</option>
-          <option value="asc">Oldest First</option>
+          <option value="desc">{t('sales.history.sort.newest')}</option>
+          <option value="asc">{t('sales.history.sort.oldest')}</option>
         </select>
       </div>
 
       <div className="flex items-center justify-between">
-        <h3 className="text-lg font-semibold">Sales History</h3>
+        <h3 className="text-lg font-semibold">{t('sales.history.title')}</h3>
         {sales.length > 0 && (
           <button
             onClick={handleClearHistory}
             className="inline-flex items-center gap-2 px-4 py-2 text-red-600 border border-red-100 rounded-lg text-sm font-medium hover:bg-red-50"
           >
             <Trash2 className="w-4 h-4" />
-            Clear History
+            {t('sales.history.clear')}
           </button>
         )}
       </div>

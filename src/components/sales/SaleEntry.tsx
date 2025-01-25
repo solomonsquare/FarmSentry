@@ -1,178 +1,123 @@
 import React, { useState } from 'react';
-import { Sale, Stock, FarmCategory } from '../../types';
+import { useTranslation } from 'react-i18next';
+import { Sale, Stock, StockEntry, FarmCategory } from '../../types';
 import { formatNaira } from '../../utils/currency';
-import { calculateProfitPerBird } from '../../utils/calculations';
-import { formatDateTime } from '../../utils/date';
+import { useAuth } from '../../contexts/AuthContext';
 
 interface Props {
   totalBirds: number;
-  stockHistory: any[];
+  stockHistory: StockEntry[];
   category: FarmCategory;
   stock: Stock;
   onSubmit: (sale: Omit<Sale, 'id'>, updatedStock: Stock) => Promise<void>;
-  processing?: boolean;
+  processing: boolean;
 }
 
-export function SaleEntry({ totalBirds, stockHistory, category, stock, onSubmit, processing = false }: Props) {
+export function SaleEntry({ totalBirds, stockHistory, category, stock, onSubmit, processing }: Props) {
+  const { t } = useTranslation();
+  const { currentUser } = useAuth();
   const [quantity, setQuantity] = useState<number>(0);
   const [pricePerUnit, setPricePerUnit] = useState<number>(0);
-  const [error, setError] = useState<string | null>(null);
 
-  const animalType = category === 'birds' ? 'bird' : 'pig';
-  const animalTypePlural = category === 'birds' ? 'birds' : 'pigs';
-
-  const handleSubmit = async () => {
-    try {
-      if (quantity <= 0 || pricePerUnit <= 0) {
-        throw new Error(`Please enter valid quantity and price per ${animalType}`);
-      }
-
-      if (quantity > totalBirds) {
-        throw new Error(`Not enough ${animalTypePlural} in stock for this sale!`);
-      }
-
-      setError(null);
-      const { date, time } = formatDateTime();
-      
-      // Get the last stock entry with expenses to calculate cost per bird
-      const lastStockEntry = [...stockHistory]
-        .reverse()
-        .find(entry => 
-          (entry.type === 'initial' || entry.type === 'addition') && 
-          entry.expenses
-        );
-
-      // Calculate cost per bird from the last batch
-      const costPerBird = lastStockEntry?.expenses
-        ? Object.values(lastStockEntry.expenses).reduce((sum, value) => sum + value, 0) / lastStockEntry.quantity
-        : 0;
-
-      // Calculate profits
-      const profitPerBird = pricePerUnit - costPerBird;
-      const totalAmount = quantity * pricePerUnit;
-      const totalProfit = quantity * profitPerBird; // This will now be less than total revenue
-      
-      const saleEntry: Omit<Sale, 'id'> = {
-        quantity,
-        pricePerBird: pricePerUnit,
-        costPerBird,
-        date,
-        time,
-        profitPerBird,
-        totalProfit,
-        totalAmount,
-        category
-      };
-
-      const newStockCount = stock.currentBirds - quantity;
-      const stockEntry = {
-        id: `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
-        date,
-        time,
-        type: 'sale' as const,
-        quantity: Number(quantity),
-        remainingStock: newStockCount,
-        description: `Sold ${quantity} ${animalTypePlural}`,
-        pricePerUnit: Number(pricePerUnit),
-        costPerUnit: Number(costPerBird),
-        totalAmount: Number(quantity * pricePerUnit)
-      };
-
-      const updatedStock: Stock = {
-        ...stock,
-        currentBirds: newStockCount,
-        history: [...stock.history, stockEntry],
-        lastUpdated: date
-      };
-
-      await onSubmit(saleEntry, updatedStock);
-
-      // Reset form
-      setQuantity(0);
-      setPricePerUnit(0);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to process sale');
-    }
-  };
-
-  // Calculate display values
-  const subtotal = quantity * pricePerUnit;
-  
-  // Get cost per unit for display
-  const lastStockEntry = [...stockHistory]
-    .reverse()
-    .find(entry => 
-      (entry.type === 'initial' || entry.type === 'addition') && 
-      entry.expenses
-    );
-    
-  const costPerUnit = lastStockEntry?.expenses 
-    ? Object.values(lastStockEntry.expenses).reduce((sum, value) => sum + value, 0) / lastStockEntry.quantity
+  const animalType = category === 'birds' ? t('farm.birds') : t('farm.pigs');
+  const costPerUnit = stockHistory.length > 0 
+    ? stockHistory[stockHistory.length - 1].expenses?.birds || 0 
     : 0;
 
-  // Calculate profit values for display
-  const profitPerUnit = pricePerUnit - costPerUnit;
-  const totalProfitForSale = quantity * profitPerUnit;
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!currentUser || quantity <= 0 || pricePerUnit <= 0) return;
+
+    const updatedStock = {
+      ...stock,
+      currentBirds: stock.currentBirds - quantity,
+      history: [
+        ...stock.history,
+        {
+          id: Date.now().toString(),
+          date: new Date().toISOString().split('T')[0],
+          time: new Date().toLocaleTimeString(),
+          type: 'sale' as const,
+          quantity,
+          remainingStock: stock.currentBirds - quantity,
+          description: t('stock.actions.addedDescription', { quantity })
+        }
+      ]
+    };
+
+    const sale: Omit<Sale, 'id'> = {
+      date: new Date().toISOString().split('T')[0],
+      time: new Date().toLocaleTimeString(),
+      quantity,
+      pricePerBird: pricePerUnit,
+      costPerBird: costPerUnit,
+      totalAmount: quantity * pricePerUnit,
+      profitPerBird: pricePerUnit - costPerUnit,
+      totalProfit: quantity * (pricePerUnit - costPerUnit),
+      category,
+      userId: currentUser.uid,
+      createdAt: new Date()
+    };
+
+    await onSubmit(sale, updatedStock);
+    setQuantity(0);
+    setPricePerUnit(0);
+  };
 
   return (
-    <div className="space-y-4">
-      {error && (
-        <div className="bg-red-50 border border-red-400 text-red-700 px-4 py-3 rounded">
-          {error}
-        </div>
-      )}
-
+    <form onSubmit={handleSubmit} className="space-y-4">
       <div>
         <label className="block text-sm font-medium text-gray-700">
-          Number of {animalTypePlural} to Sell
+          {t('sales.newSale.quantity', { animal: animalType })}
         </label>
         <input
           type="number"
-          value={quantity || ''}
+          min="1"
+          max={totalBirds}
+          value={quantity}
           onChange={(e) => setQuantity(Number(e.target.value))}
           className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500"
-          min="0"
-          max={totalBirds}
-          disabled={processing}
+          required
         />
       </div>
 
       <div>
         <label className="block text-sm font-medium text-gray-700">
-          Price per {animalType} (₦)
+          {t('sales.newSale.pricePerUnit', { unit: animalType })}
         </label>
         <input
           type="number"
-          value={pricePerUnit || ''}
+          min="0"
+          step="0.01"
+          value={pricePerUnit}
           onChange={(e) => setPricePerUnit(Number(e.target.value))}
           className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500"
-          min="0"
-          disabled={processing}
+          required
         />
       </div>
 
-      <div className="space-y-1 pt-2">
-        <div className="text-sm text-gray-600">
-          Cost per {animalType}: {formatNaira(costPerUnit)}
-        </div>
-        <div className="text-sm text-gray-600">
-          Subtotal: {formatNaira(subtotal)}
-        </div>
-        <div className="text-sm text-gray-600">
-          Profit per {animalType}: {formatNaira(profitPerUnit)}
-        </div>
-        <div className="text-sm font-medium text-gray-700">
-          Total Profit: {formatNaira(totalProfitForSale)}
-        </div>
+      <div className="space-y-2 text-sm">
+        <p className="text-gray-600">
+          {t('sales.newSale.costPerUnit', { unit: animalType })}: {formatNaira(costPerUnit)}
+        </p>
+        <p className="text-gray-600">
+          {t('sales.newSale.subtotal')}: {formatNaira(quantity * pricePerUnit)}
+        </p>
+        <p className="text-gray-600">
+          {t('sales.newSale.profitPerUnit', { unit: animalType })}: {formatNaira(pricePerUnit - costPerUnit)}
+        </p>
+        <p className="text-gray-600">
+          {t('sales.newSale.totalProfit')}: {formatNaira(quantity * (pricePerUnit - costPerUnit))}
+        </p>
       </div>
 
       <button
-        onClick={handleSubmit}
-        disabled={quantity <= 0 || pricePerUnit <= 0 || quantity > totalBirds || processing}
-        className="w-full px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed"
+        type="submit"
+        disabled={processing || quantity <= 0 || pricePerUnit <= 0}
+        className="w-full px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-50"
       >
-        {processing ? 'Processing...' : 'Complete Sale'}
+        {processing ? t('common.loading') : t('sales.newSale.complete')}
       </button>
-    </div>
+    </form>
   );
 }

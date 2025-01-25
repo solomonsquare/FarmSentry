@@ -4,13 +4,12 @@ import { useTranslation } from 'react-i18next';
 import { useLanguage, Language, languageNames } from '../../contexts/LanguageContext';
 
 export function LanguageSelector() {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const { currentLanguage, setLanguage, loading, error } = useLanguage();
 
   const handleLanguageChange = async (lang: Language) => {
     try {
       await setLanguage(lang);
-      await i18n.changeLanguage(lang);
     } catch (err) {
       console.error('Failed to change language:', err);
     }

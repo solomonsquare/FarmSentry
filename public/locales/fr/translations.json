@@ -13,10 +13,38 @@
     "currentFarm": {
       "title": "Ferme Actuelle",
       "poultryFarm": "Ferme Avicole",
-      "pigFarm": "Ferme Porcine"
+      "pigFarm": "Ferme Porcine",
+      "noFarmSelected": "Aucune ferme sélectionnée",
+      "selectFarmType": "Sélectionner le type de ferme",
+      "changeFarmType": "Changer le type de ferme",
+      "changeFarmConfirm": "Le changement de type de ferme vous redirigera vers la page de sélection de ferme. Continuer ?"
     },
     "subscription": {
-      "title": "Plan d'Abonnement"
+      "title": "Plan d'Abonnement",
+      "plans": {
+        "basic": "Basique",
+        "professional": "Professionnel",
+        "enterprise": "Entreprise"
+      },
+      "features": {
+        "upTo5000": "Jusqu'à 5 000 volailles",
+        "upTo20000": "Jusqu'à 20 000 volailles",
+        "unlimited": "Volailles illimitées",
+        "upTo50Pigs": "Jusqu'à 50 porcs",
+        "upTo200Pigs": "Jusqu'à 200 porcs",
+        "unlimitedPigs": "Porcs illimités",
+        "basicTracking": "Fonctionnalités de suivi basiques",
+        "advancedAnalytics": "Analyses avancées",
+        "multiFarm": "Gestion multi-fermes",
+        "emailSupport": "Support par email",
+        "prioritySupport": "Support prioritaire",
+        "dedicatedSupport": "Support dédié",
+        "customReports": "Rapports personnalisés",
+        "customIntegrations": "Intégrations personnalisées"
+      },
+      "currentPlan": "Plan Actuel",
+      "switchPlan": "Changer de Plan",
+      "custom": "Sur Mesure"
     },
     "language": {
       "title": "Langue",
@@ -55,6 +83,302 @@
     "cancel": "Annuler",
     "confirm": "Confirmer",
     "delete": "Supprimer",
-    "edit": "Modifier"
+    "edit": "Modifier",
+    "date": "Date",
+    "time": "Heure",
+    "quantity": "Quantité",
+    "kgPerDay": "kg/jour",
+    "percentageSymbol": "%",
+    "notAvailable": "N/D",
+    "update": "Mettre à jour",
+    "updating": "Mise à jour...",
+    "close": "Fermer"
+  },
+  "navigation": {
+    "dashboard": "Tableau de Bord",
+    "stockManagement": "Gestion du Stock",
+    "sales": "Ventes",
+    "analytics": "Analyses",
+    "settings": "Paramètres",
+    "logout": "Déconnexion"
+  },
+  "farm": {
+    "birds": "Volailles",
+    "pigs": "Porcs",
+    "poultryFarm": "Ferme Avicole",
+    "pigFarm": "Ferme Porcine",
+    "poultryDescription": "Gérer les poulets de chair et les pondeuses",
+    "pigDescription": "Gérer l'élevage et la croissance des porcs",
+    "features": {
+      "flockTracking": "Suivi des troupeaux",
+      "feedMonitoring": "Surveillance de la consommation d'aliments",
+      "weightTracking": "Suivi du poids",
+      "mortalityTracking": "Suivi de la mortalité",
+      "breedingTracking": "Suivi des cycles de reproduction",
+      "growthMonitoring": "Surveillance de la croissance",
+      "feedConversion": "Analyse de la conversion alimentaire"
+    }
+  },
+  "stock": {
+    "title": "Gestion du Stock de {{farmType}}",
+    "poultryTitle": "Gestion du Stock de Ferme Avicole",
+    "pigTitle": "Gestion du Stock de Ferme Porcine",
+    "table": {
+      "type": "Type",
+      "breed": "Race",
+      "costs": "Coûts",
+      "medicine": "Médicaments",
+      "feed": "Aliments",
+      "additional": "Supplémentaire",
+      "total": "Total"
+    },
+    "entryTypes": {
+      "initial": "Initial",
+      "addition": "Ajout",
+      "death": "Décès",
+      "sale": "Vente"
+    },
+    "actions": {
+      "addNewStock": "Ajouter Nouveau Stock",
+      "enterQuantity": "Entrez la quantité",
+      "stockExpenses": "Dépenses de Stock",
+      "enterCost": "Entrez le coût",
+      "enterMedicineCost": "Entrez le coût des médicaments",
+      "enterFeedCost": "Entrez le coût des aliments",
+      "enterAdditionalCosts": "Entrez les coûts supplémentaires",
+      "addStockWithExpenses": "Ajouter Stock avec Dépenses",
+      "recordDeaths": "Enregistrer les Décès",
+      "enterDeathCount": "Entrez le nombre de décès",
+      "record": "Enregistrer",
+      "addedDescription": "Ajout de {{quantity}} oiseaux au stock",
+      "deathDescription": "{{quantity}} décès d'oiseaux enregistrés"
+    },
+    "poultryHistory": "Historique du Stock de Volaille",
+    "pigHistory": "Historique du Stock de Porcs",
+    "searchByType": "Rechercher par type...",
+    "exportCSV": "Exporter CSV",
+    "overview": "Aperçu du Stock",
+    "noHistoryRecorded": "Aucun historique de stock enregistré",
+    "errors": {
+      "fetchHistoryFailed": "Échec de la récupération de l'historique du stock"
+    },
+    "currentStock": "{{animal}} Actuels en Stock",
+    "lastUpdated": "Dernière Mise à Jour"
+  },
+  "dashboard": {
+    "title": "Tableau de Bord",
+    "welcome": "Bon retour, {{email}}",
+    "stats": {
+      "currentStock": "Stock Actuel",
+      "totalSales": "Ventes Totales",
+      "revenue": "Revenus",
+      "expenses": "Dépenses",
+      "deaths": "Décès Totaux",
+      "sold": "{{animal}} Vendus",
+      "profit": "Bénéfice Net",
+      "expenseBreakdown": "Répartition des Dépenses"
+    }
+  },
+  "sales": {
+    "title": "Gestion des Ventes de {{farmType}}",
+    "poultryTitle": "Gestion des Ventes de la Ferme Avicole",
+    "pigTitle": "Gestion des Ventes de la Ferme Porcine",
+    "newSale": {
+      "title": "Nouvelle Vente",
+      "quantity": "Nombre de {{animal}} à Vendre",
+      "pricePerUnit": "Prix par {{unit}} (₦)",
+      "costPerUnit": "Coût par {{unit}}",
+      "subtotal": "Sous-total",
+      "profitPerUnit": "Profit par {{unit}}",
+      "totalProfit": "Profit Total",
+      "complete": "Finaliser la Vente"
+    },
+    "history": {
+      "title": "Historique des Ventes",
+      "noRecords": "Aucune vente enregistrée.",
+      "export": "Exporter CSV",
+      "clear": "Effacer l'Historique",
+      "clearConfirm": "Êtes-vous sûr de vouloir effacer l'historique des ventes ? Cette action ne peut pas être annulée.",
+      "table": {
+        "date": "Date",
+        "time": "Heure",
+        "quantity": "Quantité",
+        "pricePerUnit": "Prix/{{unit}}",
+        "totalRevenue": "Revenu Total",
+        "totalProfit": "Profit Total",
+        "totals": "Totaux"
+      },
+      "search": "Rechercher des ventes...",
+      "sort": {
+        "byDate": "Trier par Date",
+        "byAmount": "Trier par Montant",
+        "newest": "Plus Récent",
+        "oldest": "Plus Ancien"
+      }
+    },
+    "summary": {
+      "revenue": "Revenu Total",
+      "profit": "Profit Total"
+    }
+  },
+  "analytics": {
+    "title": "Analyse de {{farmType}}",
+    "poultryTitle": "Analyse de la Ferme Avicole",
+    "pigTitle": "Analyse de la Ferme Porcine",
+    "pigFarmAnalytics": "Analyse de la Ferme Porcine",
+    "poultryFarmAnalytics": "Analyse de la Ferme Avicole",
+    "stats": {
+      "totalPigs": "Total des Porcs",
+      "mortalityRate": "Taux de Mortalité",
+      "avgDailyGain": "Gain Quotidien Moyen",
+      "avgFCR": "FCR Moyen (30j)"
+    },
+    "weightTracking": {
+      "title": "Suivi du Poids",
+      "sampleSize": "Taille de l'Échantillon ({{animal}}) - Max: {{max}}",
+      "totalWeight": "Poids Total de l'Échantillon (kg)",
+      "targetWeight": "Poids Cible par {{animal}} (kg)",
+      "belowTarget": "{{animal}} en Dessous du Poids Cible",
+      "aboveTarget": "{{animal}} au-Dessus du Poids Cible",
+      "notes": "Notes",
+      "saving": "Enregistrement...",
+      "addRecord": "Ajouter un Enregistrement",
+      "weightRecords": "Registre des Poids",
+      "averageWeight": "Poids Moyen",
+      "noWeightRecords": "Aucun enregistrement de poids disponible",
+      "totalExceedError": "Le total des poids en dessous et au-dessus ne peut pas dépasser la taille de l'échantillon",
+      "table": {
+        "sampleSize": "Taille de l'Échantillon",
+        "averageWeight": "Poids Moyen",
+        "targetWeight": "Poids Cible",
+        "belowTarget": "En Dessous",
+        "aboveTarget": "Au-Dessus"
+      }
+    },
+    "feedData": {
+      "title": "Données d'Alimentation",
+      "totalConsumption": "Consommation Quotidienne Totale (kg)",
+      "consumptionSummary": "Aliment total consommé par {{total}} {{animal}} par jour. Par {{animal}}: {{amount}} kg",
+      "estimatedDays": "Jours Estimés jusqu'au Poids de Marché",
+      "estimatedDaysNote": "Basé sur le taux de croissance actuel et le poids cible du marché",
+      "dailyCost": "Coût Quotidien d'Alimentation (₦)",
+      "records": "Registre d'Alimentation",
+      "type": "Type d'Aliment",
+      "cost": "Coût",
+      "notes": "Notes",
+      "table": {
+        "date": "Date",
+        "feedType": "Type d'Aliment",
+        "quantity": "Quantité",
+        "cost": "Coût",
+        "notes": "Notes"
+      },
+      "feedConversion": "Conversion Alimentaire",
+      "feedConversionRatio": "Taux de Conversion Alimentaire",
+      "gainPerDay": "Gain Quotidien",
+      "feedConsumption": "Consommation d'Aliments"
+    },
+    "weightAnalysis": {
+      "title": "Analyse du Poids"
+    },
+    "feedConversion": {
+      "title": "Conversion Alimentaire",
+      "history": "Historique FCR",
+      "fcrHistory": "Historique FCR",
+      "table": {
+        "dateRange": "Période",
+        "phase": "Phase",
+        "initialWeight": "Poids Initial",
+        "finalWeight": "Poids Final",
+        "feedConsumed": "Aliment Consommé",
+        "fcr": "FCR",
+        "actions": "Actions"
+      },
+      "form": {
+        "startDate": "Date de Début",
+        "endDate": "Date de Fin",
+        "initialWeight": "Poids Initial (kg)",
+        "finalWeight": "Poids Final (kg)",
+        "feedConsumed": "Aliment Consommé (kg)",
+        "addRecord": "Ajouter un Enregistrement",
+        "growthPhase": "Phase de Croissance"
+      },
+      "phases": {
+        "nursery": "Sevrage",
+        "grower": "Croissance",
+        "finisher": "Finition"
+      },
+      "feedCostPerKg": "Coût d'Aliment/kg",
+      "profitMargin": "Marge Bénéficiaire"
+    },
+    "breedingManagementTitle": "Gestion de la Reproduction",
+    "breeding": {
+      "cycles": "Cycles de Reproduction",
+      "addCycle": "Ajouter un Cycle",
+      "selectedCycleDetails": "Détails du Cycle Sélectionné",
+      "viewDetails": "Voir les Détails",
+      "table": {
+        "sowId": "ID Truie",
+        "startDate": "Date de Début",
+        "expectedDueDate": "Date Prévue",
+        "status": "Statut",
+        "actions": "Actions"
+      },
+      "status": {
+        "pending": "En Attente",
+        "active": "Actif",
+        "completed": "Terminé"
+      }
+    },
+    "geneticPerformanceTitle": "Performance Génétique",
+    "geneticPerformance": {
+      "title": "Performance Génétique",
+      "addRecord": "Ajouter un Enregistrement",
+      "breedingLine": "Lignée d'Élevage",
+      "selectBreed": "Sélectionner une race",
+      "type": "Type",
+      "changes": {
+        "improved_growth_rate": "Taux de croissance amélioré",
+        "better_feed_efficiency": "Meilleure efficacité alimentaire",
+        "increased_litter_size": "Taille de portée augmentée",
+        "better_disease_resistance": "Meilleure résistance aux maladies",
+        "improved_meat_quality": "Qualité de viande améliorée",
+        "higher_survival_rate": "Taux de survie plus élevé",
+        "better_mothering_ability": "Meilleure capacité maternelle",
+        "decreased_growth_rate": "Taux de croissance diminué",
+        "bad_feed_efficiency": "Mauvaise efficacité alimentaire",
+        "decreased_litter_size": "Diminution de la taille de portée",
+        "poor_disease_resistance": "Faible résistance aux maladies",
+        "poor_meat_quality": "Mauvaise qualité de viande",
+        "lower_survival_rate": "Taux de survie plus bas",
+        "poor_mothering_ability": "Faible capacité maternelle"
+      },
+      "improvements": "Améliorations",
+      "deteriorations": "Détériorations",
+      "noRecords": "Aucun enregistrement de performance génétique. Ajoutez-en un pour commencer."
+    },
+    "environmentalImpactTitle": "Impact Environnemental",
+    "environmentalImpact": {
+      "title": "Impact Environnemental",
+      "addMetric": "Ajouter une Métrique",
+      "resourceType": "Type de Ressource",
+      "Water": "Eau",
+      "Electricity": "Électricité",
+      "Waste": "Déchets",
+      "Emissions": "Émissions",
+      "usageTrends": "Tendances d'Utilisation (10 Derniers Enregistrements)",
+      "usage": "utilisation",
+      "noMetrics": "Aucune métrique environnementale. Ajoutez-en une pour commencer."
+    },
+    "growthPerformanceTitle": "Performance de Croissance",
+    "growthPerformance": {
+      "nurseryPhase": "Phase de Sevrage",
+      "growerPhase": "Phase de Croissance",
+      "finisherPhase": "Phase de Finition",
+      "avgDailyGain": "Gain Quotidien Moyen",
+      "avgFCR": "FCR Moyen",
+      "feedConsumed": "Aliment Consommé",
+      "daysInPhase": "Jours dans la Phase"
+    }
   }
 } 

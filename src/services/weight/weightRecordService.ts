@@ -1,6 +1,6 @@
 import { db } from '../../config/firebase';
 import { doc, updateDoc, getDoc } from 'firebase/firestore';
-import { WeightRecord } from '../../types';
+import { WeightRecord } from '../../types/poultry';
 
 export async function saveWeightRecordToDatabase(userId: string, newRecord: WeightRecord) {
   try {

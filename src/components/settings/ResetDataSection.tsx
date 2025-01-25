@@ -3,9 +3,11 @@ import { RotateCcw, AlertTriangle } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import { UserService } from '../../services/userService';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { useTranslation } from 'react-i18next';
 
 export function ResetDataSection() {
   const { currentUser } = useAuth();
+  const { t } = useTranslation();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [password, setPassword] = useState('');
   const [isResetting, setIsResetting] = useState(false);
@@ -25,7 +27,7 @@ export function ResetDataSection() {
 
       // Password is correct, ask for final confirmation
       const confirmed = window.confirm(
-        'Are you absolutely sure you want to reset ALL your farm data? This action cannot be undone.'
+        t('settings.dangerZone.reset.description')
       );
 
       if (!confirmed) {
@@ -39,7 +41,7 @@ export function ResetDataSection() {
       window.location.href = '/onboarding';
     } catch (err) {
       console.error('Error during reset:', err);
-      setError('Incorrect password. Please try again.');
+      setError(t('settings.password.incorrect'));
       setIsResetting(false);
     }
   };
@@ -52,10 +54,11 @@ export function ResetDataSection() {
             <AlertTriangle className="w-5 h-5 text-red-500" />
           </div>
           <div>
-            <h2 className="text-xl font-bold text-gray-900 dark:text-white">Reset Farm Data</h2>
+            <h2 className="text-xl font-bold text-gray-900 dark:text-white">
+              {t('settings.dangerZone.reset.title')}
+            </h2>
             <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-              This will permanently delete all your farm data including stock records, sales history, and analytics.
-              This action cannot be undone.
+              {t('settings.dangerZone.reset.description')}
             </p>
           </div>
         </div>
@@ -64,7 +67,7 @@ export function ResetDataSection() {
           className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors flex items-center gap-2 whitespace-nowrap"
         >
           <RotateCcw className="w-4 h-4" />
-          Reset All Data
+          {t('settings.dangerZone.reset.button')}
         </button>
       </div>
 
@@ -74,19 +77,18 @@ export function ResetDataSection() {
             <div className="flex items-center gap-3 mb-4">
               <AlertTriangle className="w-6 h-6 text-red-500" />
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                Confirm Data Reset
+                {t('settings.dangerZone.reset.confirm')}
               </h3>
             </div>
-            
+
             <p className="text-gray-600 dark:text-gray-300 mb-4">
-              Please enter your password to confirm that you want to reset all your farm data.
-              This action cannot be undone.
+              {t('settings.dangerZone.reset.enterPassword')}
             </p>
 
             <form onSubmit={handleReset} className="space-y-4">
               <div>
                 <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                  Password
+                  {t('settings.password.title')}
                 </label>
                 <input
                   type="password"
@@ -114,7 +116,7 @@ export function ResetDataSection() {
                   }}
                   className="px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md"
                 >
-                  Cancel
+                  {t('settings.dangerZone.reset.cancel')}
                 </button>
                 <button
                   type="submit"
@@ -124,12 +126,12 @@ export function ResetDataSection() {
                   {isResetting ? (
                     <>
                       <RotateCcw className="w-4 h-4 animate-spin" />
-                      Resetting...
+                      {t('settings.dangerZone.reset.resetting')}
                     </>
                   ) : (
                     <>
                       <RotateCcw className="w-4 h-4" />
-                      Reset All Data
+                      {t('settings.dangerZone.reset.button')}
                     </>
                   )}
                 </button>

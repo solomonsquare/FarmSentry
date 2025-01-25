@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { BarChart3, DollarSign, TrendingUp, Users, Skull, Activity } from 'lucide-react';
 import { FarmCategory, StockEntry } from '../../types';
 import { useDashboardStats } from '../../hooks/dashboard/useDashboardStats';
@@ -29,6 +30,7 @@ ChartJS.register(
 
 export function DashboardStats({ category }: { category: FarmCategory }) {
   const { stats, loading, error } = useDashboardStats(category);
+  const { t } = useTranslation();
 
   // Debug logs to track data flow
   console.log('DashboardStats Render:', {
@@ -48,7 +50,7 @@ export function DashboardStats({ category }: { category: FarmCategory }) {
     return <ErrorMessage message={error} />;
   }
 
-  const animalType = category === 'birds' ? 'Birds' : 'Pigs';
+  const animalType = category === 'birds' ? t('farm.birds') : t('farm.pigs');
 
   // Format numbers for better readability
   const formatNumber = (num: number) => num?.toLocaleString() || '0';
@@ -61,7 +63,7 @@ export function DashboardStats({ category }: { category: FarmCategory }) {
 
   const statsConfig = [
     {
-      label: `Current Stock`,
+      label: t('dashboard.stats.currentStock'),
       value: formatNumber(stats.currentStock),
       icon: Users,
       color: 'blue',
@@ -69,7 +71,7 @@ export function DashboardStats({ category }: { category: FarmCategory }) {
       textColor: 'text-blue-600'
     },
     {
-      label: 'Total Deaths',
+      label: t('dashboard.stats.deaths'),
       value: formatNumber(stats.deathCount),
       icon: Skull,
       color: 'red',
@@ -77,7 +79,7 @@ export function DashboardStats({ category }: { category: FarmCategory }) {
       textColor: 'text-red-600'
     },
     {
-      label: `${animalType} Sold`,
+      label: t('dashboard.stats.sold', { animal: animalType }),
       value: stats.totalSold > 0 ? formatNumber(stats.totalSold) : '0',
       icon: Activity,
       color: 'yellow',
@@ -85,7 +87,7 @@ export function DashboardStats({ category }: { category: FarmCategory }) {
       textColor: 'text-yellow-600'
     },
     {
-      label: 'Total Revenue',
+      label: t('dashboard.stats.revenue'),
       value: stats.totalRevenue > 0 ? formatNaira(stats.totalRevenue) : '₦0.00',
       icon: BarChart3,
       color: 'green',
@@ -93,7 +95,7 @@ export function DashboardStats({ category }: { category: FarmCategory }) {
       textColor: 'text-green-600'
     },
     {
-      label: 'Total Expenses',
+      label: t('dashboard.stats.expenses'),
       value: formatNaira(totalExpenses),
       icon: DollarSign,
       color: 'red',
@@ -101,7 +103,7 @@ export function DashboardStats({ category }: { category: FarmCategory }) {
       textColor: 'text-red-600'
     },
     {
-      label: 'Net Profit',
+      label: t('dashboard.stats.profit'),
       value: formatNaira(profit),
       icon: TrendingUp,
       color: profit >= 0 ? 'green' : 'red',
@@ -118,10 +120,10 @@ export function DashboardStats({ category }: { category: FarmCategory }) {
 
   // Enhanced chart data with better colors and hover effects
   const chartData = {
-    labels: [animalType, 'Medicine', 'Feeds', 'Additional'],
+    labels: [animalType, t('stock.table.medicine'), t('stock.table.feed'), t('stock.table.additional')],
     datasets: [
       {
-        label: 'Expenses',
+        label: t('dashboard.stats.expenses'),
         data: [
           stats.expenses.birds,
           stats.expenses.medicine,
@@ -160,7 +162,7 @@ export function DashboardStats({ category }: { category: FarmCategory }) {
       },
       title: {
         display: true,
-        text: 'Expense Breakdown',
+        text: t('dashboard.stats.expenseBreakdown'),
         font: {
           size: 16,
           weight: 'bold' as const,
@@ -211,16 +213,16 @@ export function DashboardStats({ category }: { category: FarmCategory }) {
         {statsConfig.map((stat) => (
           <div
             key={stat.label}
-            className="bg-white overflow-hidden shadow rounded-lg"
+            className="bg-white dark:bg-gray-800 overflow-hidden shadow rounded-lg"
           >
             <div className="p-5">
               <div className="flex items-center">
-                <div className={`flex-shrink-0 rounded-md ${stat.bgColor} p-3`}>
+                <div className={`flex-shrink-0 rounded-md ${stat.bgColor} dark:bg-opacity-20 p-3`}>
                   <stat.icon className={`w-6 h-6 ${stat.textColor}`} />
                 </div>
                 <div className="ml-5 w-0 flex-1">
                   <dl>
-                    <dt className="text-sm font-medium text-gray-500 truncate">
+                    <dt className="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">
                       {stat.label}
                     </dt>
                     <dd className={`text-lg font-semibold ${stat.textColor}`}>
@@ -235,7 +237,7 @@ export function DashboardStats({ category }: { category: FarmCategory }) {
       </div>
 
       {/* Expense chart */}
-      <div className="bg-white p-6 rounded-lg shadow">
+      <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
         <div className="h-[250px]">
           <Bar data={chartData} options={chartOptions} />
         </div>

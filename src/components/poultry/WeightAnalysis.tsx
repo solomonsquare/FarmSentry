@@ -1,13 +1,15 @@
 import React from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
-import { WeightRecord } from '../../types';
+import { WeightRecord } from '../../types/poultry';
 import { Scale } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   weightRecords: WeightRecord[];
 }
 
 export function WeightAnalysis({ weightRecords }: Props) {
+  const { t } = useTranslation();
   // Calculate totals from all records
   const totalBelowTarget = weightRecords.reduce((sum, record) => sum + record.weights.below, 0);
   const totalAboveTarget = weightRecords.reduce((sum, record) => sum + record.weights.above, 0);
@@ -25,12 +27,12 @@ export function WeightAnalysis({ weightRecords }: Props) {
     <div className="bg-white p-6 rounded-lg shadow-md">
       <div className="flex items-center gap-2 mb-6">
         <Scale className="w-5 h-5 text-indigo-600" />
-        <h2 className="text-xl font-semibold">Weight Analysis</h2>
+        <h2 className="text-xl font-semibold">{t('analytics.weightAnalysis.title')}</h2>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
         <div className="bg-red-50 p-4 rounded-lg">
-          <h3 className="text-sm font-medium text-red-700 mb-1">Below Target Weight</h3>
+          <h3 className="text-sm font-medium text-red-700 mb-1">{t('analytics.weightStatus.below')}</h3>
           <p className="text-2xl font-bold text-red-700">{totalBelowTarget} birds</p>
           {totalSampleSize > 0 && (
             <p className="text-sm text-red-600">
@@ -39,7 +41,7 @@ export function WeightAnalysis({ weightRecords }: Props) {
           )}
         </div>
         <div className="bg-green-50 p-4 rounded-lg">
-          <h3 className="text-sm font-medium text-green-700 mb-1">Above Target Weight</h3>
+          <h3 className="text-sm font-medium text-green-700 mb-1">{t('analytics.weightStatus.above')}</h3>
           <p className="text-2xl font-bold text-green-700">{totalAboveTarget} birds</p>
           {totalSampleSize > 0 && (
             <p className="text-sm text-green-600">
@@ -58,10 +60,10 @@ export function WeightAnalysis({ weightRecords }: Props) {
               <YAxis />
               <Tooltip />
               <Legend />
-              <Line type="monotone" dataKey="average" stroke="#3b82f6" name="Average Weight" />
-              <Line type="monotone" dataKey="target" stroke="#10b981" name="Target Weight" />
-              <Line type="monotone" dataKey="belowTarget" stroke="#ef4444" name="Below Target %" />
-              <Line type="monotone" dataKey="aboveTarget" stroke="#8b5cf6" name="Above Target %" />
+              <Line type="monotone" dataKey="average" stroke="#3b82f6" name={t('analytics.weightTracking.averageWeight')} />
+              <Line type="monotone" dataKey="target" stroke="#10b981" name={t('analytics.weightTracking.targetWeight')} />
+              <Line type="monotone" dataKey="belowTarget" stroke="#ef4444" name={t('analytics.weightStatus.below')} />
+              <Line type="monotone" dataKey="aboveTarget" stroke="#8b5cf6" name={t('analytics.weightStatus.above')} />
             </LineChart>
           </ResponsiveContainer>
         </div>

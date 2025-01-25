@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { WeightRecord } from '../../../types';
+import { WeightRecord } from '../../../types/poultry';
 import { RecordsPagination } from '../../common/RecordsPagination';
 import { formatDate } from '../../../utils/date';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   records: WeightRecord[];
 }
 
 export function PoultryWeightRecordsList({ records }: Props) {
+  const { t } = useTranslation();
   const [currentPage, setCurrentPage] = useState(1);
   const [displayedRecords, setDisplayedRecords] = useState<WeightRecord[]>([]);
   const recordsPerPage = 5;
@@ -25,21 +27,19 @@ export function PoultryWeightRecordsList({ records }: Props) {
         <table className="min-w-full divide-y divide-gray-200">
           <thead>
             <tr>
-              <th className="px-4 py-2 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Date</th>
-              <th className="px-4 py-2 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Time</th>
-              <th className="px-4 py-2 text-right text-sm font-medium text-gray-500 dark:text-gray-400">Sample Size</th>
-              <th className="px-4 py-2 text-right text-sm font-medium text-gray-500 dark:text-gray-400">Average Weight</th>
-              <th className="px-4 py-2 text-right text-sm font-medium text-gray-500 dark:text-gray-400">Target Weight</th>
-              <th className="px-4 py-2 text-right text-sm font-medium text-gray-500 dark:text-gray-400">Below Target</th>
-              <th className="px-4 py-2 text-right text-sm font-medium text-gray-500 dark:text-gray-400">Above Target</th>
-              <th className="px-4 py-2 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Notes</th>
+              <th className="px-4 py-2 text-left text-sm font-medium text-gray-500 dark:text-gray-400">{t('common.date')}</th>
+              <th className="px-4 py-2 text-right text-sm font-medium text-gray-500 dark:text-gray-400">{t('analytics.weightTracking.sampleSize')}</th>
+              <th className="px-4 py-2 text-right text-sm font-medium text-gray-500 dark:text-gray-400">{t('analytics.weightTracking.averageWeight')}</th>
+              <th className="px-4 py-2 text-right text-sm font-medium text-gray-500 dark:text-gray-400">{t('analytics.weightTracking.targetWeight')}</th>
+              <th className="px-4 py-2 text-right text-sm font-medium text-gray-500 dark:text-gray-400">{t('analytics.weightTracking.belowTarget')}</th>
+              <th className="px-4 py-2 text-right text-sm font-medium text-gray-500 dark:text-gray-400">{t('analytics.weightTracking.aboveTarget')}</th>
+              <th className="px-4 py-2 text-left text-sm font-medium text-gray-500 dark:text-gray-400">{t('analytics.weightTracking.notes')}</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200">
             {displayedRecords.map((record) => (
               <tr key={record.id}>
                 <td className="px-4 py-2 text-sm text-gray-900">{formatDate(record.date)}</td>
-                <td className="px-4 py-2 text-sm text-gray-900">{record.time ?? '-'}</td>
                 <td className="px-4 py-2 text-sm text-right">{record.sampleSize}</td>
                 <td className="px-4 py-2 text-sm text-right">
                   {record.weights.average.toFixed(2)} kg

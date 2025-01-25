@@ -1,12 +1,14 @@
 import React from 'react';
 import { FeedConversionRecord, GrowthPhase } from '../../types/pig';
 import { Scale, TrendingUp, Calendar } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   feedConversion: FeedConversionRecord[];
 }
 
 export function GrowthPerformanceDisplay({ feedConversion }: Props) {
+  const { t } = useTranslation();
   // Calculate performance metrics for each phase
   const calculatePhaseMetrics = (phase: 'Nursery' | 'Grower' | 'Finisher') => {
     const phaseRecords = feedConversion.filter(record => record.phase === phase);
@@ -69,23 +71,25 @@ export function GrowthPerformanceDisplay({ feedConversion }: Props) {
           <div key={phase} className="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
             <div className="flex items-center gap-2 mb-3">
               <Scale className={`w-5 h-5 ${getPhaseColor(phase)}`} />
-              <h3 className={`text-lg font-semibold ${getPhaseColor(phase)}`}>{phase} Phase</h3>
+              <h3 className={`text-lg font-semibold ${getPhaseColor(phase)}`}>
+                {t(`analytics.growthPerformance.${phase.toLowerCase()}Phase`)}
+              </h3>
             </div>
             <div className="space-y-2">
               <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-500">Avg. Daily Gain:</span>
+                <span className="text-sm text-gray-500">{t('analytics.growthPerformance.avgDailyGain')}:</span>
                 <span className="text-sm font-medium text-gray-900">{avgDailyGain.toFixed(2)} kg/day</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-500">Avg. FCR:</span>
+                <span className="text-sm text-gray-500">{t('analytics.growthPerformance.avgFCR')}:</span>
                 <span className="text-sm font-medium text-gray-900">{avgFCR.toFixed(2)}</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-500">Feed Consumed:</span>
+                <span className="text-sm text-gray-500">{t('analytics.growthPerformance.feedConsumed')}:</span>
                 <span className="text-sm font-medium text-gray-900">{totalFeedConsumed.toFixed(1)} kg</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-500">Days in Phase:</span>
+                <span className="text-sm text-gray-500">{t('analytics.growthPerformance.daysInPhase')}:</span>
                 <span className="text-sm font-medium text-gray-900">{Math.round(daysInPhase)} days</span>
               </div>
             </div>
