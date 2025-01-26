@@ -33,7 +33,7 @@ export interface BreedingCycle {
   deathCount?: number;
 }
 
-export interface FeedConversionRecord {
+export type FeedConversionRecord = {
   id: string;
   startDate: string;
   endDate: string;
@@ -41,7 +41,7 @@ export interface FeedConversionRecord {
   finalWeight: number;
   feedConsumed: number;
   fcr: number;
-  phase: 'Nursery' | 'Grower' | 'Finisher';
+  phase: 'nursery' | 'grower' | 'finisher' | 'Nursery' | 'Grower' | 'Finisher';  // Allow both cases during migration
 }
 
 export interface WeightRecord {
@@ -109,15 +109,15 @@ export interface GrowthPhase {
 
 export const DEFAULT_GROWTH_PHASES: GrowthPhase[] = [
   {
-    name: 'Nursery',
+    name: 'nursery',
     data: { startWeight: 0, endWeight: 0, daysInPhase: 0, feedConsumed: 0 }
   },
   {
-    name: 'Grower',
+    name: 'grower',
     data: { startWeight: 0, endWeight: 0, daysInPhase: 0, feedConsumed: 0 }
   },
   {
-    name: 'Finisher',
+    name: 'finisher',
     data: { startWeight: 0, endWeight: 0, daysInPhase: 0, feedConsumed: 0 }
   }
 ];

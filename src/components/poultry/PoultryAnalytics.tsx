@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useTheme } from '../../contexts/ThemeContext';
 import { WeightTracker } from './weight/WeightTracker';
 import { WeightAnalysis } from './WeightAnalysis';
-import { WeightRecord } from '../../types';
+import { WeightRecord } from '../../types/poultry';
 import { PoultryWeightRecordsList } from './weight/PoultryWeightRecordsList';
 import { PerformanceMetrics } from './PerformanceMetrics';
 import { PerformanceMetric } from '../../types/performance';
@@ -19,6 +20,7 @@ interface Props {
 
 export function PoultryAnalytics({ farmData, onUpdate, currentFlockSize, maxSampleSize }: Props) {
   const { t } = useTranslation();
+  const { isDarkMode } = useTheme();
   const [weightRecords, setWeightRecords] = useState<WeightRecord[]>(
     [...farmData.weightRecords].sort((a, b) => 
       new Date(b.date).getTime() - new Date(a.date).getTime()
@@ -60,14 +62,14 @@ export function PoultryAnalytics({ farmData, onUpdate, currentFlockSize, maxSamp
       <WeightAnalysis weightRecords={weightRecords} />
 
       {/* Feed Data Section */}
-      <div className="bg-white rounded-lg shadow p-6">
+      <div className={`${isDarkMode ? 'bg-gray-800 text-gray-100' : 'bg-white text-gray-900'} rounded-lg shadow p-6`}>
         <h2 className="text-xl font-semibold mb-4">{t('analytics.feedData.title')}</h2>
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700">
+            <label className={`block text-sm font-medium ${isDarkMode ? 'text-gray-200' : 'text-gray-700'}`}>
               {t('analytics.feedData.dailyConsumption')}
             </label>
-            <p className="mt-1 text-sm text-gray-500">
+            <p className={`mt-1 text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
               {t('analytics.feedData.consumptionNote', { 
                 count: currentFlockSize, 
                 animal: t('farm.birds'), 
@@ -77,19 +79,19 @@ export function PoultryAnalytics({ farmData, onUpdate, currentFlockSize, maxSamp
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700">
+            <label className={`block text-sm font-medium ${isDarkMode ? 'text-gray-200' : 'text-gray-700'}`}>
               {t('analytics.feedData.daysUntilMarket')}
             </label>
-            <p className="mt-1 text-sm text-gray-500">
+            <p className={`mt-1 text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
               {t('analytics.feedData.marketWeightNote')}
             </p>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700">
+            <label className={`block text-sm font-medium ${isDarkMode ? 'text-gray-200' : 'text-gray-700'}`}>
               {t('analytics.feedData.dailyCost')}
             </label>
-            <p className="mt-1 text-sm text-gray-500">
+            <p className={`mt-1 text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
               {t('analytics.feedData.costPerBird', { 
                 cost: 0, 
                 animal: t('farm.bird').toLowerCase() 

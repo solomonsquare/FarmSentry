@@ -8,6 +8,7 @@ import { ErrorMessage } from '../common/ErrorMessage';
 import { formatNaira } from '../../utils/currency';
 import { History, Download, Trash2, TrendingUp, DollarSign } from 'lucide-react';
 import { PaginationContainer } from '../common/PaginationContainer';
+import { useTheme } from '../../contexts/ThemeContext';
 
 interface Props {
   category: FarmCategory;
@@ -16,6 +17,7 @@ interface Props {
 
 export function SalesHistorySection({ category, onUpdateSales }: Props) {
   const { t } = useTranslation();
+  const { isDarkMode } = useTheme();
   const { 
     sales, 
     loading, 
@@ -47,16 +49,25 @@ export function SalesHistorySection({ category, onUpdateSales }: Props) {
   if (loading) return <LoadingSpinner />;
   if (error) return <ErrorMessage message={error} />;
 
+  const inputClasses = `px-4 py-2 rounded-lg focus:outline-none focus:ring-2 ${
+    isDarkMode 
+      ? 'bg-gray-700 border-gray-600 text-gray-100 focus:ring-green-400 focus:border-green-400' 
+      : 'bg-white border-gray-300 text-gray-900 focus:ring-green-500 focus:border-green-500'
+  }`;
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <History className="w-5 h-5 text-gray-500" />
-          <h2 className="text-2xl font-semibold">{t('sales.history.title')}</h2>
+          <History className={`w-5 h-5 ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`} />
+          <h2 className={`text-2xl font-semibold ${isDarkMode ? 'text-gray-100' : 'text-gray-900'}`}>
+            {t('sales.history.title')}
+          </h2>
         </div>
         <button
           onClick={handleExport}
-          className="inline-flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+          className={`inline-flex items-center gap-2 px-4 py-2 text-white rounded-lg transition-colors
+            ${isDarkMode ? 'bg-green-600 hover:bg-green-700' : 'bg-green-600 hover:bg-green-700'}`}
         >
           <Download className="w-4 h-4" />
           {t('sales.history.export')}
@@ -64,19 +75,23 @@ export function SalesHistorySection({ category, onUpdateSales }: Props) {
       </div>
 
       <div className="grid grid-cols-2 gap-4">
-        <div className="bg-green-50 p-4 rounded-lg">
-          <div className="flex items-center gap-2 text-green-600">
+        <div className={`p-4 rounded-lg ${isDarkMode ? 'bg-green-900/20' : 'bg-green-50'}`}>
+          <div className={`flex items-center gap-2 ${isDarkMode ? 'text-green-400' : 'text-green-600'}`}>
             <DollarSign className="w-4 h-4" />
             <h3 className="text-sm font-medium">{t('sales.summary.revenue')}</h3>
           </div>
-          <p className="text-2xl font-bold text-green-700 mt-1">{formatNaira(totalRevenue)}</p>
+          <p className={`text-2xl font-bold mt-1 ${isDarkMode ? 'text-green-400' : 'text-green-700'}`}>
+            {formatNaira(totalRevenue)}
+          </p>
         </div>
-        <div className="bg-blue-50 p-4 rounded-lg">
-          <div className="flex items-center gap-2 text-blue-600">
+        <div className={`p-4 rounded-lg ${isDarkMode ? 'bg-blue-900/20' : 'bg-blue-50'}`}>
+          <div className={`flex items-center gap-2 ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`}>
             <TrendingUp className="w-4 h-4" />
             <h3 className="text-sm font-medium">{t('sales.summary.profit')}</h3>
           </div>
-          <p className="text-2xl font-bold text-blue-700 mt-1">{formatNaira(totalProfit)}</p>
+          <p className={`text-2xl font-bold mt-1 ${isDarkMode ? 'text-blue-400' : 'text-blue-700'}`}>
+            {formatNaira(totalProfit)}
+          </p>
         </div>
       </div>
 
@@ -84,12 +99,12 @@ export function SalesHistorySection({ category, onUpdateSales }: Props) {
         <input
           type="text"
           placeholder={t('sales.history.search')}
-          className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+          className={`flex-1 border ${inputClasses}`}
           value={filters.searchTerm}
           onChange={(e) => setFilters({ ...filters, searchTerm: e.target.value })}
         />
         <select
-          className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 bg-white"
+          className={`border ${inputClasses}`}
           value={filters.sortBy}
           onChange={(e) => setFilters({ ...filters, sortBy: e.target.value as 'date' | 'amount' })}
         >
@@ -97,7 +112,7 @@ export function SalesHistorySection({ category, onUpdateSales }: Props) {
           <option value="amount">{t('sales.history.sort.byAmount')}</option>
         </select>
         <select
-          className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 bg-white"
+          className={`border ${inputClasses}`}
           value={filters.sortOrder}
           onChange={(e) => setFilters({ ...filters, sortOrder: e.target.value as 'asc' | 'desc' })}
         >
@@ -107,11 +122,16 @@ export function SalesHistorySection({ category, onUpdateSales }: Props) {
       </div>
 
       <div className="flex items-center justify-between">
-        <h3 className="text-lg font-semibold">{t('sales.history.title')}</h3>
+        <h3 className={`text-lg font-semibold ${isDarkMode ? 'text-gray-100' : 'text-gray-900'}`}>
+          {t('sales.history.title')}
+        </h3>
         {sales.length > 0 && (
           <button
             onClick={handleClearHistory}
-            className="inline-flex items-center gap-2 px-4 py-2 text-red-600 border border-red-100 rounded-lg text-sm font-medium hover:bg-red-50"
+            className={`inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg
+              ${isDarkMode 
+                ? 'text-red-400 border-red-600 hover:bg-red-900/20' 
+                : 'text-red-600 border border-red-100 hover:bg-red-50'}`}
           >
             <Trash2 className="w-4 h-4" />
             {t('sales.history.clear')}

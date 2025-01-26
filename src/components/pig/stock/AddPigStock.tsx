@@ -6,6 +6,7 @@ import { PigBreed, DEFAULT_PIG_BREEDS, DEFAULT_GROWTH_STAGES } from '../../../ty
 import { BreedSelector } from '../BreedSelector';
 import { GrowthStageDisplay } from '../GrowthStageDisplay';
 import { formatDateTime } from '../../../utils/date';
+import { useTheme } from '../../../contexts/ThemeContext';
 
 interface Props {
   stock: Stock;
@@ -14,6 +15,7 @@ interface Props {
 
 export function AddPigStock({ stock, onUpdate }: Props) {
   const { t } = useTranslation();
+  const { isDarkMode } = useTheme();
   const [addQuantity, setAddQuantity] = useState<number>(0);
   const [selectedBreed, setSelectedBreed] = useState<PigBreed>(DEFAULT_PIG_BREEDS[0]);
   const [birthDate, setBirthDate] = useState<string>('');
@@ -25,6 +27,12 @@ export function AddPigStock({ stock, onUpdate }: Props) {
     feeds: 0,
     additionals: 0
   });
+
+  const inputClasses = `mt-1 block w-full rounded-md shadow-sm ${
+    isDarkMode 
+      ? 'bg-gray-700 border-gray-600 text-gray-100 focus:ring-blue-400 focus:border-blue-400' 
+      : 'border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500'
+  }`;
 
   const handleAddStock = () => {
     if (addQuantity <= 0) return;
@@ -77,14 +85,14 @@ export function AddPigStock({ stock, onUpdate }: Props) {
   return (
     <div className="space-y-4">
       <div>
-        <label className="block text-sm font-medium text-gray-700">
+        <label className={`block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
           {t('pig.stockManagement.addNewStock')}
         </label>
         <input
           type="number"
           value={addQuantity}
           onChange={(e) => setAddQuantity(Number(e.target.value))}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+          className={inputClasses}
           min="0"
           placeholder="Enter quantity"
         />
@@ -97,28 +105,28 @@ export function AddPigStock({ stock, onUpdate }: Props) {
       />
 
       <div>
-        <label className="block text-sm font-medium text-gray-700">
+        <label className={`block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
           {t('pig.stockManagement.form.birthDate')}
         </label>
         <input
           type="date"
           value={birthDate}
           onChange={(e) => setBirthDate(e.target.value)}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+          className={inputClasses}
           max={new Date().toISOString().split('T')[0]}
           placeholder={t('pig.stockManagement.form.birthDatePlaceholder')}
         />
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700">
+        <label className={`block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
           {t('pig.stockManagement.form.currentWeight')}
         </label>
         <input
           type="number"
           value={currentWeight || ''}
           onChange={(e) => setCurrentWeight(Number(e.target.value))}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+          className={inputClasses}
           min="0"
           step="0.1"
           placeholder={t('pig.stockManagement.form.currentWeightPlaceholder')}
@@ -126,13 +134,13 @@ export function AddPigStock({ stock, onUpdate }: Props) {
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700">
+        <label className={`block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
           {t('pig.stockManagement.form.purpose')}
         </label>
         <select
           value={purpose}
           onChange={(e) => setPurpose(e.target.value as 'breeding' | 'meat' | 'both')}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+          className={inputClasses}
         >
           <option value="meat">{t('pig.stockManagement.form.purposes.meat')}</option>
           <option value="breeding">{t('pig.stockManagement.form.purposes.breeding')}</option>
@@ -150,9 +158,11 @@ export function AddPigStock({ stock, onUpdate }: Props) {
 
       {addQuantity > 0 && (
         <div className="space-y-4">
-          <h3 className="font-medium text-gray-700">{t('pig.stockManagement.expenses.title')}</h3>
+          <h3 className={`font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+            {t('pig.stockManagement.expenses.title')}
+          </h3>
           <div>
-            <label className="block text-sm font-medium text-gray-700">
+            <label className={`block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
               {t('pig.stockManagement.expenses.pigsCost')}
             </label>
             <input
@@ -162,13 +172,13 @@ export function AddPigStock({ stock, onUpdate }: Props) {
                 ...prev,
                 birds: Number(e.target.value)
               }))}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+              className={inputClasses}
               min="0"
               placeholder={t('pig.stockManagement.expenses.pigsCostPlaceholder')}
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">
+            <label className={`block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
               {t('pig.stockManagement.expenses.medicineCost')}
             </label>
             <input
@@ -178,13 +188,13 @@ export function AddPigStock({ stock, onUpdate }: Props) {
                 ...prev,
                 medicine: Number(e.target.value)
               }))}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+              className={inputClasses}
               min="0"
               placeholder={t('pig.stockManagement.expenses.medicineCostPlaceholder')}
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">
+            <label className={`block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
               {t('pig.stockManagement.expenses.feedsCost')}
             </label>
             <input
@@ -194,13 +204,13 @@ export function AddPigStock({ stock, onUpdate }: Props) {
                 ...prev,
                 feeds: Number(e.target.value)
               }))}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+              className={inputClasses}
               min="0"
               placeholder={t('pig.stockManagement.expenses.feedsCostPlaceholder')}
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">
+            <label className={`block text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
               {t('pig.stockManagement.expenses.additionalCosts')}
             </label>
             <input
@@ -210,7 +220,7 @@ export function AddPigStock({ stock, onUpdate }: Props) {
                 ...prev,
                 additionals: Number(e.target.value)
               }))}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+              className={inputClasses}
               min="0"
               placeholder={t('pig.stockManagement.expenses.additionalCostsPlaceholder')}
             />
@@ -221,7 +231,11 @@ export function AddPigStock({ stock, onUpdate }: Props) {
       <button
         onClick={handleAddStock}
         disabled={addQuantity <= 0}
-        className="w-full flex items-center justify-center gap-1 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+        className={`w-full flex items-center justify-center gap-1 px-4 py-2 text-white rounded-md disabled:opacity-50 disabled:cursor-not-allowed ${
+          isDarkMode 
+            ? 'bg-blue-500 hover:bg-blue-600 focus:ring-blue-400 focus:ring-offset-gray-800' 
+            : 'bg-blue-600 hover:bg-blue-700 focus:ring-blue-500'
+        }`}
       >
         <Plus className="w-4 h-4" /> {t('pig.stockManagement.form.addToStock')}
       </button>

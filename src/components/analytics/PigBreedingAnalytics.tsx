@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Baby, Users, Heart, Calendar as CalendarIcon } from 'lucide-react';
+import { Baby, Users, Heart, CalendarIcon } from 'lucide-react';
 import { GrowthPhase, DEFAULT_GROWTH_PHASES } from '../../types/pig';
 import { FeedConversion } from '../../types/farm';
 import { FeedConversionAnalytics } from '../pig/feed/FeedConversionAnalytics';
 import { useTranslation } from 'react-i18next';
+import { useTheme } from '../../contexts/ThemeContext';
 
 interface Props {
   breedingStats: {
@@ -32,15 +33,16 @@ const calculateFCR = (phaseData: GrowthPhase['data']): string => {
 };
 
 const phaseColorMap: Record<string, string> = {
-  Nursery: 'bg-pink-50',
-  Grower: 'bg-green-50',
-  Finisher: 'bg-blue-50'
+  nursery: 'bg-pink-50',
+  grower: 'bg-green-50',
+  finisher: 'bg-blue-50'
 };
 
 export function PigBreedingAnalytics({ breedingStats }: Props) {
   const [fcrRecords, setFcrRecords] = useState<FeedConversion[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const { t } = useTranslation();
+  const { isDarkMode } = useTheme();
 
   const handleFcrUpdate = (records: FeedConversion[]) => {
     console.log('PigBreedingAnalytics updated feed conversion:', records);
@@ -76,10 +78,12 @@ export function PigBreedingAnalytics({ breedingStats }: Props) {
 
   const growthPhases = DEFAULT_GROWTH_PHASES;
 
+  const cardClasses = `rounded-lg shadow-sm p-6 ${isDarkMode ? 'bg-gray-800' : 'bg-white'}`;
+
   return (
     <div className="space-y-6">
       {/* Move the Feed Conversion Calculator ABOVE growth performance */}
-      <div className="bg-white rounded-lg shadow-sm p-6">
+      <div className={cardClasses}>
         <FeedConversionAnalytics
           feedConversion={fcrRecords}
           currentPage={currentPage}
@@ -89,9 +93,52 @@ export function PigBreedingAnalytics({ breedingStats }: Props) {
         />
       </div>
 
+      {/* Reproductive Performance Stats */}
+      <div className={cardClasses}>
+        <h2 className={`text-lg font-semibold mb-4 ${isDarkMode ? 'text-gray-100' : 'text-gray-900'}`}>
+          {t('analytics.reproductivePerformance.title')}
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          {reproductiveStats.map((stat) => (
+            <div
+              key={stat.label}
+              className={`p-4 rounded-lg ${
+                isDarkMode 
+                  ? `bg-${stat.color}-900/20` 
+                  : `bg-${stat.color}-50`
+              }`}
+            >
+              <div className="flex items-center gap-2 mb-2">
+                <stat.icon className={`w-5 h-5 ${
+                  isDarkMode 
+                    ? `text-${stat.color}-400` 
+                    : `text-${stat.color}-600`
+                }`} />
+                <h3 className={`text-sm font-medium ${
+                  isDarkMode 
+                    ? 'text-gray-300' 
+                    : 'text-gray-600'
+                }`}>
+                  {stat.label}
+                </h3>
+              </div>
+              <p className={`text-2xl font-bold ${
+                isDarkMode 
+                  ? `text-${stat.color}-400` 
+                  : `text-${stat.color}-700`
+              }`}>
+                {stat.value}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+
       {/* Growth Performance Section */}
-      <div className="bg-white rounded-lg shadow-sm p-6">
-        <h2 className="text-lg font-semibold mb-4">{t('analytics.growthPerformance.title')}</h2>
+      <div className={cardClasses}>
+        <h2 className={`text-lg font-semibold mb-4 ${isDarkMode ? 'text-gray-100' : 'text-gray-900'}`}>
+          {t('analytics.growthPerformance.title')}
+        </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {growthPhases.map((phase) => {
             const relevantRecords = fcrRecords.filter((rec) => rec.phase === phase.name);
@@ -102,15 +149,36 @@ export function PigBreedingAnalytics({ breedingStats }: Props) {
                 ).toFixed(2)
               : '0';
 
-            const colorClass = phaseColorMap[phase.name] || 'bg-gray-50';
-
             return (
-              <div key={phase.name} className={`p-4 rounded-lg ${colorClass}`}>
-                <h3 className="text-sm font-medium text-gray-600">{t(`analytics.growthPhases.${phase.name}`)}</h3>
-                <p className="text-2xl font-bold text-gray-900">
+              <div 
+                key={phase.name} 
+                className={`p-4 rounded-lg ${
+                  isDarkMode 
+                    ? 'bg-gray-700/50' 
+                    : 'bg-gray-50'
+                }`}
+              >
+                <h3 className={`text-sm font-medium mb-2 ${
+                  isDarkMode 
+                    ? 'text-gray-300' 
+                    : 'text-gray-600'
+                }`}>
+                  {t(`analytics.growthPhases.${phase.name}`)}
+                </h3>
+                <p className={`text-2xl font-bold ${
+                  isDarkMode 
+                    ? 'text-gray-100' 
+                    : 'text-gray-900'
+                }`}>
                   {calculateADG(phase.data)} {t('analytics.metrics.kgPerDay')}
                 </p>
-                <p className="text-sm text-gray-500">{t('analytics.metrics.averageFcr')}: {avgFcr}</p>
+                <p className={`text-sm ${
+                  isDarkMode 
+                    ? 'text-gray-400' 
+                    : 'text-gray-500'
+                }`}>
+                  {t('analytics.metrics.averageFcr')}: {avgFcr}
+                </p>
               </div>
             );
           })}

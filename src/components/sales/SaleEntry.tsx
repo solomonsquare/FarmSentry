@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Sale, Stock, StockEntry, FarmCategory } from '../../types';
 import { formatNaira } from '../../utils/currency';
 import { useAuth } from '../../contexts/AuthContext';
+import { useTheme } from '../../contexts/ThemeContext';
 
 interface Props {
   totalBirds: number;
@@ -16,6 +17,7 @@ interface Props {
 export function SaleEntry({ totalBirds, stockHistory, category, stock, onSubmit, processing }: Props) {
   const { t } = useTranslation();
   const { currentUser } = useAuth();
+  const { isDarkMode } = useTheme();
   const [quantity, setQuantity] = useState<number>(0);
   const [pricePerUnit, setPricePerUnit] = useState<number>(0);
 
@@ -64,10 +66,16 @@ export function SaleEntry({ totalBirds, stockHistory, category, stock, onSubmit,
     setPricePerUnit(0);
   };
 
+  const inputClasses = `mt-1 block w-full rounded-md shadow-sm focus:ring-2 focus:ring-offset-2 ${
+    isDarkMode 
+      ? 'bg-gray-700 border-gray-600 text-gray-100 focus:ring-green-400 focus:border-green-400' 
+      : 'bg-white border-gray-300 text-gray-900 focus:ring-green-500 focus:border-green-500'
+  }`;
+
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div>
-        <label className="block text-sm font-medium text-gray-700">
+        <label className={`block text-sm font-medium ${isDarkMode ? 'text-gray-200' : 'text-gray-700'}`}>
           {t('sales.newSale.quantity', { animal: animalType })}
         </label>
         <input
@@ -76,13 +84,13 @@ export function SaleEntry({ totalBirds, stockHistory, category, stock, onSubmit,
           max={totalBirds}
           value={quantity}
           onChange={(e) => setQuantity(Number(e.target.value))}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500"
+          className={inputClasses}
           required
         />
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700">
+        <label className={`block text-sm font-medium ${isDarkMode ? 'text-gray-200' : 'text-gray-700'}`}>
           {t('sales.newSale.pricePerUnit', { unit: animalType })}
         </label>
         <input
@@ -91,22 +99,22 @@ export function SaleEntry({ totalBirds, stockHistory, category, stock, onSubmit,
           step="0.01"
           value={pricePerUnit}
           onChange={(e) => setPricePerUnit(Number(e.target.value))}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500"
+          className={inputClasses}
           required
         />
       </div>
 
       <div className="space-y-2 text-sm">
-        <p className="text-gray-600">
+        <p className={`${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
           {t('sales.newSale.costPerUnit', { unit: animalType })}: {formatNaira(costPerUnit)}
         </p>
-        <p className="text-gray-600">
+        <p className={`${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
           {t('sales.newSale.subtotal')}: {formatNaira(quantity * pricePerUnit)}
         </p>
-        <p className="text-gray-600">
+        <p className={`${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
           {t('sales.newSale.profitPerUnit', { unit: animalType })}: {formatNaira(pricePerUnit - costPerUnit)}
         </p>
-        <p className="text-gray-600">
+        <p className={`${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
           {t('sales.newSale.totalProfit')}: {formatNaira(quantity * (pricePerUnit - costPerUnit))}
         </p>
       </div>
@@ -114,7 +122,11 @@ export function SaleEntry({ totalBirds, stockHistory, category, stock, onSubmit,
       <button
         type="submit"
         disabled={processing || quantity <= 0 || pricePerUnit <= 0}
-        className="w-full px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-50"
+        className={`w-full px-4 py-2 text-sm font-medium text-white rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50
+          ${isDarkMode 
+            ? 'bg-green-600 hover:bg-green-700 focus:ring-green-400 focus:ring-offset-gray-800' 
+            : 'bg-green-600 hover:bg-green-700 focus:ring-green-500'
+          }`}
       >
         {processing ? t('common.loading') : t('sales.newSale.complete')}
       </button>

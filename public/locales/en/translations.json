@@ -291,13 +291,13 @@
         "actions": "Actions"
       },
       "form": {
+        "growthPhase": "Growth Phase",
         "startDate": "Start Date",
         "endDate": "End Date",
         "initialWeight": "Initial Weight (kg)",
         "finalWeight": "Final Weight (kg)",
         "feedConsumed": "Feed Consumed (kg)",
-        "addRecord": "Add Record",
-        "growthPhase": "Growth Phase"
+        "addRecord": "Add Record"
       },
       "phases": {
         "nursery": "Nursery",
@@ -356,14 +356,16 @@
     "environmentalImpactTitle": "Environmental Impact",
     "environmentalImpact": {
       "title": "Environmental Impact",
-      "addMetric": "Add Metric",
+      "addRecord": "Add Record",
       "resourceType": "Resource Type",
-      "Water": "Water",
-      "Electricity": "Electricity",
-      "Waste": "Waste",
-      "Emissions": "Emissions",
+      "metrics": {
+        "water": "Water",
+        "electricity": "Electricity",
+        "waste": "Waste",
+        "emissions": "Emissions"
+      },
       "usageTrends": "Usage Trends (Last 10 Records)",
-      "usage": "usage",
+      "usage": "Usage",
       "noMetrics": "No environmental metrics. Add one to get started."
     },
     "growthPerformanceTitle": "Growth Performance",
@@ -375,6 +377,12 @@
       "avgFCR": "Avg. FCR",
       "feedConsumed": "Feed Consumed",
       "daysInPhase": "Days in Phase"
+    },
+    "migrations": {
+      "phaseSuccess": "Phase values have been successfully migrated to lowercase",
+      "phaseNeeded": "Your feed conversion records need to be migrated to use lowercase phase values. Click the button below to migrate your data.",
+      "migrating": "Migrating...",
+      "migratePhases": "Migrate Phases"
     }
   },
   "pig": {
@@ -457,5 +465,11 @@
         "additionalCostsPlaceholder": "Enter additional costs"
       }
     }
+  },
+  "migrations": {
+    "phaseSuccess": "Phase values have been successfully migrated to lowercase",
+    "phaseNeeded": "Your feed conversion records need to be migrated to use lowercase phase values. Click the button below to migrate your data.",
+    "migrating": "Migrating...",
+    "migratePhases": "Migrate Phases"
   }
 } 

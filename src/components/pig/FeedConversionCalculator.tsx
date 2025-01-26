@@ -25,7 +25,7 @@ export function FeedConversionCalculator({
   const [initialWeight, setInitialWeight] = useState('');
   const [finalWeight, setFinalWeight] = useState('');
   const [feedConsumed, setFeedConsumed] = useState('');
-  const [selectedPhase, setSelectedPhase] = useState<'Nursery' | 'Grower' | 'Finisher'>('Nursery');
+  const [selectedPhase, setSelectedPhase] = useState<'nursery' | 'grower' | 'finisher'>('nursery');
 
   // Calculate pagination
   const totalPages = Math.ceil(feedConversion.length / recordsPerPage);
@@ -87,7 +87,7 @@ export function FeedConversionCalculator({
     setInitialWeight('');
     setFinalWeight('');
     setFeedConsumed('');
-    setSelectedPhase('Nursery');
+    setSelectedPhase('nursery');
   };
 
   const handleInitialWeight = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -117,12 +117,12 @@ export function FeedConversionCalculator({
             </label>
             <select
               value={selectedPhase}
-              onChange={(e) => setSelectedPhase(e.target.value as 'Nursery' | 'Grower' | 'Finisher')}
+              onChange={(e) => setSelectedPhase(e.target.value as 'nursery' | 'grower' | 'finisher')}
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500"
             >
-              <option value="Nursery">{t('analytics.feedConversion.phases.nursery')}</option>
-              <option value="Grower">{t('analytics.feedConversion.phases.grower')}</option>
-              <option value="Finisher">{t('analytics.feedConversion.phases.finisher')}</option>
+              <option value="nursery">{t('analytics.feedConversion.phases.nursery')}</option>
+              <option value="grower">{t('analytics.feedConversion.phases.grower')}</option>
+              <option value="finisher">{t('analytics.feedConversion.phases.finisher')}</option>
             </select>
           </div>
         </div>

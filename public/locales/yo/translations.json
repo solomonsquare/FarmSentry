@@ -265,6 +265,21 @@
     },
     "feedConversion": {
       "title": "Ìyípadà Oúnjẹ",
+      "form": {
+        "growthPhase": "Ipele Idàgbàsókè",
+        "startDate": "Ọjọ́ Ìbẹ̀rẹ̀",
+        "endDate": "Ọjọ́ Ìparí",
+        "initialWeight": "Ìwọ̀n Ìbẹ̀rẹ̀ (kg)",
+        "finalWeight": "Ìwọ̀n Ìparí (kg)",
+        "feedConsumed": "Oúnjẹ tí Wọ́n Jẹ (kg)",
+        "addRecord": "Fi Àkọsílẹ̀ Sí i",
+        "weightPlaceholder": "Tẹ ìwọ̀n sí i"
+      },
+      "phases": {
+        "nursery": "Ipele Ọmọ",
+        "grower": "Ipele Dàgbà",
+        "finisher": "Ipele Ìparí"
+      },
       "history": "Ìtàn FCR",
       "fcrHistory": "Ìtàn FCR",
       "table": {
@@ -276,12 +291,6 @@
         "fcr": "FCR",
         "actions": "Ìgbésẹ̀"
       },
-      "phases": {
-        "nursery": "Ipele Ọmọ",
-        "grower": "Ipele Ìdàgbà",
-        "finisher": "Ipele Ìparí"
-      },
-      "feedCostPerKg": "Owó Oúnjẹ/kg",
       "profitMargin": "Èrè"
     },
     "breedingManagementTitle": "Ìṣàkóso Ìbísí",

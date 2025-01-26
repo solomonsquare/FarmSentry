@@ -3,9 +3,11 @@ import { EnvironmentalMetric } from '../../../types/pig';
 import { PaginationContainer } from '../../common/PaginationContainer';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { Dialog, Transition } from '@headlessui/react';
-import { Leaf } from 'lucide-react';
+import { Leaf, Plus } from 'lucide-react';
 import { usePagination } from '../../../hooks/usePagination';
 import { useTranslation } from 'react-i18next';
+import { useTheme } from '../../../contexts/ThemeContext';
+import { formatDate } from '../../../utils/date';
 
 interface Props {
   environmentalMetrics: EnvironmentalMetric[];
@@ -20,22 +22,22 @@ interface MetricForm {
 
 export function EnvironmentalImpact({ environmentalMetrics = [], onUpdate }: Props) {
   const { t } = useTranslation();
+  const { isDarkMode } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
-  const [localMetrics, setLocalMetrics] = useState(environmentalMetrics);
+  const [currentPage, setCurrentPage] = useState(1);
   const recordsPerPage = 5;
+  const [localMetrics, setLocalMetrics] = useState<EnvironmentalMetric[]>(environmentalMetrics);
 
   const {
-    currentPage,
     totalPages,
     displayedRecords,
-    setCurrentPage
   } = usePagination(
     localMetrics.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()),
     recordsPerPage
   );
 
   const [formData, setFormData] = useState<MetricForm>({
-    resourceType: 'Water',
+    resourceType: 'water',
     usage: '',
     date: new Date().toISOString().split('T')[0]
   });
@@ -46,10 +48,10 @@ export function EnvironmentalImpact({ environmentalMetrics = [], onUpdate }: Pro
   }, [environmentalMetrics]);
 
   const resourceTypes = [
-    { type: 'Water', unit: 'liters' },
-    { type: 'Electricity', unit: 'kWh' },
-    { type: 'Waste', unit: 'kg' },
-    { type: 'Emissions', unit: 'CO2e' }
+    { type: 'water', unit: 'liters' },
+    { type: 'electricity', unit: 'kWh' },
+    { type: 'waste', unit: 'kg' },
+    { type: 'emissions', unit: 'CO2e' }
   ];
 
   const addMetric = async (e: React.FormEvent) => {
@@ -79,11 +81,11 @@ export function EnvironmentalImpact({ environmentalMetrics = [], onUpdate }: Pro
   // Prepare data for the graph
   const chartData = resourceTypes.map(({ type, unit }) => {
     const totalUsage = localMetrics
-      .filter(metric => metric.resourceType === type)
+      .filter(metric => metric.resourceType.toLowerCase() === type)
       .reduce((sum, metric) => sum + metric.usage, 0);
 
     return {
-      resourceType: t(`analytics.environmentalImpact.${type}`),
+      resourceType: t(`analytics.environmentalImpact.metrics.${type}`),
       usage: totalUsage,
       unit
     };
@@ -96,141 +98,166 @@ export function EnvironmentalImpact({ environmentalMetrics = [], onUpdate }: Pro
     .map(metric => ({
       date: new Date(metric.date).toLocaleDateString(),
       usage: metric.usage,
-      resourceType: t(`analytics.environmentalImpact.${metric.resourceType}`)
+      resourceType: t(`analytics.environmentalImpact.metrics.${metric.resourceType.toLowerCase()}`)
     }));
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <div className="flex items-center gap-2">
-          <Leaf className="w-5 h-5 text-green-600" />
-          <h2 className="text-xl font-semibold">{t('analytics.environmentalImpact.title')}</h2>
-        </div>
+        <h2 className={`text-xl font-semibold ${isDarkMode ? 'text-gray-100' : 'text-gray-900'}`}>
+          {t('analytics.environmentalImpact.title')}
+        </h2>
         <button
           onClick={() => setIsOpen(true)}
-          className="px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-md hover:bg-green-700"
+          className={`flex items-center gap-2 px-4 py-2 rounded-md ${
+            isDarkMode 
+              ? 'bg-green-600 hover:bg-green-500 text-white' 
+              : 'bg-green-600 hover:bg-green-700 text-white'
+          }`}
         >
-          {t('analytics.environmentalImpact.addMetric')}
+          <Plus className="w-4 h-4" />
+          {t('analytics.environmentalImpact.addRecord')}
         </button>
       </div>
 
       {/* Resource Type Summary */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        {resourceTypes.map(({ type, unit }) => {
-          const totalUsage = localMetrics
-            .filter(metric => metric.resourceType === type)
-            .reduce((sum, metric) => sum + metric.usage, 0);
+      <div className={`p-4 rounded-lg ${isDarkMode ? 'bg-gray-800' : 'bg-white'}`}>
+        <h3 className={`text-lg font-semibold mb-4 ${isDarkMode ? 'text-gray-100' : 'text-gray-900'}`}>
+          {t('analytics.environmentalImpact.title')}
+        </h3>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {resourceTypes.map(({ type, unit }) => {
+            const totalUsage = localMetrics
+              .filter(metric => metric.resourceType.toLowerCase() === type)
+              .reduce((sum, metric) => sum + metric.usage, 0);
 
-          return (
-            <div key={type} className="bg-white p-4 rounded-lg shadow">
-              <h4 className="text-sm font-medium text-gray-500">
-                {t(`analytics.environmentalImpact.${type}`)}
-              </h4>
-              <p className="mt-1 text-xl font-semibold text-gray-900">
-                {totalUsage.toLocaleString()} {unit}
-              </p>
-            </div>
-          );
-        })}
+            return (
+              <div 
+                key={type}
+                className={`p-4 rounded-lg ${
+                  isDarkMode 
+                    ? 'bg-gray-800/50 border border-gray-700' 
+                    : 'bg-white border border-gray-200'
+                }`}
+              >
+                <h4 className={`text-sm font-medium ${
+                  isDarkMode ? 'text-gray-300' : 'text-gray-600'
+                }`}>
+                  {t(`analytics.environmentalImpact.metrics.${type}`)}
+                </h4>
+                <p className={`mt-2 text-2xl font-semibold ${
+                  isDarkMode ? 'text-gray-100' : 'text-gray-900'
+                }`}>
+                  {totalUsage.toLocaleString()} {unit}
+                </p>
+              </div>
+            );
+          })}
+        </div>
       </div>
 
       {/* Bar Chart */}
       {chartData.length > 0 && (
-        <div className="h-64 bg-white p-4 rounded-lg shadow">
-          <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={chartData}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="resourceType" />
-              <YAxis />
-              <Tooltip 
-                formatter={(value, name, props) => [
-                  `${value.toLocaleString()} ${props.payload.unit}`,
-                  t('analytics.environmentalImpact.usage')
-                ]}
-              />
-              <Legend />
-              <Bar 
-                dataKey="usage" 
-                fill="#22c55e" 
-                name={t('analytics.environmentalImpact.usage')} 
-              />
-            </BarChart>
-          </ResponsiveContainer>
-        </div>
-      )}
-
-      {/* Trend Chart */}
-      {trendData.length > 0 && (
-        <div className="h-64 bg-white p-4 rounded-lg shadow">
-          <h4 className="text-sm font-medium text-gray-500 mb-2">
+        <div className={`p-4 rounded-lg ${
+          isDarkMode 
+            ? 'bg-gray-800/50 border border-gray-700' 
+            : 'bg-white border border-gray-200'
+        }`}>
+          <h3 className={`text-sm font-medium mb-4 ${
+            isDarkMode ? 'text-gray-300' : 'text-gray-600'
+          }`}>
             {t('analytics.environmentalImpact.usageTrends')}
-          </h4>
-          <ResponsiveContainer width="100%" height="90%">
-            <BarChart data={trendData}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="date" />
-              <YAxis />
-              <Tooltip formatter={(value) => `${value.toLocaleString()}`} />
-              <Legend />
-              <Bar 
-                dataKey="usage" 
-                fill="#22c55e" 
-                name={t('analytics.environmentalImpact.usage')} 
-              />
-            </BarChart>
-          </ResponsiveContainer>
+          </h3>
+          <div className="h-64">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={chartData}>
+                <CartesianGrid 
+                  strokeDasharray="3 3" 
+                  stroke={isDarkMode ? '#374151' : '#e5e7eb'}
+                />
+                <XAxis 
+                  dataKey="resourceType" 
+                  stroke={isDarkMode ? '#9CA3AF' : '#6B7280'}
+                />
+                <YAxis 
+                  stroke={isDarkMode ? '#9CA3AF' : '#6B7280'}
+                />
+                <Tooltip 
+                  contentStyle={{
+                    backgroundColor: isDarkMode ? '#1F2937' : '#FFFFFF',
+                    border: `1px solid ${isDarkMode ? '#374151' : '#E5E7EB'}`,
+                    color: isDarkMode ? '#D1D5DB' : '#111827'
+                  }}
+                />
+                <Legend />
+                <Bar 
+                  dataKey="usage" 
+                  fill={isDarkMode ? '#059669' : '#10B981'} 
+                  name={t('analytics.environmentalImpact.usage')}
+                />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
         </div>
       )}
 
       {/* Metrics Table */}
-      <div className="bg-white rounded-lg shadow overflow-hidden">
-        {displayedRecords.length === 0 ? (
-          <div className="text-center text-gray-500 py-4">
-            {t('analytics.environmentalImpact.noMetrics')}
-          </div>
-        ) : (
-          <>
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
-                <tr>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                    {t('common.date')}
-                  </th>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                    {t('analytics.environmentalImpact.resourceType')}
-                  </th>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                    {t('analytics.environmentalImpact.usage')}
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
-                {displayedRecords.map((metric) => (
-                  <tr key={metric.id}>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                      {new Date(metric.date).toLocaleDateString()}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                      {t(`analytics.environmentalImpact.${metric.resourceType}`)}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                      {metric.usage.toLocaleString()} {resourceTypes.find(r => r.type === metric.resourceType)?.unit}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+      <div className={`overflow-x-auto rounded-lg border ${
+        isDarkMode ? 'border-gray-700' : 'border-gray-200'
+      }`}>
+        <table className="min-w-full divide-y divide-gray-200">
+          <thead className={isDarkMode ? 'bg-gray-800' : 'bg-gray-50'}>
+            <tr>
+              <th scope="col" className={`px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider ${
+                isDarkMode ? 'text-gray-400' : 'text-gray-600'
+              }`}>
+                {t('common.date')}
+              </th>
+              <th scope="col" className={`px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider ${
+                isDarkMode ? 'text-gray-400' : 'text-gray-600'
+              }`}>
+                {t('analytics.environmentalImpact.resourceType')}
+              </th>
+              <th scope="col" className={`px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider ${
+                isDarkMode ? 'text-gray-400' : 'text-gray-600'
+              }`}>
+                {t('analytics.environmentalImpact.usage')}
+              </th>
+            </tr>
+          </thead>
+          <tbody className={`divide-y ${isDarkMode ? 'divide-gray-700' : 'divide-gray-200'}`}>
+            {displayedRecords.map((metric) => (
+              <tr 
+                key={metric.id}
+                className={isDarkMode ? 'bg-gray-800 hover:bg-gray-700' : 'bg-white hover:bg-gray-50'}
+              >
+                <td className={`px-6 py-4 whitespace-nowrap text-sm ${
+                  isDarkMode ? 'text-gray-300' : 'text-gray-900'
+                }`}>
+                  {formatDate(metric.date)}
+                </td>
+                <td className={`px-6 py-4 whitespace-nowrap text-sm ${
+                  isDarkMode ? 'text-gray-300' : 'text-gray-900'
+                }`}>
+                  {t(`analytics.environmentalImpact.metrics.${metric.resourceType.toLowerCase()}`)}
+                </td>
+                <td className={`px-6 py-4 whitespace-nowrap text-sm ${
+                  isDarkMode ? 'text-gray-300' : 'text-gray-900'
+                }`}>
+                  {metric.usage.toLocaleString()} {resourceTypes.find(r => r.type === metric.resourceType.toLowerCase())?.unit}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
 
-            {localMetrics.length > recordsPerPage && (
-              <div className="bg-white px-4 py-3 border-t border-gray-200">
-                <PaginationContainer
-                  currentPage={currentPage}
-                  totalPages={totalPages}
-                  onPageChange={setCurrentPage}
-                />
-              </div>
-            )}
-          </>
+        {/* Pagination */}
+        {localMetrics.length > recordsPerPage && (
+          <PaginationContainer
+            currentPage={currentPage}
+            totalPages={Math.ceil(localMetrics.length / recordsPerPage)}
+            onPageChange={setCurrentPage}
+          />
         )}
       </div>
 
@@ -251,7 +278,7 @@ export function EnvironmentalImpact({ environmentalMetrics = [], onUpdate }: Pro
             </Transition.Child>
 
             <div className="relative bg-white rounded-lg p-6 max-w-md w-full mx-4">
-              <Dialog.Title className="text-lg font-medium mb-4">{t('analytics.environmentalImpact.addMetric')}</Dialog.Title>
+              <Dialog.Title className="text-lg font-medium mb-4">{t('analytics.environmentalImpact.addRecord')}</Dialog.Title>
               
               <form onSubmit={addMetric} className="space-y-4">
                 <div>
@@ -262,14 +289,14 @@ export function EnvironmentalImpact({ environmentalMetrics = [], onUpdate }: Pro
                     className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500"
                   >
                     {resourceTypes.map(({ type }) => (
-                      <option key={type} value={type}>{t(`analytics.environmentalImpact.${type}`)}</option>
+                      <option key={type} value={type}>{t(`analytics.environmentalImpact.metrics.${type}`)}</option>
                     ))}
                   </select>
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700">
-                    {t('analytics.environmentalImpact.usage')} ({resourceTypes.find(r => r.type === formData.resourceType)?.unit})
+                    {t('analytics.environmentalImpact.usage')} ({resourceTypes.find(r => r.type === formData.resourceType.toLowerCase())?.unit})
                   </label>
                   <input
                     type="number"
@@ -305,7 +332,7 @@ export function EnvironmentalImpact({ environmentalMetrics = [], onUpdate }: Pro
                     type="submit"
                     className="px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-md hover:bg-green-700"
                   >
-                    {t('analytics.environmentalImpact.addMetric')}
+                    {t('analytics.environmentalImpact.addRecord')}
                   </button>
                 </div>
               </form>

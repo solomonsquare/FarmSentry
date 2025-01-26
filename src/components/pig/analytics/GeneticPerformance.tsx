@@ -3,8 +3,10 @@ import { GeneticRecord, DEFAULT_PIG_BREEDS } from '../../../types/pig';
 import { PaginationContainer } from '../../common/PaginationContainer';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { Dialog, Transition } from '@headlessui/react';
-import { Dna } from 'lucide-react';
+import { Dna, Plus } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { useTheme } from '../../../contexts/ThemeContext';
+import { formatDate } from '../../../utils/date';
 
 interface Props {
   geneticRecords: GeneticRecord[];
@@ -40,7 +42,8 @@ const DETERIORATION_CHANGES = [
 ];
 
 export function GeneticPerformance({ geneticRecords = [], onUpdate }: Props) {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
+  const { isDarkMode } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const recordsPerPage = 5;
@@ -60,8 +63,28 @@ export function GeneticPerformance({ geneticRecords = [], onUpdate }: Props) {
   // Helper function to translate changes based on current language
   const translateChanges = (changes: string[]): string[] => {
     return changes.map(change => {
-      return t(`analytics.geneticPerformance.changes.${change}`);
+      const translationKey = `analytics.geneticPerformance.changes.${change}`;
+      const translation = t(translationKey);
+      // Only return the original key if it's a valid change type
+      if (IMPROVEMENT_CHANGES.includes(change) || DETERIORATION_CHANGES.includes(change)) {
+        return translation;
+      }
+      return change;
     });
+  };
+
+  // Helper function to translate record type
+  const translateRecordType = (type: 'improvement' | 'deterioration'): string => {
+    const translationKey = `analytics.geneticPerformance.${type}s`;
+    const translation = t(translationKey);
+    return translation === translationKey ? type : translation;
+  };
+
+  // Helper function to translate breeding line
+  const translateBreedingLine = (line: string): string => {
+    const translationKey = `pig.stockManagement.breeds.${line.toLowerCase().replace(/\s+/g, '')}`;
+    const translation = t(`${translationKey}.name`);
+    return translation === `${translationKey}.name` ? line : translation;
   };
 
   const addGeneticRecord = async (e: React.FormEvent) => {
@@ -99,11 +122,10 @@ export function GeneticPerformance({ geneticRecords = [], onUpdate }: Props) {
   };
 
   // Calculate pagination
-  const totalPages = Math.ceil(localRecords.length / recordsPerPage);
   const startIndex = (currentPage - 1) * recordsPerPage;
-  const displayedRecords = localRecords
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-    .slice(startIndex, startIndex + recordsPerPage);
+  const endIndex = startIndex + recordsPerPage;
+  const displayedRecords = localRecords.slice(startIndex, endIndex);
+  const totalPages = Math.ceil(localRecords.length / recordsPerPage);
 
   // Prepare data for the graph
   const graphData = localRecords
@@ -132,107 +154,153 @@ export function GeneticPerformance({ geneticRecords = [], onUpdate }: Props) {
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h2 className="text-xl font-semibold">{t('analytics.geneticPerformance.title')}</h2>
+        <h2 className={`text-xl font-semibold ${isDarkMode ? 'text-gray-100' : 'text-gray-900'}`}>
+          {t('analytics.geneticPerformance.title')}
+        </h2>
         <button
           onClick={() => setIsOpen(true)}
-          className="flex items-center px-4 py-2 text-sm font-medium text-white bg-purple-600 rounded-md hover:bg-purple-700"
+          className={`flex items-center gap-2 px-4 py-2 rounded-md ${
+            isDarkMode 
+              ? 'bg-purple-500 hover:bg-purple-600 text-white' 
+              : 'bg-purple-600 hover:bg-purple-700 text-white'
+          }`}
         >
-          <Dna className="w-4 h-4 mr-2" />
+          <Plus className="w-4 h-4" />
           {t('analytics.geneticPerformance.addRecord')}
         </button>
       </div>
 
       {/* Graph Section */}
       {chartData.length > 0 && (
-        <div className="h-64 bg-white p-4 rounded-lg shadow">
+        <div className={`h-64 p-4 rounded-lg shadow ${isDarkMode ? 'bg-gray-800' : 'bg-white'}`}>
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={chartData}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="breedingLine" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Line type="monotone" dataKey="improvements" stroke="#10b981" name={t('analytics.geneticPerformance.improvements')} />
-              <Line type="monotone" dataKey="deteriorations" stroke="#ef4444" name={t('analytics.geneticPerformance.deteriorations')} />
+              <CartesianGrid strokeDasharray="3 3" stroke={isDarkMode ? '#374151' : '#e5e7eb'} />
+              <XAxis 
+                dataKey="breedingLine" 
+                stroke={isDarkMode ? '#9CA3AF' : '#4B5563'}
+                tickFormatter={translateBreedingLine}
+              />
+              <YAxis stroke={isDarkMode ? '#9CA3AF' : '#4B5563'} />
+              <Tooltip 
+                contentStyle={{ 
+                  backgroundColor: isDarkMode ? '#1F2937' : '#FFFFFF',
+                  borderColor: isDarkMode ? '#374151' : '#E5E7EB',
+                  color: isDarkMode ? '#D1D5DB' : '#111827'
+                }}
+                formatter={(value: any, name: string) => {
+                  const translatedName = name === 'improvements' 
+                    ? t('analytics.geneticPerformance.improvements')
+                    : t('analytics.geneticPerformance.deteriorations');
+                  return [value, translatedName];
+                }}
+                labelFormatter={translateBreedingLine}
+              />
+              <Legend 
+                formatter={(value) => {
+                  return value === 'improvements'
+                    ? t('analytics.geneticPerformance.improvements')
+                    : t('analytics.geneticPerformance.deteriorations');
+                }}
+              />
+              <Line 
+                type="monotone" 
+                dataKey="improvements" 
+                stroke="#10b981" 
+                name="improvements"
+              />
+              <Line 
+                type="monotone" 
+                dataKey="deteriorations" 
+                stroke="#ef4444" 
+                name="deteriorations"
+              />
             </LineChart>
           </ResponsiveContainer>
         </div>
       )}
 
       {/* Records Table */}
-      <div className="bg-white shadow rounded-lg overflow-hidden">
-        {localRecords.length === 0 ? (
-          <p className="p-4 text-gray-500">{t('analytics.geneticPerformance.noRecords')}</p>
-        ) : (
-          <>
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
-                <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    {t('analytics.feedData.table.date')}
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    {t('analytics.geneticPerformance.breedingLine')}
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    {t('analytics.geneticPerformance.type')}
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    {t('analytics.geneticPerformance.improvements')}
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
-                {displayedRecords.map((record) => (
-                  <tr key={record.id}>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                      {new Date(record.date).toLocaleDateString(i18n.language)}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                      {record.breedingLine}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm">
-                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                        record.type === 'improvement' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
-                      }`}>
-                        {record.type === 'improvement' 
-                          ? t('analytics.geneticPerformance.improvements')
-                          : t('analytics.geneticPerformance.deteriorations')}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4 text-sm text-gray-900">
-                      <ul className="list-disc list-inside">
-                        {record.improvements.map((change, index) => {
-                          // Handle both full translation keys and simple keys
-                          const key = change.includes('analytics.geneticPerformance.changes.') 
-                            ? change.split('analytics.geneticPerformance.changes.')[1]
-                            : change;
-                          
-                          return (
-                            <li key={index} className={`${record.type === 'improvement' ? 'text-green-700' : 'text-red-700'}`}>
-                              {t(`analytics.geneticPerformance.changes.${key}`)}
-                            </li>
-                          );
-                        })}
-                      </ul>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-
-            {localRecords.length > recordsPerPage && (
-              <div className="bg-white px-4 py-3 border-t border-gray-200">
-                <PaginationContainer
-                  currentPage={currentPage}
-                  totalPages={totalPages}
-                  onPageChange={setCurrentPage}
-                />
-              </div>
-            )}
-          </>
-        )}
+      <div className={`overflow-x-auto rounded-lg border ${
+        isDarkMode ? 'border-gray-700' : 'border-gray-200'
+      }`}>
+        <table className="min-w-full divide-y divide-gray-200">
+          <thead className={isDarkMode ? 'bg-gray-800' : 'bg-gray-50'}>
+            <tr>
+              <th className={`px-6 py-3 text-left text-xs font-medium uppercase tracking-wider ${
+                isDarkMode ? 'text-gray-400' : 'text-gray-500'
+              }`}>
+                {t('common.date')}
+              </th>
+              <th className={`px-6 py-3 text-left text-xs font-medium uppercase tracking-wider ${
+                isDarkMode ? 'text-gray-400' : 'text-gray-500'
+              }`}>
+                {t('analytics.geneticPerformance.breedingLine')}
+              </th>
+              <th className={`px-6 py-3 text-left text-xs font-medium uppercase tracking-wider ${
+                isDarkMode ? 'text-gray-400' : 'text-gray-500'
+              }`}>
+                {t('analytics.geneticPerformance.type')}
+              </th>
+              <th className={`px-6 py-3 text-left text-xs font-medium uppercase tracking-wider ${
+                isDarkMode ? 'text-gray-400' : 'text-gray-500'
+              }`}>
+                {t('analytics.geneticPerformance.improvements')}
+              </th>
+            </tr>
+          </thead>
+          <tbody className={`divide-y ${isDarkMode ? 'divide-gray-700' : 'divide-gray-200'}`}>
+            {displayedRecords.map((record) => (
+              <tr 
+                key={record.id}
+                className={isDarkMode ? 'bg-gray-800 hover:bg-gray-700' : 'bg-white hover:bg-gray-50'}
+              >
+                <td className={`px-6 py-4 whitespace-nowrap text-sm ${
+                  isDarkMode ? 'text-gray-300' : 'text-gray-900'
+                }`}>
+                  {formatDate(record.date)}
+                </td>
+                <td className={`px-6 py-4 whitespace-nowrap text-sm ${
+                  isDarkMode ? 'text-gray-300' : 'text-gray-900'
+                }`}>
+                  {translateBreedingLine(record.breedingLine)}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm">
+                  <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                    record.type === 'improvement'
+                      ? isDarkMode 
+                        ? 'bg-green-900/20 text-green-400' 
+                        : 'bg-green-100 text-green-800'
+                      : isDarkMode
+                        ? 'bg-red-900/20 text-red-400'
+                        : 'bg-red-100 text-red-800'
+                  }`}>
+                    {translateRecordType(record.type)}
+                  </span>
+                </td>
+                <td className={`px-6 py-4 text-sm ${
+                  isDarkMode ? 'text-gray-300' : 'text-gray-900'
+                }`}>
+                  <ul className="list-disc list-inside">
+                    {translateChanges(record.improvements).map((improvement, index) => (
+                      <li key={index}>{improvement}</li>
+                    ))}
+                  </ul>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
+
+      {/* Pagination */}
+      {localRecords.length > recordsPerPage && (
+        <PaginationContainer
+          currentPage={currentPage}
+          totalPages={Math.ceil(localRecords.length / recordsPerPage)}
+          onPageChange={setCurrentPage}
+        />
+      )}
 
       {/* Add Record Modal */}
       <Transition appear show={isOpen} as={Fragment}>

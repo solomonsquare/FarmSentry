@@ -37,7 +37,7 @@ export interface FeedConversion {
   finalWeight: number;
   feedConsumed: number;
   fcr: number;
-  phase: 'Nursery' | 'Grower' | 'Finisher';
+  phase: 'nursery' | 'grower' | 'finisher';
 }
 
 export interface PigFarmFeatures extends BaseFarmFeatures {

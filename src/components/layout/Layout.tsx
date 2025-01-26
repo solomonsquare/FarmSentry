@@ -64,19 +64,19 @@ export function Layout({ children, category, onReset }: Props) {
   ];
 
   return (
-    <div className={`min-h-screen ${isDarkMode ? 'dark bg-gray-900' : 'bg-gray-100'}`}>
-      <nav className="bg-white dark:bg-gray-800 shadow-md">
+    <div className={`min-h-screen ${isDarkMode ? 'bg-gray-900' : 'bg-gray-100'}`}>
+      <nav className={`${isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'} border-b shadow-sm`}>
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
               <button
                 onClick={handleBack}
-                className="mr-4 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+                className={`mr-4 ${isDarkMode ? 'text-gray-300 hover:text-blue-400' : 'text-gray-600 hover:text-blue-600'}`}
                 title="Back"
               >
                 <ArrowLeft className="w-5 h-5" />
               </button>
-              <h1 className="text-xl font-semibold text-gray-900 dark:text-white mr-8">
+              <h1 className={`text-xl font-semibold mr-8 ${isDarkMode ? 'text-gray-100' : 'text-gray-900'}`}>
                 {category === 'birds' 
                   ? t('settings.currentFarm.poultryFarm')
                   : category === 'pigs'
@@ -90,10 +90,14 @@ export function Layout({ children, category, onReset }: Props) {
                     to={to}
                     end={to === ''}
                     className={({ isActive: active }) =>
-                      `flex items-center px-3 py-2 rounded-md text-sm font-medium ${
+                      `flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors ${
                         isActive(location.pathname)
-                          ? 'text-blue-600 bg-blue-50 dark:text-blue-400 dark:bg-blue-900'
-                          : 'text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900'
+                          ? isDarkMode
+                            ? 'text-blue-400 bg-blue-900/40'
+                            : 'text-blue-600 bg-blue-50'
+                          : isDarkMode
+                            ? 'text-gray-300 hover:text-blue-400 hover:bg-blue-900/40'
+                            : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50'
                       }`
                     }
                   >
@@ -106,14 +110,20 @@ export function Layout({ children, category, onReset }: Props) {
             <div className="flex items-center space-x-4">
               <button
                 onClick={() => navigate('/settings')}
-                className="flex items-center gap-2 px-3 py-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+                className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors
+                  ${isDarkMode
+                    ? 'text-gray-300 hover:text-blue-400 hover:bg-blue-900/40'
+                    : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50'}`}
               >
                 <Settings className="w-4 h-4" />
                 <span className="hidden md:inline">{t('navigation.settings')}</span>
               </button>
               <button
                 onClick={handleLogout}
-                className="flex items-center gap-2 px-3 py-2 text-gray-600 dark:text-gray-300 hover:text-red-600"
+                className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors
+                  ${isDarkMode
+                    ? 'text-gray-300 hover:text-red-400 hover:bg-red-900/40'
+                    : 'text-gray-600 hover:text-red-600 hover:bg-red-50'}`}
               >
                 <LogOut className="w-4 h-4" />
                 <span className="hidden md:inline">{t('navigation.logout')}</span>

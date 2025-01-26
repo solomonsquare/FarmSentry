@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Plus } from 'lucide-react';
+import { useTheme } from '../../../contexts/ThemeContext';
 
 interface WeightInputFormProps {
   totalBirds: number;
@@ -14,6 +15,7 @@ interface WeightInputFormProps {
 }
 
 export function WeightInputForm({ totalBirds, onSubmit }: WeightInputFormProps) {
+  const { isDarkMode } = useTheme();
   const [sampleSize, setSampleSize] = useState<number>(0);
   const [totalWeight, setTotalWeight] = useState<number>(0);
   const [targetWeight, setTargetWeight] = useState<number>(0);
@@ -147,11 +149,17 @@ export function WeightInputForm({ totalBirds, onSubmit }: WeightInputFormProps) 
     setNotes('');
   };
 
+  const inputClasses = `mt-1 block w-full rounded-md shadow-sm focus:ring-indigo-400 ${
+    isDarkMode 
+      ? 'bg-gray-700 border-gray-600 text-gray-100 focus:border-indigo-400' 
+      : 'bg-white border-gray-300 text-gray-900 focus:border-indigo-500'
+  }`;
+
   return (
     <div className="space-y-4">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700">
+          <label className={`block text-sm font-medium ${isDarkMode ? 'text-gray-200' : 'text-gray-700'}`}>
             Sample Size (birds) - Max: {totalBirds}
           </label>
           <input
@@ -160,7 +168,7 @@ export function WeightInputForm({ totalBirds, onSubmit }: WeightInputFormProps) 
             value={sampleSize === 0 ? "0" : sampleSize}
             onChange={handleSampleSizeChange}
             onKeyDown={preventNegativeInput}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+            className={inputClasses}
             min="0"
             max={totalBirds}
             step="1"
@@ -179,7 +187,7 @@ export function WeightInputForm({ totalBirds, onSubmit }: WeightInputFormProps) 
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700">
+          <label className={`block text-sm font-medium ${isDarkMode ? 'text-gray-200' : 'text-gray-700'}`}>
             Total Weight of Sample (kg)
           </label>
           <input
@@ -188,7 +196,7 @@ export function WeightInputForm({ totalBirds, onSubmit }: WeightInputFormProps) 
             value={totalWeight}
             onChange={handleTotalWeightChange}
             onKeyDown={preventNegativeInput}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+            className={inputClasses}
             min="0"
             step="0.001"
             onWheel={(e) => e.preventDefault()}
@@ -200,7 +208,7 @@ export function WeightInputForm({ totalBirds, onSubmit }: WeightInputFormProps) 
             }}
           />
           {sampleSize > 0 && (
-            <p className="mt-1 text-sm text-gray-500">
+            <p className={`mt-1 text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
               Average weight per bird: {(totalWeight / sampleSize).toFixed(3)} kg
             </p>
           )}
@@ -209,7 +217,7 @@ export function WeightInputForm({ totalBirds, onSubmit }: WeightInputFormProps) 
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700">
+          <label className={`block text-sm font-medium ${isDarkMode ? 'text-gray-200' : 'text-gray-700'}`}>
             Target Weight (kg)
           </label>
           <input
@@ -218,7 +226,7 @@ export function WeightInputForm({ totalBirds, onSubmit }: WeightInputFormProps) 
             value={targetWeight}
             onChange={handleTargetWeightChange}
             onKeyDown={preventNegativeInput}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+            className={inputClasses}
             min="0"
             step="0.001"
             onWheel={(e) => e.preventDefault()}
@@ -232,7 +240,7 @@ export function WeightInputForm({ totalBirds, onSubmit }: WeightInputFormProps) 
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700">
+          <label className={`block text-sm font-medium ${isDarkMode ? 'text-gray-200' : 'text-gray-700'}`}>
             Below Target
           </label>
           <input
@@ -241,7 +249,7 @@ export function WeightInputForm({ totalBirds, onSubmit }: WeightInputFormProps) 
             value={belowTarget}
             onChange={handleBelowTargetChange}
             onKeyDown={preventNegativeInput}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+            className={inputClasses}
             min="0"
             max={sampleSize}
             step="1"
@@ -256,7 +264,7 @@ export function WeightInputForm({ totalBirds, onSubmit }: WeightInputFormProps) 
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700">
+          <label className={`block text-sm font-medium ${isDarkMode ? 'text-gray-200' : 'text-gray-700'}`}>
             Above Target
           </label>
           <input
@@ -265,9 +273,9 @@ export function WeightInputForm({ totalBirds, onSubmit }: WeightInputFormProps) 
             value={aboveTarget}
             onChange={handleAboveTargetChange}
             onKeyDown={preventNegativeInput}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+            className={inputClasses}
             min="0"
-            max={Math.max(0, sampleSize - belowTarget)}
+            max={sampleSize - belowTarget}
             step="1"
             onWheel={(e) => e.preventDefault()}
             onPaste={(e) => {
@@ -281,23 +289,32 @@ export function WeightInputForm({ totalBirds, onSubmit }: WeightInputFormProps) 
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700">Notes</label>
+        <label className={`block text-sm font-medium ${isDarkMode ? 'text-gray-200' : 'text-gray-700'}`}>
+          Notes
+        </label>
         <textarea
           value={notes}
           onChange={(e) => setNotes(e.target.value)}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-          rows={2}
+          className={`mt-1 block w-full rounded-md shadow-sm focus:ring-indigo-400 ${
+            isDarkMode 
+              ? 'bg-gray-700 border-gray-600 text-gray-100 focus:border-indigo-400' 
+              : 'bg-white border-gray-300 text-gray-900 focus:border-indigo-500'
+          }`}
+          rows={3}
         />
       </div>
 
-      <button
-        onClick={handleSubmit}
-        disabled={sampleSize <= 0}
-        className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed"
-      >
-        <Plus className="w-4 h-4" />
-        Add Weight Record
-      </button>
+      <div className="flex justify-end">
+        <button
+          onClick={handleSubmit}
+          className={`inline-flex items-center px-4 py-2 rounded-md shadow-sm text-sm font-medium text-white 
+            ${isDarkMode ? 'bg-indigo-600 hover:bg-indigo-700' : 'bg-indigo-500 hover:bg-indigo-600'} 
+            focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
+        >
+          <Plus className="w-4 h-4 mr-2" />
+          Add Record
+        </button>
+      </div>
     </div>
   );
 }

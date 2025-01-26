@@ -3,6 +3,7 @@ import { History } from 'lucide-react';
 import { Sale, FarmCategory } from '../../types';
 import { formatNaira } from '../../utils/currency';
 import { PaginationContainer } from '../common/PaginationContainer';
+import { useTheme } from '../../contexts/ThemeContext';
 
 interface Props {
   sales: Sale[];
@@ -10,6 +11,7 @@ interface Props {
 }
 
 export function SalesHistory({ sales, category }: Props) {
+  const { isDarkMode } = useTheme();
   const [currentPage, setCurrentPage] = useState(1);
   const [paginatedSales, setPaginatedSales] = useState<Sale[]>([]);
   const recordsPerPage = 5;
@@ -32,59 +34,84 @@ export function SalesHistory({ sales, category }: Props) {
   const animalTypeLower = category === 'birds' ? 'bird' : 'pig';
 
   return (
-    <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+    <div className={`${isDarkMode ? 'bg-gray-800' : 'bg-white'} p-6 rounded-lg shadow-md`}>
       <div className="flex items-center gap-2 mb-4">
-        <History className="w-5 h-5 text-green-600" />
-        <h2 className="text-xl font-semibold">{animalType} Sales History</h2>
+        <History className={`w-5 h-5 ${isDarkMode ? 'text-green-400' : 'text-green-600'}`} />
+        <h2 className={`text-xl font-semibold ${isDarkMode ? 'text-gray-100' : 'text-gray-900'}`}>
+          {animalType} Sales History
+        </h2>
       </div>
 
       <div className="space-y-4">
         {sales.length === 0 ? (
-          <p className="text-gray-500 dark:text-gray-400 text-center py-4">No sales recorded yet.</p>
+          <p className={`text-center py-4 ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+            No sales recorded yet.
+          </p>
         ) : (
           <>
             <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+              <table className={`min-w-full divide-y ${isDarkMode ? 'divide-gray-700' : 'divide-gray-200'}`}>
                 <thead>
                   <tr>
-                    <th className="px-4 py-2 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Date</th>
-                    <th className="px-4 py-2 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Time</th>
-                    <th className="px-4 py-2 text-right text-sm font-medium text-gray-500 dark:text-gray-400">Quantity</th>
-                    <th className="px-4 py-2 text-right text-sm font-medium text-gray-500 dark:text-gray-400">Price/{animalTypeLower}</th>
-                    <th className="px-4 py-2 text-right text-sm font-medium text-gray-500 dark:text-gray-400">Total Amount</th>
-                    <th className="px-4 py-2 text-right text-sm font-medium text-gray-500 dark:text-gray-400">Profit/{animalTypeLower}</th>
-                    <th className="px-4 py-2 text-right text-sm font-medium text-gray-500 dark:text-gray-400">Total Profit</th>
+                    <th className={`px-4 py-2 text-left text-sm font-medium ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                      Date
+                    </th>
+                    <th className={`px-4 py-2 text-left text-sm font-medium ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                      Time
+                    </th>
+                    <th className={`px-4 py-2 text-right text-sm font-medium ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                      Quantity
+                    </th>
+                    <th className={`px-4 py-2 text-right text-sm font-medium ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                      Price/{animalTypeLower}
+                    </th>
+                    <th className={`px-4 py-2 text-right text-sm font-medium ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                      Total Amount
+                    </th>
+                    <th className={`px-4 py-2 text-right text-sm font-medium ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                      Profit/{animalTypeLower}
+                    </th>
+                    <th className={`px-4 py-2 text-right text-sm font-medium ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                      Total Profit
+                    </th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
+                <tbody className={`divide-y ${isDarkMode ? 'divide-gray-700' : 'divide-gray-200'}`}>
                   {paginatedSales.map((sale) => (
                     <tr key={sale.id}>
-                      <td className="px-4 py-2 text-sm text-gray-900 dark:text-gray-300">{sale.date}</td>
-                      <td className="px-4 py-2 text-sm text-gray-900 dark:text-gray-300">{sale.time}</td>
-                      <td className="px-4 py-2 text-sm text-right text-gray-900 dark:text-gray-300">{sale.quantity}</td>
-                      <td className="px-4 py-2 text-sm text-right text-gray-900 dark:text-gray-300">
+                      <td className={`px-4 py-2 text-sm ${isDarkMode ? 'text-gray-300' : 'text-gray-900'}`}>
+                        {sale.date}
+                      </td>
+                      <td className={`px-4 py-2 text-sm ${isDarkMode ? 'text-gray-300' : 'text-gray-900'}`}>
+                        {sale.time}
+                      </td>
+                      <td className={`px-4 py-2 text-sm text-right ${isDarkMode ? 'text-gray-300' : 'text-gray-900'}`}>
+                        {sale.quantity}
+                      </td>
+                      <td className={`px-4 py-2 text-sm text-right ${isDarkMode ? 'text-gray-300' : 'text-gray-900'}`}>
                         {formatNaira(sale.pricePerBird)}
                       </td>
-                      <td className="px-4 py-2 text-sm text-right text-gray-900 dark:text-gray-300">
+                      <td className={`px-4 py-2 text-sm text-right ${isDarkMode ? 'text-gray-300' : 'text-gray-900'}`}>
                         {formatNaira(sale.totalAmount)}
                       </td>
-                      <td className="px-4 py-2 text-sm text-right text-gray-900 dark:text-gray-300">
+                      <td className={`px-4 py-2 text-sm text-right ${isDarkMode ? 'text-gray-300' : 'text-gray-900'}`}>
                         {formatNaira(sale.profitPerBird)}
                       </td>
-                      <td className="px-4 py-2 text-sm text-right text-gray-900 dark:text-gray-300">
+                      <td className={`px-4 py-2 text-sm text-right ${isDarkMode ? 'text-gray-300' : 'text-gray-900'}`}>
                         {formatNaira(sale.totalProfit)}
                       </td>
                     </tr>
                   ))}
-                  <tr className="bg-gray-50 dark:bg-gray-700">
-                    <td colSpan={4} className="px-4 py-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                  <tr className={`${isDarkMode ? 'bg-gray-700' : 'bg-gray-50'}`}>
+                    <td colSpan={4} className={`px-4 py-2 text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-900'}`}>
                       Totals
                     </td>
-                    <td className="px-4 py-2 text-sm font-medium text-right text-gray-900 dark:text-gray-300">
+                    <td className={`px-4 py-2 text-sm font-medium text-right ${isDarkMode ? 'text-gray-300' : 'text-gray-900'}`}>
                       {formatNaira(totalRevenue)}
                     </td>
-                    <td className="px-4 py-2 text-sm font-medium text-right text-gray-900 dark:text-gray-300"></td>
-                    <td className="px-4 py-2 text-sm font-medium text-right text-gray-900 dark:text-gray-300">
+                    <td className={`px-4 py-2 text-sm font-medium text-right ${isDarkMode ? 'text-gray-300' : 'text-gray-900'}`}>
+                    </td>
+                    <td className={`px-4 py-2 text-sm font-medium text-right ${isDarkMode ? 'text-gray-300' : 'text-gray-900'}`}>
                       {formatNaira(totalProfit)}
                     </td>
                   </tr>

@@ -8,11 +8,13 @@ const isDevelopment = import.meta.env.MODE === 'development';
 // Debug function to log translation loading
 const logTranslationLoading = (lng: string, ns: string) => {
   console.log(`Loading translation for ${lng}:${ns}`);
-  fetch(`/locales/${lng}/${ns}.json`)
+  fetch(`/locales/${lng}/${ns}.json`, {
+    cache: 'no-store' // Disable caching for translation files
+  })
     .then(response => response.json())
     .then(data => {
       console.log(`Translation loaded for ${lng}:${ns}`, data);
-      // Add the translations manually if needed
+      // Force update the translations
       i18n.addResourceBundle(lng, ns, data, true, true);
     })
     .catch(error => {
@@ -34,7 +36,7 @@ i18n
 
     backend: {
       loadPath: '/locales/{{lng}}/translations.json',
-      allowMultiLoading: false,
+      allowMultiLoading: true,
       requestOptions: {
         cache: 'no-store',
         mode: 'cors',
@@ -45,38 +47,52 @@ i18n
     detection: {
       order: ['localStorage', 'navigator'],
       lookupLocalStorage: 'i18nextLng',
-      caches: ['localStorage']
+      caches: [], // Disable caching in detection
     },
 
-    react: {
-      bindI18n: 'languageChanged loaded',
-      bindI18nStore: 'added',
-      useSuspense: false
-    },
-
-    supportedLngs: ['en', 'es', 'fr', 'ig', 'yo', 'ha'],
     ns: ['translations'],
     defaultNS: 'translations',
-    
-    // Ensure translations are loaded before rendering
-    preload: ['en', 'es', 'fr', 'ig', 'yo', 'ha'],
+
+    react: {
+      useSuspense: true,
+      bindI18n: 'languageChanged loaded',
+      bindI18nStore: 'added removed',
+      transEmptyNodeValue: '',
+      transSupportBasicHtmlNodes: true,
+      transKeepBasicHtmlNodesFor: ['br', 'strong', 'i', 'p']
+    }
   });
 
 // Add debug listeners
-i18n.on('initialized', function(options) {
+i18n.on('initialized', (options) => {
   console.log('i18next initialized:', options);
-  // Load all translations on initialization
-  i18n.languages.forEach(lng => {
-    logTranslationLoading(lng, 'translations');
-  });
+  // Force load French translations on initialization
+  if (i18n.language === 'fr') {
+    logTranslationLoading('fr', 'translations');
+  }
 });
 
-i18n.on('loaded', function(loaded) {
+i18n.on('languageChanged', (lng) => {
+  console.log('Language changed to:', lng);
+  if (lng === 'fr') {
+    logTranslationLoading('fr', 'translations');
+  }
+});
+
+i18n.on('loaded', (loaded) => {
   console.log('i18next loaded:', loaded);
 });
 
-i18n.on('failedLoading', function(lng, ns, msg) {
+i18n.on('failedLoading', (lng, ns, msg) => {
   console.error('i18next failed loading:', { lng, ns, msg });
+});
+
+i18n.store.on('added', (lng, ns) => {
+  console.log('i18next translations added:', { lng, ns });
+});
+
+i18n.store.on('removed', (lng, ns) => {
+  console.log('i18next translations removed:', { lng, ns });
 });
 
 // Load initial translations

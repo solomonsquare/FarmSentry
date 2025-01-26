@@ -7,6 +7,7 @@ import { FarmCategory, WeightRecord } from '../types';
 import { Bird, Warehouse, TrendingUp, Scale, Activity, Skull } from 'lucide-react';
 import { PoultryWeightTracking } from '../components/analytics/PoultryWeightTracking';
 import { PigBreedingAnalytics } from '../components/analytics/PigBreedingAnalytics';
+import { useTheme } from '../contexts/ThemeContext';
 
 interface Props {
   category: FarmCategory;
@@ -14,6 +15,7 @@ interface Props {
 
 export function Analytics({ category }: Props) {
   const { t } = useTranslation();
+  const { isDarkMode } = useTheme();
   const farmType = t(category === 'birds' ? 'farm.poultryFarm' : 'farm.pigFarm');
   const farmTypeKey = category === 'birds' ? 'poultryFarm' : 'pigFarm';
   const { 
@@ -85,7 +87,7 @@ export function Analytics({ category }: Props) {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+      <h1 className={`text-3xl font-bold ${isDarkMode ? 'text-gray-100' : 'text-gray-900'}`}>
         {category === 'birds' ? t('analytics.poultryFarmAnalytics') : t('analytics.pigFarmAnalytics')}
       </h1>
 
@@ -94,18 +96,26 @@ export function Analytics({ category }: Props) {
         {stats.map((stat) => (
           <div
             key={stat.label}
-            className="bg-white p-6 rounded-lg shadow-sm"
+            className={`p-6 rounded-lg shadow-sm ${isDarkMode ? 'bg-gray-800' : 'bg-white'}`}
           >
             <div className="flex items-center">
-              <div className={`flex-shrink-0 rounded-md bg-${stat.color}-100 p-3`}>
-                <stat.icon className={`w-6 h-6 text-${stat.color}-600`} />
+              <div className={`flex-shrink-0 rounded-md p-3 ${
+                isDarkMode 
+                  ? `bg-${stat.color}-900/20 text-${stat.color}-400` 
+                  : `bg-${stat.color}-100 text-${stat.color}-600`
+              }`}>
+                <stat.icon className="w-6 h-6" />
               </div>
               <div className="ml-5 w-0 flex-1">
                 <dl>
-                  <dt className="text-sm font-medium text-gray-500 truncate">
+                  <dt className={`text-sm font-medium truncate ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
                     {stat.label}
                   </dt>
-                  <dd className={`text-lg font-semibold text-${stat.color}-600`}>
+                  <dd className={`text-lg font-semibold ${
+                    isDarkMode 
+                      ? `text-${stat.color}-400` 
+                      : `text-${stat.color}-600`
+                  }`}>
                     {stat.value}
                   </dd>
                 </dl>

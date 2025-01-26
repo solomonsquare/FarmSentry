@@ -8,6 +8,7 @@ import { LoadingSpinner } from '../components/common/LoadingSpinner';
 import { ErrorMessage } from '../components/common/ErrorMessage';
 import { useAuth } from '../contexts/AuthContext';
 import { processSaleTransaction } from '../services/sales/salesProcessor';
+import { useTheme } from '../contexts/ThemeContext';
 
 interface Props {
   totalBirds: number;
@@ -19,6 +20,7 @@ interface Props {
 export function SalesPage({ totalBirds, stock, category, onUpdateStock }: Props) {
   const { currentUser } = useAuth();
   const { t } = useTranslation();
+  const { isDarkMode } = useTheme();
   const { 
     sales, 
     loading, 
@@ -59,7 +61,7 @@ export function SalesPage({ totalBirds, stock, category, onUpdateStock }: Props)
 
   return (
     <div className="space-y-6">
-      <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+      <h1 className={`text-3xl font-bold ${isDarkMode ? 'text-gray-100' : 'text-gray-900'}`}>
         {category === 'birds' ? t('sales.poultryTitle') : t('sales.pigTitle')}
       </h1>
       
@@ -70,7 +72,7 @@ export function SalesPage({ totalBirds, stock, category, onUpdateStock }: Props)
         onSaleComplete={handleSaleComplete}
       />
 
-      <div className="bg-white p-6 rounded-lg shadow-md">
+      <div className={`${isDarkMode ? 'bg-gray-800' : 'bg-white'} p-6 rounded-lg shadow-md`}>
         <SalesHistorySection 
           category={category} 
           onUpdateSales={handleSalesReset}

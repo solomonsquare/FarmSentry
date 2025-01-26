@@ -6,6 +6,7 @@ import { SaleEntry } from './sales/SaleEntry';
 import { useAuth } from '../contexts/AuthContext';
 import { processSaleTransaction } from '../services/salesProcessor';
 import { ErrorMessage } from './common/ErrorMessage';
+import { useTheme } from '../contexts/ThemeContext';
 
 interface Props {
   totalBirds: number;
@@ -17,6 +18,7 @@ interface Props {
 export function RevenueManager({ totalBirds, stock, category, onSaleComplete }: Props) {
   const { t } = useTranslation();
   const { currentUser } = useAuth();
+  const { isDarkMode } = useTheme();
   const [error, setError] = useState<string | null>(null);
   const [processing, setProcessing] = useState(false);
 
@@ -61,10 +63,12 @@ export function RevenueManager({ totalBirds, stock, category, onSaleComplete }: 
   };
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-md">
+    <div className={`p-6 rounded-lg shadow-md ${isDarkMode ? 'bg-gray-800' : 'bg-white'}`}>
       <div className="flex items-center gap-2 mb-6">
-        <BadgeDollarSign className="w-5 h-5 text-green-600" />
-        <h2 className="text-xl font-semibold">{t('sales.newSale.title')}</h2>
+        <BadgeDollarSign className={`w-5 h-5 ${isDarkMode ? 'text-green-400' : 'text-green-600'}`} />
+        <h2 className={`text-xl font-semibold ${isDarkMode ? 'text-gray-100' : 'text-gray-900'}`}>
+          {t('sales.newSale.title')}
+        </h2>
       </div>
 
       {error && <ErrorMessage message={error} />}

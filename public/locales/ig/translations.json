@@ -294,18 +294,19 @@
         "actions": "Omume"
       },
       "form": {
+        "growthPhase": "Ọnọdụ Uto",
         "startDate": "Ụbọchị Mmalite",
         "endDate": "Ụbọchị Ọgwụgwụ",
         "initialWeight": "Arọ Mmalite (kg)",
         "finalWeight": "Arọ Ikpeazụ (kg)",
         "feedConsumed": "Nri E Riri (kg)",
         "addRecord": "Tinye Ndekọ",
-        "growthPhase": "Ọnọdụ Uto"
+        "weightPlaceholder": "Tinye arọ"
       },
       "phases": {
-        "nursery": "Nwa",
-        "grower": "Uto",
-        "finisher": "Mmechi"
+        "nursery": "Ọnọdụ Uto Nwa",
+        "grower": "Ọnọdụ Mmalite",
+        "finisher": "Ọnọdụ Ọgwụgwụ"
       },
       "feedCostPerKg": "Ọnụ Ahịa Nri/kg",
       "profitMargin": "Mgbakwunye Uru"
@@ -359,15 +360,13 @@
     "environmentalImpactTitle": "Mmetụta Gburugburu",
     "environmentalImpact": {
       "title": "Mmetụta Gburugburu",
-      "addMetric": "Tinye Atụmatụ",
-      "resourceType": "Ụdị Ihe",
-      "Water": "Mmiri",
-      "Electricity": "Ọkụ",
-      "Waste": "Ihe Efu",
-      "Emissions": "Ọnwụnwa",
-      "usageTrends": "Usoro Ojiji (Ndekọ 10 Ikpeazụ)",
-      "usage": "ojiji",
-      "noMetrics": "Enweghị atụmatụ gburugburu. Tinye otu iji malite."
+      "addRecord": "Tinye Ndekọ",
+      "metrics": {
+        "water": "Mmiri",
+        "electricity": "Ọkụ",
+        "waste": "Ihe Efu",
+        "emissions": "Ọnwụnwa"
+      }
     },
     "growthPerformanceTitle": "Arụmọrụ Uto",
     "growthPerformance": {

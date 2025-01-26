@@ -4,6 +4,7 @@ import { FeedConversionAnalytics } from './feed/FeedConversionAnalytics';
 import { BreedingCycleManager } from './breeding';
 import usePigFarmData from '../../hooks/usePigFarmData';
 import { useAuth } from '../../contexts/AuthContext';
+import { useTheme } from '../../contexts/ThemeContext';
 import { updateFarmData } from '../../services/farmService';
 import { ErrorBoundary } from '../common/ErrorBoundary';
 import { GrowthPerformanceDisplay } from './GrowthPerformanceDisplay';
@@ -14,10 +15,12 @@ import { Activity, TrendingUp, Scale, Warehouse, Calculator, Baby, Dna, Leaf } f
 import { DataMigration } from './DataMigration';
 import { LoadingSpinner } from '../common/LoadingSpinner';
 import { ErrorMessage } from '../common/ErrorMessage';
+import { PhaseMigration } from './PhaseMigration';
 
 const PigAnalytics = () => {
   const { t } = useTranslation();
   const { currentUser } = useAuth();
+  const { isDarkMode } = useTheme();
   const { farmData, loading, error } = usePigFarmData();
   const [breedingPage, setBreedingPage] = useState(1);
   const [feedPage, setFeedPage] = useState(1);
@@ -174,44 +177,47 @@ const PigAnalytics = () => {
       value: totalPigs.toString(),
       icon: Activity,
       color: 'blue',
-      bgColor: 'bg-blue-100',
-      textColor: 'text-blue-600'
+      bgColor: isDarkMode ? 'bg-blue-900/20' : 'bg-blue-100',
+      textColor: isDarkMode ? 'text-blue-400' : 'text-blue-600'
     },
     {
       label: t('analytics.stats.mortalityRate'),
       value: `${mortalityRate}%`,
       icon: TrendingUp,
       color: 'red',
-      bgColor: 'bg-red-100',
-      textColor: 'text-red-600'
+      bgColor: isDarkMode ? 'bg-red-900/20' : 'bg-red-100',
+      textColor: isDarkMode ? 'text-red-400' : 'text-red-600'
     },
     {
       label: t('analytics.stats.avgDailyGain'),
       value: `${avgDailyGain} kg/day`,
       icon: Scale,
       color: 'green',
-      bgColor: 'bg-green-100',
-      textColor: 'text-green-600'
+      bgColor: isDarkMode ? 'bg-green-900/20' : 'bg-green-100',
+      textColor: isDarkMode ? 'text-green-400' : 'text-green-600'
     },
     {
       label: t('analytics.stats.avgFCR'),
       value: avgFCR,
       icon: Warehouse,
       color: 'purple',
-      bgColor: 'bg-purple-100',
-      textColor: 'text-purple-600'
+      bgColor: isDarkMode ? 'bg-purple-900/20' : 'bg-purple-100',
+      textColor: isDarkMode ? 'text-purple-400' : 'text-purple-600'
     }
   ];
 
   return (
-    <div className="flex flex-col gap-6 min-h-screen bg-gray-50 p-6">      
+    <div className={`flex flex-col gap-6 min-h-screen p-6 ${isDarkMode ? 'bg-gray-900' : 'bg-gray-50'}`}>
       <div className="flex flex-col gap-6">
+        {/* Add PhaseMigration component at the top */}
+        <PhaseMigration />
+
         {/* Overview Stats */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {overviewStats.map((stat) => (
             <div
               key={stat.label}
-              className="bg-white overflow-hidden shadow rounded-lg"
+              className={`overflow-hidden shadow rounded-lg ${isDarkMode ? 'bg-gray-800' : 'bg-white'}`}
             >
               <div className="p-5">
                 <div className="flex items-center">
@@ -220,7 +226,7 @@ const PigAnalytics = () => {
                   </div>
                   <div className="ml-5 w-0 flex-1">
                     <dl>
-                      <dt className="text-sm font-medium text-gray-500 truncate">
+                      <dt className={`text-sm font-medium truncate ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
                         {stat.label}
                       </dt>
                       <dd className={`text-lg font-semibold ${stat.textColor}`}>
@@ -238,10 +244,12 @@ const PigAnalytics = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Feed Conversion Section */}
           <ErrorBoundary fallback={<div className="p-4 bg-red-100">{t('common.error.feedConversion')}</div>}>
-            <div className="relative p-6 bg-white rounded-lg shadow-sm border border-gray-200">
+            <div className={`relative p-6 rounded-lg shadow-sm border ${isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'}`}>
               <div className="flex items-center gap-2 mb-4">
-                <Calculator className="w-5 h-5 text-blue-600" />
-                <h2 className="text-xl font-semibold">{t('analytics.feedConversion.title')}</h2>
+                <Calculator className={`w-5 h-5 ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`} />
+                <h2 className={`text-xl font-semibold ${isDarkMode ? 'text-gray-100' : 'text-gray-900'}`}>
+                  {t('analytics.feedConversion.title')}
+                </h2>
               </div>
               <FeedConversionAnalytics
                 feedConversion={farmData?.feedConversion || []}
@@ -255,14 +263,18 @@ const PigAnalytics = () => {
 
           {/* Breeding Section */}
           <ErrorBoundary fallback={<div className="p-4 bg-red-100">{t('common.error')}</div>}>
-            <div className="relative p-6 bg-white rounded-lg shadow-sm border border-gray-200">
+            <div className={`relative p-6 rounded-lg shadow-sm border ${isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'}`}>
               <div className="flex items-center gap-2 mb-4">
-                <Baby className="w-5 h-5 text-pink-600" />
-                <h2 className="text-xl font-semibold">{t('analytics.breedingManagementTitle')}</h2>
+                <Baby className={`w-5 h-5 ${isDarkMode ? 'text-pink-400' : 'text-pink-600'}`} />
+                <h2 className={`text-xl font-semibold ${isDarkMode ? 'text-gray-100' : 'text-gray-900'}`}>
+                  {t('analytics.breedingManagementTitle')}
+                </h2>
               </div>
-              <div className="bg-gray-50 p-4 rounded-lg">
+              <div className={`p-4 rounded-lg ${isDarkMode ? 'bg-gray-700/50' : 'bg-gray-50'}`}>
                 {farmData?.breedingCycles?.length === 0 ? (
-                  <div className="text-center text-gray-500">{t('analytics.breeding.noCycles')}</div>
+                  <div className={`text-center ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                    {t('analytics.breeding.noCycles')}
+                  </div>
                 ) : (
                   <BreedingCycleManager
                     breedingCycles={farmData?.breedingCycles || []}
@@ -281,10 +293,12 @@ const PigAnalytics = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Genetic Performance */}
           <ErrorBoundary fallback={<div className="p-4 bg-red-100">{t('common.error')}</div>}>
-            <div className="relative p-6 bg-white rounded-lg shadow-sm border border-gray-200">
+            <div className={`relative p-6 rounded-lg shadow-sm border ${isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'}`}>
               <div className="flex items-center gap-2 mb-4">
-                <Dna className="w-5 h-5 text-purple-600" />
-                <h2 className="text-xl font-semibold">{t('analytics.geneticPerformanceTitle')}</h2>
+                <Dna className={`w-5 h-5 ${isDarkMode ? 'text-purple-400' : 'text-purple-600'}`} />
+                <h2 className={`text-xl font-semibold ${isDarkMode ? 'text-gray-100' : 'text-gray-900'}`}>
+                  {t('analytics.geneticPerformance.title')}
+                </h2>
               </div>
               <GeneticPerformance
                 geneticRecords={farmData?.geneticRecords || []}
@@ -295,10 +309,12 @@ const PigAnalytics = () => {
 
           {/* Environmental Impact */}
           <ErrorBoundary fallback={<div className="p-4 bg-red-100">{t('common.error')}</div>}>
-            <div className="relative p-6 bg-white rounded-lg shadow-sm border border-gray-200">
+            <div className={`relative p-6 rounded-lg shadow-sm border ${isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'}`}>
               <div className="flex items-center gap-2 mb-4">
-                <Leaf className="w-5 h-5 text-green-600" />
-                <h2 className="text-xl font-semibold">{t('analytics.environmentalImpactTitle')}</h2>
+                <Leaf className={`w-5 h-5 ${isDarkMode ? 'text-green-400' : 'text-green-600'}`} />
+                <h2 className={`text-xl font-semibold ${isDarkMode ? 'text-gray-100' : 'text-gray-900'}`}>
+                  {t('analytics.environmentalImpact.title')}
+                </h2>
               </div>
               <EnvironmentalImpact
                 environmentalMetrics={farmData?.environmentalMetrics || []}
@@ -310,10 +326,12 @@ const PigAnalytics = () => {
 
         {/* Growth Performance by Phase */}
         <ErrorBoundary fallback={<div className="p-4 bg-red-100">{t('common.error')}</div>}>
-          <div className="relative p-6 bg-white rounded-lg shadow-sm border border-gray-200">
+          <div className={`relative p-6 rounded-lg shadow-sm border ${isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'}`}>
             <div className="flex items-center gap-2 mb-4">
-              <Scale className="w-5 h-5 text-indigo-600" />
-              <h2 className="text-xl font-semibold">{t('analytics.growthPerformanceTitle')}</h2>
+              <Scale className={`w-5 h-5 ${isDarkMode ? 'text-indigo-400' : 'text-indigo-600'}`} />
+              <h2 className={`text-xl font-semibold ${isDarkMode ? 'text-gray-100' : 'text-gray-900'}`}>
+                {t('analytics.growthPerformanceTitle')}
+              </h2>
             </div>
             <GrowthPerformanceDisplay
               feedConversion={farmData?.feedConversion || []}

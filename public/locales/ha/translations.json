@@ -285,18 +285,19 @@
         "actions": "Ayyuka"
       },
       "form": {
+        "growthPhase": "Matakin Girma",
         "startDate": "Ranar Farawa",
-        "endDate": "Ranar Ƙarewa",
+        "endDate": "Ranar Karshe",
         "initialWeight": "Nauyin Farko (kg)",
-        "finalWeight": "Nauyin Ƙarshe (kg)",
+        "finalWeight": "Nauyin Karshe (kg)",
         "feedConsumed": "Abincin da aka Ci (kg)",
-        "addRecord": "Ƙara Bayani",
-        "growthPhase": "Mataki na Girma"
+        "addRecord": "Kara Bayani",
+        "weightPlaceholder": "Shigar da nauyi"
       },
       "phases": {
-        "nursery": "Yaro",
-        "grower": "Mai Girma",
-        "finisher": "Mai Ƙarewa"
+        "nursery": "Yara",
+        "grower": "Girma",
+        "finisher": "Kammala"
       },
       "feedCostPerKg": "Kudin Abinci/kg",
       "profitMargin": "Riba"
@@ -323,42 +324,41 @@
     "geneticPerformanceTitle": "Ayyukan Zuriya",
     "geneticPerformance": {
       "title": "Ayyukan Zuriya",
-      "addRecord": "Ƙara Bayani",
-      "breedingLine": "Layin Haihuwa",
-      "selectBreed": "Zaɓi irin dabba",
+      "addRecord": "Kara Bayani",
+      "breedingLine": "Layin Kiwo",
+      "selectBreed": "Zaɓi Irin",
       "type": "Nau'i",
-      "changes": {
-        "improved_growth_rate": "Ingantaccen girma",
-        "better_feed_efficiency": "Ingantaccen amfani da abinci",
-        "increased_litter_size": "Ƙarin yawan 'ya'ya",
-        "better_disease_resistance": "Ingantaccen kariya daga cuta",
-        "improved_meat_quality": "Ingantaccen ingancin nama",
-        "higher_survival_rate": "Ƙarin yawan rayuwa",
-        "better_mothering_ability": "Ingantaccen ƙwarewa ta uwa",
-        "decreased_growth_rate": "Raguwar girma",
-        "bad_feed_efficiency": "Rashin amfani da abinci",
-        "decreased_litter_size": "Raguwar yawan 'ya'ya",
-        "poor_disease_resistance": "Rashin kariya daga cuta",
-        "poor_meat_quality": "Rashin ingancin nama",
-        "lower_survival_rate": "Raguwar yawan rayuwa",
-        "poor_mothering_ability": "Rashin ƙwarewa ta uwa"
-      },
+      "changes": "Canje-canje",
       "improvements": "Ingantawa",
       "deteriorations": "Lalacewa",
+      "changes": {
+        "improved_growth_rate": "Karin yawan 'ya'ya",
+        "better_feed_efficiency": "Ingantaccen kariya daga cuta",
+        "increased_litter_size": "Karin yawan 'ya'ya",
+        "better_disease_resistance": "Ingantaccen kariya daga cuta",
+        "improved_meat_quality": "Ingantaccen nama",
+        "higher_survival_rate": "Karin yawan rayuwa",
+        "better_mothering_ability": "Ingantaccen kulawa",
+        "decreased_growth_rate": "Raguwar girma",
+        "bad_feed_efficiency": "Rashin ingantaccen abinci",
+        "decreased_litter_size": "Raguwar yawan 'ya'ya",
+        "poor_disease_resistance": "Rashin kariya daga cuta",
+        "poor_meat_quality": "Rashin ingantaccen nama",
+        "lower_survival_rate": "Raguwar yawan rayuwa",
+        "poor_mothering_ability": "Rashin kulawa"
+      },
       "noRecords": "Babu bayanan tsarin haihuwa. Ƙara ɗaya don farawa."
     },
     "environmentalImpactTitle": "Tasirin Muhalli",
     "environmentalImpact": {
       "title": "Tasirin Muhalli",
-      "addMetric": "Ƙara Awo",
-      "resourceType": "Nau'in Kayan Amfani",
-      "Water": "Ruwa",
-      "Electricity": "Wutar Lantarki",
-      "Waste": "Shara",
-      "Emissions": "Hayaki",
-      "usageTrends": "Yanayin Amfani (Bayanan 10 na Ƙarshe)",
-      "usage": "amfani",
-      "noMetrics": "Babu awon muhalli. Ƙara ɗaya don farawa."
+      "addRecord": "Kara Bayani",
+      "metrics": {
+        "water": "Ruwa",
+        "electricity": "Wutar Lantarki",
+        "waste": "Shara",
+        "emissions": "Hayaki"
+      }
     },
     "growthPerformanceTitle": "Ayyukan Girma",
     "growthPerformance": {

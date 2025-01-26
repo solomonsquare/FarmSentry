@@ -4,6 +4,7 @@ import { Sale, FarmCategory } from '../../types';
 import { formatDate } from '../../utils/date';
 import { formatNaira } from '../../utils/currency';
 import { RecordsPagination } from '../common/RecordsPagination';
+import { useTheme } from '../../contexts/ThemeContext';
 
 interface Props {
   sales: Sale[];
@@ -12,6 +13,7 @@ interface Props {
 
 export function SalesHistoryTable({ sales, category }: Props) {
   const { t } = useTranslation();
+  const { isDarkMode } = useTheme();
   const [currentPage, setCurrentPage] = useState(1);
   const [displayedSales, setDisplayedSales] = useState<Sale[]>([]);
   const recordsPerPage = 5;
@@ -32,51 +34,59 @@ export function SalesHistoryTable({ sales, category }: Props) {
 
   if (sales.length === 0) {
     return (
-      <div className="text-center py-8 text-gray-500">
+      <div className={`text-center py-8 ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
         {t('sales.history.noRecords')}
       </div>
     );
   }
 
   return (
-    <div className="space-y-4">
+    <div className={`space-y-4 ${isDarkMode ? 'bg-gray-800/50' : 'bg-white'} rounded-lg`}>
       <div className="overflow-x-auto">
-        <table className="min-w-full divide-y divide-gray-200">
-          <thead>
+        <table className={`min-w-full divide-y ${isDarkMode ? 'divide-gray-700' : 'divide-gray-200'}`}>
+          <thead className={isDarkMode ? 'bg-gray-800' : 'bg-gray-50'}>
             <tr>
-              <th className="px-4 py-2 text-left text-sm font-medium text-gray-500 dark:text-gray-400">
+              <th className={`px-4 py-3 text-left text-xs font-medium tracking-wider ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
                 {t('common.date')}
               </th>
-              <th className="px-4 py-2 text-left text-sm font-medium text-gray-500 dark:text-gray-400">
+              <th className={`px-4 py-3 text-left text-xs font-medium tracking-wider ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
                 {t('common.time')}
               </th>
-              <th className="px-4 py-2 text-right text-sm font-medium text-gray-500 dark:text-gray-400">
+              <th className={`px-4 py-3 text-right text-xs font-medium tracking-wider ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
                 {t('common.quantity')}
               </th>
-              <th className="px-4 py-2 text-right text-sm font-medium text-gray-500 dark:text-gray-400">
+              <th className={`px-4 py-3 text-right text-xs font-medium tracking-wider ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
                 {t('sales.history.table.pricePerUnit', { unit: animalType })}
               </th>
-              <th className="px-4 py-2 text-right text-sm font-medium text-gray-500 dark:text-gray-400">
+              <th className={`px-4 py-3 text-right text-xs font-medium tracking-wider ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
                 {t('sales.summary.revenue')}
               </th>
-              <th className="px-4 py-2 text-right text-sm font-medium text-gray-500 dark:text-gray-400">
+              <th className={`px-4 py-3 text-right text-xs font-medium tracking-wider ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
                 {t('sales.summary.profit')}
               </th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-gray-200">
+          <tbody className={`divide-y ${isDarkMode ? 'divide-gray-700' : 'divide-gray-200'}`}>
             {displayedSales.map((sale) => (
-              <tr key={sale.id}>
-                <td className="px-4 py-2 text-sm text-gray-900">{formatDate(sale.date)}</td>
-                <td className="px-4 py-2 text-sm text-gray-900">{sale.time}</td>
-                <td className="px-4 py-2 text-sm text-right">{sale.quantity}</td>
-                <td className="px-4 py-2 text-sm text-right">
+              <tr key={sale.id} className={isDarkMode ? 'hover:bg-gray-700/50' : 'hover:bg-gray-50'}>
+                <td className={`px-4 py-3 text-sm whitespace-nowrap ${isDarkMode ? 'text-gray-300' : 'text-gray-900'}`}>
+                  {formatDate(sale.date)}
+                </td>
+                <td className={`px-4 py-3 text-sm whitespace-nowrap ${isDarkMode ? 'text-gray-300' : 'text-gray-900'}`}>
+                  {sale.time}
+                </td>
+                <td className={`px-4 py-3 text-sm text-right whitespace-nowrap ${isDarkMode ? 'text-gray-300' : 'text-gray-900'}`}>
+                  {sale.quantity}
+                </td>
+                <td className={`px-4 py-3 text-sm text-right whitespace-nowrap ${isDarkMode ? 'text-gray-300' : 'text-gray-900'}`}>
                   {formatNaira(sale.pricePerBird)}
                 </td>
-                <td className="px-4 py-2 text-sm text-right">
+                <td className={`px-4 py-3 text-sm text-right whitespace-nowrap ${isDarkMode ? 'text-gray-300' : 'text-gray-900'}`}>
                   {formatNaira(sale.totalAmount)}
                 </td>
-                <td className="px-4 py-2 text-sm text-right">{formatNaira(sale.totalProfit)}</td>
+                <td className={`px-4 py-3 text-sm text-right whitespace-nowrap ${isDarkMode ? 'text-gray-300' : 'text-gray-900'}`}>
+                  {formatNaira(sale.totalProfit)}
+                </td>
               </tr>
             ))}
           </tbody>
@@ -84,11 +94,13 @@ export function SalesHistoryTable({ sales, category }: Props) {
       </div>
 
       {sales.length > recordsPerPage && (
-        <RecordsPagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          onPageChange={handlePageChange}
-        />
+        <div className="mt-4">
+          <RecordsPagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
+          />
+        </div>
       )}
     </div>
   );

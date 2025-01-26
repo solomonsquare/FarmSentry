@@ -73,6 +73,12 @@
         "resetting": "Restableciendo...",
         "cancel": "Cancelar"
       }
+    },
+    "migrations": {
+      "phaseSuccess": "Los valores de fase se han migrado correctamente a minúsculas",
+      "phaseNeeded": "Sus registros de conversión de alimentos deben migrarse para usar valores de fase en minúsculas. Haga clic en el botón a continuación para migrar sus datos.",
+      "migrating": "Migrando...",
+      "migratePhases": "Migrar Fases"
     }
   },
   "common": {
@@ -93,7 +99,8 @@
     "update": "Actualizar",
     "updating": "Actualizando...",
     "close": "Cerrar",
-    "never": "Nunca"
+    "never": "Nunca",
+    "datePlaceholder": "dd/mm/aaaa"
   },
   "navigation": {
     "dashboard": "Panel de Control",
@@ -221,7 +228,7 @@
     }
   },
   "analytics": {
-    "title": "Análisis de {{farmType}}",
+    "title": "{{farmType}} Análisis",
     "poultryTitle": "Análisis de Granja Avícola",
     "pigTitle": "Análisis de Granja Porcina",
     "pigFarmAnalytics": "Análisis de Granja Porcina",
@@ -233,11 +240,11 @@
       "avgFCR": "FCR Promedio (30d)"
     },
     "feedConversion": {
-      "title": "Conversión Alimenticia",
+      "title": "Conversión de Alimento",
       "history": "Historial FCR",
       "fcrHistory": "Historial FCR",
       "table": {
-        "dateRange": "Rango de Fechas",
+        "dateRange": "Rango de Fecha",
         "phase": "Fase",
         "initialWeight": "Peso Inicial",
         "finalWeight": "Peso Final",
@@ -246,16 +253,17 @@
         "actions": "Acciones"
       },
       "form": {
+        "growthPhase": "Fase de Crecimiento",
         "startDate": "Fecha de Inicio",
         "endDate": "Fecha Final",
         "initialWeight": "Peso Inicial (kg)",
         "finalWeight": "Peso Final (kg)",
         "feedConsumed": "Alimento Consumido (kg)",
-        "addRecord": "Agregar Registro",
-        "growthPhase": "Fase de Crecimiento"
+        "addRecord": "Añadir Registro",
+        "weightPlaceholder": "Ingrese el peso"
       },
       "phases": {
-        "nursery": "Destete",
+        "nursery": "Cría",
         "grower": "Crecimiento",
         "finisher": "Finalización"
       },
@@ -264,32 +272,20 @@
     },
     "weightTracking": {
       "title": "Seguimiento de Peso",
-      "sampleSize": "Tamaño de Muestra de {{animal}} (Máx: {{max}})",
+      "sampleSize": "Tamaño de Muestra ({{animal}}) - Máx: {{max}}",
       "totalWeight": "Peso Total de la Muestra (kg)",
       "targetWeight": "Peso Objetivo por {{animal}} (kg)",
-      "belowTarget": "{{animal}} por Debajo del Peso Objetivo",
-      "aboveTarget": "{{animal}} por Encima del Peso Objetivo",
-      "addRecord": "Agregar Registro de Peso",
+      "belowTarget": "{{animal}} Por Debajo del Peso Objetivo",
+      "aboveTarget": "{{animal}} Por Encima del Peso Objetivo",
+      "notes": "Notas",
+      "saving": "Guardando...",
+      "addRecord": "Añadir Registro",
       "weightRecords": "Registros de Peso",
       "records": "Registros de Peso",
-      "totalExceedError": "El total de aves por encima y por debajo del objetivo no puede exceder el tamaño de la muestra",
-      "noRecords": "No hay registros de peso disponibles"
-    },
-    "feedData": {
-      "title": "Datos de Alimentación",
-      "totalConsumption": "Consumo Total Diario (kg)",
-      "consumptionSummary": "Consumo total de alimento por {{total}} {{animal}} por día. Por {{animal}}: {{amount}} kg",
-      "estimatedDays": "Días Estimados hasta el Peso de Mercado",
-      "estimatedDaysNote": "Basado en la tasa de crecimiento actual y el peso objetivo del mercado",
-      "dailyCost": "Costo Diario de Alimentación (₦)",
-      "records": "Registros de Alimentación",
-      "type": "Tipo de Alimento",
-      "cost": "Costo",
-      "notes": "Notas",
-      "feedConversion": "Conversión Alimenticia",
-      "feedConversionRatio": "Tasa de Conversión Alimenticia",
-      "gainPerDay": "Ganancia Diaria",
-      "feedConsumption": "Consumo de Alimento"
+      "recordsTitle": "Registros de Peso",
+      "averageWeight": "Peso Promedio",
+      "noWeightRecords": "No hay registros de peso disponibles",
+      "totalExceedError": "El total de pesos por debajo y por encima no puede exceder el tamaño de la muestra"
     },
     "weightAnalysis": {
       "title": "Análisis de Peso"
@@ -315,12 +311,13 @@
     },
     "environmentalImpact": {
       "title": "Impacto Ambiental",
-      "addMetric": "Añadir Métrica",
-      "resourceType": "Tipo de Recurso",
-      "Water": "Agua",
-      "Electricity": "Electricidad",
-      "Waste": "Residuos",
-      "Emissions": "Emisiones",
+      "addRecord": "Añadir Registro",
+      "metrics": {
+        "water": "Agua",
+        "electricity": "Electricidad",
+        "waste": "Residuos",
+        "emissions": "Emisiones"
+      },
       "usageTrends": "Tendencias de Uso (Últimos 10 Registros)",
       "usage": "uso",
       "noMetrics": "No hay métricas ambientales. Añada una para comenzar."

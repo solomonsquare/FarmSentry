@@ -3,6 +3,7 @@ import { Trash2 } from 'lucide-react';
 import { Sale, FarmCategory } from '../../types';
 import { useAuth } from '../../contexts/AuthContext';
 import { SalesService } from '../../services/sales/salesService';
+import { useTheme } from '../../contexts/ThemeContext';
 
 interface Props {
   category: FarmCategory;
@@ -11,6 +12,7 @@ interface Props {
 
 export function SalesManagement({ category, onUpdateSales }: Props) {
   const { currentUser } = useAuth();
+  const { isDarkMode } = useTheme();
 
   const handleReset = async () => {
     if (!currentUser) return;
@@ -29,10 +31,16 @@ export function SalesManagement({ category, onUpdateSales }: Props) {
 
   return (
     <div className="flex justify-between items-center">
-      <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Sales History</h2>
+      <h2 className={`text-lg font-semibold ${isDarkMode ? 'text-gray-100' : 'text-gray-900'}`}>
+        Sales History
+      </h2>
       <button
         onClick={handleReset}
-        className="inline-flex items-center px-3 py-2 border border-red-300 text-sm font-medium rounded text-red-700 bg-white hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+        className={`inline-flex items-center px-3 py-2 text-sm font-medium rounded focus:outline-none focus:ring-2 focus:ring-offset-2 
+          ${isDarkMode 
+            ? 'border-red-600 text-red-400 bg-gray-800 hover:bg-red-900/20 focus:ring-red-500' 
+            : 'border border-red-300 text-red-700 bg-white hover:bg-red-50 focus:ring-red-500'
+          }`}
       >
         <Trash2 className="h-4 w-4 mr-2" />
         Clear History

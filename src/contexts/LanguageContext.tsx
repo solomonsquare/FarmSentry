@@ -46,48 +46,50 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
         const userRef = doc(db, 'users', currentUser.uid);
         await setDoc(userRef, { language: lang }, { merge: true });
       }
+      
+      // Load translations before changing language
+      await i18n.loadNamespaces('translations');
       await i18n.changeLanguage(lang);
-      setCurrentLanguage(lang);
-      document.documentElement.lang = lang;
+      
       localStorage.setItem('i18nextLng', lang);
-    } catch (error) {
-      console.error('Error setting language:', error);
-      setError('Failed to change language');
+      setCurrentLanguage(lang);
+    } catch (err) {
+      console.error('Error setting language:', err);
+      setError('Failed to set language');
     } finally {
       setLoading(false);
     }
   };
 
-  // Load language preference from Firestore
   useEffect(() => {
     async function loadLanguagePreference() {
-      if (!currentUser) {
-        const savedLang = localStorage.getItem('i18nextLng') as Language || 'en';
-        await i18n.changeLanguage(savedLang);
-        setCurrentLanguage(savedLang);
-        document.documentElement.lang = savedLang;
-        setLoading(false);
-        return;
-      }
-
+      setLoading(true);
       try {
-        const userRef = doc(db, 'users', currentUser.uid);
-        const userDoc = await getDoc(userRef);
+        let lang: Language = 'en';
         
-        if (userDoc.exists()) {
-          const data = userDoc.data();
-          const savedLanguage = (data.language || localStorage.getItem('i18nextLng') || 'en') as Language;
-          await i18n.changeLanguage(savedLanguage);
-          setCurrentLanguage(savedLanguage);
-          document.documentElement.lang = savedLanguage;
+        // First check localStorage
+        const storedLang = localStorage.getItem('i18nextLng');
+        if (storedLang && Object.keys(languageNames).includes(storedLang)) {
+          lang = storedLang as Language;
         }
-      } catch (error) {
-        console.error('Error loading language preference:', error);
+        
+        // Then check user preferences if logged in
+        if (currentUser) {
+          const userRef = doc(db, 'users', currentUser.uid);
+          const userDoc = await getDoc(userRef);
+          if (userDoc.exists() && userDoc.data()?.language) {
+            lang = userDoc.data().language as Language;
+          }
+        }
+
+        // Load translations before changing language
+        await i18n.loadNamespaces('translations');
+        await i18n.changeLanguage(lang);
+        
+        setCurrentLanguage(lang);
+      } catch (err) {
+        console.error('Error loading language preference:', err);
         setError('Failed to load language preference');
-        const fallbackLang = localStorage.getItem('i18nextLng') as Language || 'en';
-        await i18n.changeLanguage(fallbackLang);
-        setCurrentLanguage(fallbackLang);
-        document.documentElement.lang = fallbackLang;
       } finally {
         setLoading(false);
       }
@@ -96,15 +98,8 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     loadLanguagePreference();
   }, [currentUser]);
 
-  const value = {
-    currentLanguage,
-    setLanguage,
-    loading,
-    error
-  };
-
   return (
-    <LanguageContext.Provider value={value}>
+    <LanguageContext.Provider value={{ currentLanguage, setLanguage, loading, error }}>
       {children}
     </LanguageContext.Provider>
   );
