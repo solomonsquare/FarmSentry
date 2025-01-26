@@ -93,7 +93,10 @@
     "update": "Mettre à jour",
     "updating": "Mise à jour...",
     "close": "Fermer",
-    "never": "Jamais"
+    "never": "Jamais",
+    "datePlaceholder": "jj/mm/aaaa",
+    "days": "jours",
+    "kg": "kg"
   },
   "navigation": {
     "dashboard": "Tableau de Bord",
@@ -223,11 +226,11 @@
     }
   },
   "analytics": {
-    "title": "Analyse de {{farmType}}",
-    "poultryTitle": "Analyse de la Ferme Avicole",
-    "pigTitle": "Analyse de la Ferme Porcine",
-    "pigFarmAnalytics": "Analyse de la Ferme Porcine",
-    "poultryFarmAnalytics": "Analyse de la Ferme Avicole",
+    "title": "{{farmType}} Analytiques",
+    "poultryTitle": "Analytiques de Ferme Avicole",
+    "pigTitle": "Analytiques de Ferme Porcine",
+    "pigFarmAnalytics": "Analytiques de Ferme Porcine",
+    "poultryFarmAnalytics": "Analytiques de Ferme Avicole",
     "stats": {
       "totalPigs": "Total des Porcs",
       "mortalityRate": "Taux de Mortalité",
@@ -247,70 +250,10 @@
       "weightRecords": "Registre des Poids",
       "averageWeight": "Poids Moyen",
       "noWeightRecords": "Aucun enregistrement de poids disponible",
-      "totalExceedError": "Le total des poids en dessous et au-dessus ne peut pas dépasser la taille de l'échantillon",
-      "table": {
-        "sampleSize": "Taille de l'Échantillon",
-        "averageWeight": "Poids Moyen",
-        "targetWeight": "Poids Cible",
-        "belowTarget": "En Dessous",
-        "aboveTarget": "Au-Dessus"
-      }
-    },
-    "feedData": {
-      "title": "Données d'Alimentation",
-      "totalConsumption": "Consommation Quotidienne Totale (kg)",
-      "consumptionSummary": "Aliment total consommé par {{total}} {{animal}} par jour. Par {{animal}}: {{amount}} kg",
-      "estimatedDays": "Jours Estimés jusqu'au Poids de Marché",
-      "estimatedDaysNote": "Basé sur le taux de croissance actuel et le poids cible du marché",
-      "dailyCost": "Coût Quotidien d'Alimentation (₦)",
-      "records": "Registre d'Alimentation",
-      "type": "Type d'Aliment",
-      "cost": "Coût",
-      "notes": "Notes",
-      "table": {
-        "date": "Date",
-        "feedType": "Type d'Aliment",
-        "quantity": "Quantité",
-        "cost": "Coût",
-        "notes": "Notes"
-      },
-      "feedConversion": "Conversion Alimentaire",
-      "feedConversionRatio": "Taux de Conversion Alimentaire",
-      "gainPerDay": "Gain Quotidien",
-      "feedConsumption": "Consommation d'Aliments"
+      "totalExceedError": "Le total des poids en dessous et au-dessus ne peut pas dépasser la taille de l'échantillon"
     },
     "weightAnalysis": {
       "title": "Analyse du Poids"
-    },
-    "feedConversion": {
-      "title": "Conversion Alimentaire",
-      "history": "Historique FCR",
-      "fcrHistory": "Historique FCR",
-      "table": {
-        "dateRange": "Période",
-        "phase": "Phase",
-        "initialWeight": "Poids Initial",
-        "finalWeight": "Poids Final",
-        "feedConsumed": "Aliment Consommé",
-        "fcr": "FCR",
-        "actions": "Actions"
-      },
-      "form": {
-        "startDate": "Date de Début",
-        "endDate": "Date de Fin",
-        "initialWeight": "Poids Initial (kg)",
-        "finalWeight": "Poids Final (kg)",
-        "feedConsumed": "Aliment Consommé (kg)",
-        "addRecord": "Ajouter un Enregistrement",
-        "growthPhase": "Phase de Croissance"
-      },
-      "phases": {
-        "nursery": "Sevrage",
-        "grower": "Croissance",
-        "finisher": "Finition"
-      },
-      "feedCostPerKg": "Coût d'Aliment/kg",
-      "profitMargin": "Marge Bénéficiaire"
     },
     "breedingManagementTitle": "Gestion de la Reproduction",
     "breeding": {
@@ -331,7 +274,6 @@
         "completed": "Terminé"
       }
     },
-    "geneticPerformanceTitle": "Performance Génétique",
     "geneticPerformance": {
       "title": "Performance Génétique",
       "addRecord": "Ajouter un Enregistrement",
@@ -358,21 +300,21 @@
       "deteriorations": "Détériorations",
       "noRecords": "Aucun enregistrement de performance génétique. Ajoutez-en un pour commencer."
     },
-    "environmentalImpactTitle": "Impact Environnemental",
     "environmentalImpact": {
       "title": "Impact Environnemental",
-      "addMetric": "Ajouter une Métrique",
-      "resourceType": "Type de Ressource",
-      "Water": "Eau",
-      "Electricity": "Électricité",
-      "Waste": "Déchets",
-      "Emissions": "Émissions",
+      "addRecord": "Ajouter un Enregistrement",
+      "metrics": {
+        "water": "Eau",
+        "electricity": "Électricité",
+        "waste": "Déchets",
+        "emissions": "Émissions"
+      },
       "usageTrends": "Tendances d'Utilisation (10 Derniers Enregistrements)",
       "usage": "utilisation",
       "noMetrics": "Aucune métrique environnementale. Ajoutez-en une pour commencer."
     },
-    "growthPerformanceTitle": "Performance de Croissance",
     "growthPerformance": {
+      "title": "Performance de Croissance",
       "nurseryPhase": "Phase de Sevrage",
       "growerPhase": "Phase de Croissance",
       "finisherPhase": "Phase de Finition",
@@ -380,6 +322,36 @@
       "avgFCR": "FCR Moyen",
       "feedConsumed": "Aliment Consommé",
       "daysInPhase": "Jours dans la Phase"
+    },
+    "growthPerformanceTitle": "Performance de Croissance",
+    "feedConversion": {
+      "title": "Conversion Alimentaire",
+      "history": "Historique FCR",
+      "fcrHistory": "Historique FCR",
+      "table": {
+        "dateRange": "Plage de Dates",
+        "phase": "Phase",
+        "initialWeight": "Poids Initial",
+        "finalWeight": "Poids Final",
+        "feedConsumed": "Aliment Consommé",
+        "fcr": "FCR",
+        "actions": "Actions"
+      },
+      "form": {
+        "growthPhase": "Phase de Croissance",
+        "startDate": "Date de Début",
+        "endDate": "Date de Fin",
+        "initialWeight": "Poids Initial (kg)",
+        "finalWeight": "Poids Final (kg)",
+        "feedConsumed": "Aliment Consommé (kg)",
+        "addRecord": "Ajouter un Enregistrement",
+        "weightPlaceholder": "Entrez le poids"
+      },
+      "phases": {
+        "nursery": "Pouponnière",
+        "grower": "Croissance",
+        "finisher": "Finition"
+      }
     }
   },
   "pig": {

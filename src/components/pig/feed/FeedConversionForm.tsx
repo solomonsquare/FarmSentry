@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { Plus } from 'lucide-react';
 import { FeedConversionRecord } from '../../../types/pig';
 
@@ -9,7 +8,6 @@ interface Props {
 }
 
 export function FeedConversionForm({ records, onSubmit }: Props) {
-  const { t } = useTranslation();
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [initialWeight, setInitialWeight] = useState('');
@@ -53,24 +51,20 @@ export function FeedConversionForm({ records, onSubmit }: Props) {
     <div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700">
-            {t('analytics.feedConversion.form.growthPhase')}
-          </label>
+          <label className="block text-sm font-medium text-gray-700">Growth Phase</label>
           <select
             value={selectedPhase}
             onChange={(e) => setSelectedPhase(e.target.value as 'Nursery' | 'Grower' | 'Finisher')}
             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500"
           >
-            <option value="Nursery">{t('analytics.feedConversion.phases.nursery')}</option>
-            <option value="Grower">{t('analytics.feedConversion.phases.grower')}</option>
-            <option value="Finisher">{t('analytics.feedConversion.phases.finisher')}</option>
+            <option value="Nursery">Nursery</option>
+            <option value="Grower">Grower</option>
+            <option value="Finisher">Finisher</option>
           </select>
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700">
-            {t('analytics.feedConversion.form.startDate')}
-          </label>
+          <label className="block text-sm font-medium text-gray-700">Start Date</label>
           <input
             type="date"
             value={startDate}
@@ -80,9 +74,7 @@ export function FeedConversionForm({ records, onSubmit }: Props) {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700">
-            {t('analytics.feedConversion.form.endDate')}
-          </label>
+          <label className="block text-sm font-medium text-gray-700">End Date</label>
           <input
             type="date"
             value={endDate}
@@ -94,9 +86,7 @@ export function FeedConversionForm({ records, onSubmit }: Props) {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700">
-            {t('analytics.feedConversion.form.initialWeight')}
-          </label>
+          <label className="block text-sm font-medium text-gray-700">Initial Weight (kg)</label>
           <input
             type="number"
             value={initialWeight}
@@ -108,9 +98,7 @@ export function FeedConversionForm({ records, onSubmit }: Props) {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700">
-            {t('analytics.feedConversion.form.finalWeight')}
-          </label>
+          <label className="block text-sm font-medium text-gray-700">Final Weight (kg)</label>
           <input
             type="number"
             value={finalWeight}
@@ -122,9 +110,7 @@ export function FeedConversionForm({ records, onSubmit }: Props) {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700">
-            {t('analytics.feedConversion.form.feedConsumed')}
-          </label>
+          <label className="block text-sm font-medium text-gray-700">Feed Consumed (kg)</label>
           <input
             type="number"
             value={feedConsumed}
@@ -141,7 +127,7 @@ export function FeedConversionForm({ records, onSubmit }: Props) {
         disabled={!startDate || !endDate || !initialWeight || !finalWeight || !feedConsumed}
         className="mt-4 w-full flex items-center justify-center gap-1 px-4 py-2 bg-teal-600 text-white rounded-md hover:bg-teal-700 disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        <Plus className="w-4 h-4" /> {t('analytics.feedConversion.form.addRecord')}
+        <Plus className="w-4 h-4" /> Add FCR Record
       </button>
     </div>
   );
