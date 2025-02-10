@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FeedConversionRecord, GrowthPhase } from '../../types/pig';
 import { Scale, TrendingUp, Calendar } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '../../contexts/ThemeContext';
+import { useAuth } from '../../contexts/AuthContext';
+import { savePhasePerformanceMetrics } from '../../services/performance/pigPerformanceService';
 
 interface Props {
   feedConversion: FeedConversionRecord[];
@@ -11,11 +13,14 @@ interface Props {
 export function GrowthPerformanceDisplay({ feedConversion }: Props) {
   const { t } = useTranslation();
   const { isDarkMode } = useTheme();
+  const { currentUser } = useAuth();
+
   // Calculate performance metrics for each phase
   const calculatePhaseMetrics = (phase: 'nursery' | 'grower' | 'finisher') => {
     const phaseRecords = feedConversion.filter(record => record.phase === phase);
     
     if (phaseRecords.length === 0) {
+      console.log(`No records found for ${phase} phase`);
       return {
         avgDailyGain: 0,
         avgFCR: 0,
@@ -23,6 +28,18 @@ export function GrowthPerformanceDisplay({ feedConversion }: Props) {
         daysInPhase: 0
       };
     }
+
+    console.log(`Processing ${phase} phase records:`, {
+      totalRecords: phaseRecords.length,
+      records: phaseRecords.map(record => ({
+        initialWeight: record.initialWeight,
+        finalWeight: record.finalWeight,
+        startDate: record.startDate,
+        endDate: record.endDate,
+        weightGain: record.finalWeight - record.initialWeight,
+        days: (new Date(record.endDate).getTime() - new Date(record.startDate).getTime()) / (1000 * 60 * 60 * 24)
+      }))
+    });
 
     let totalWeightGain = 0;
     let totalDays = 0;
@@ -37,14 +54,28 @@ export function GrowthPerformanceDisplay({ feedConversion }: Props) {
       totalDays += days;
       totalFeedConsumed += record.feedConsumed;
       totalFCR += record.fcr;
+
+      console.log(`Processing record in ${phase} phase:`, {
+        weightGain,
+        days,
+        feedConsumed: record.feedConsumed,
+        fcr: record.fcr,
+        runningTotalWeightGain: totalWeightGain,
+        runningTotalDays: totalDays,
+        currentADG: totalDays > 0 ? (totalWeightGain / totalDays) : 0
+      });
     });
 
-    return {
+    const metrics = {
       avgDailyGain: totalDays > 0 ? totalWeightGain / totalDays : 0,
       avgFCR: phaseRecords.length > 0 ? totalFCR / phaseRecords.length : 0,
       totalFeedConsumed,
       daysInPhase: totalDays
     };
+
+    console.log(`Final metrics for ${phase} phase:`, metrics);
+
+    return metrics;
   };
 
   const phases: ('nursery' | 'grower' | 'finisher')[] = ['nursery', 'grower', 'finisher'];
@@ -52,6 +83,14 @@ export function GrowthPerformanceDisplay({ feedConversion }: Props) {
     phase,
     ...calculatePhaseMetrics(phase)
   }));
+
+  // Save metrics to database whenever they change
+  useEffect(() => {
+    if (currentUser && feedConversion.length > 0) {
+      savePhasePerformanceMetrics(currentUser.uid, feedConversion)
+        .catch(error => console.error('Error saving performance metrics:', error));
+    }
+  }, [currentUser, feedConversion]);
 
   const getPhaseColor = (phase: string) => {
     switch (phase) {

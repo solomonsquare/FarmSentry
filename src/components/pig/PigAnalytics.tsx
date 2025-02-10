@@ -27,14 +27,30 @@ const PigAnalytics = () => {
 
   // Helper function to calculate average daily gain
   function calculateAverageDailyGain(feedConversion: FeedConversionRecord[]): string {
-    if (!feedConversion || feedConversion.length === 0) return '0';
+    if (!feedConversion || feedConversion.length === 0) {
+      console.log('No feed conversion records for ADG calculation');
+      return '0';
+    }
 
     // Sort records by date, newest first
     const sortedRecords = [...feedConversion].sort((a, b) => 
       new Date(b.endDate).getTime() - new Date(a.endDate).getTime()
     );
 
-    // Calculate total weight gain and total days
+    console.log('Feed conversion records for ADG:', {
+      totalRecords: sortedRecords.length,
+      records: sortedRecords.map(record => ({
+        phase: record.phase,
+        initialWeight: record.initialWeight,
+        finalWeight: record.finalWeight,
+        startDate: record.startDate,
+        endDate: record.endDate,
+        weightGain: record.finalWeight - record.initialWeight,
+        days: (new Date(record.endDate).getTime() - new Date(record.startDate).getTime()) / (1000 * 60 * 60 * 24)
+      }))
+    });
+
+    // Calculate total weight gain and days across all records
     let totalWeightGain = 0;
     let totalDays = 0;
 
@@ -43,9 +59,25 @@ const PigAnalytics = () => {
       const days = (new Date(record.endDate).getTime() - new Date(record.startDate).getTime()) / (1000 * 60 * 60 * 24);
       totalWeightGain += weightGain;
       totalDays += days;
+
+      console.log('Processing record for ADG:', {
+        phase: record.phase,
+        weightGain,
+        days,
+        runningTotalWeightGain: totalWeightGain,
+        runningTotalDays: totalDays,
+        currentADG: totalDays > 0 ? (totalWeightGain / totalDays).toFixed(2) : '0'
+      });
     }
 
-    return totalDays > 0 ? (totalWeightGain / totalDays).toFixed(2) : '0';
+    const finalADG = totalDays > 0 ? (totalWeightGain / totalDays).toFixed(2) : '0';
+    console.log('Final ADG calculation:', {
+      totalWeightGain,
+      totalDays,
+      adg: finalADG
+    });
+
+    return finalADG;
   }
 
   // Helper function to calculate average FCR
@@ -133,7 +165,7 @@ const PigAnalytics = () => {
   if (!farmData) return <DataMigration />;
 
   // Get the first weight record to use as current weight and calculate stats
-  const currentWeight = (farmData?.weightRecords?.[0]?.weights?.average || 0) / 1000;
+  const currentWeight = farmData?.weightRecords?.[0]?.weights?.average || 0;
   const birthDate = farmData?.weightRecords?.[0]?.date || new Date().toISOString();
 
   // Calculate total pigs and mortality rate
@@ -162,7 +194,13 @@ const PigAnalytics = () => {
   });
 
   // Calculate average daily gain from feed conversion records
-  const avgDailyGain = farmData?.feedConversion?.length > 0 
+  console.log('Records for ADG:', {
+    feedConversionExist: !!farmData?.feedConversion,
+    feedConversionCount: farmData?.feedConversion?.length,
+    feedConversion: farmData?.feedConversion
+  });
+
+  const avgDailyGain = farmData?.feedConversion?.length > 0
     ? calculateAverageDailyGain(farmData.feedConversion)
     : '0';
 
